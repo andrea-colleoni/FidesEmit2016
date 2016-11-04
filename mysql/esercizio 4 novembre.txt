@@ -1,0 +1,16 @@
+Esercizio del 4 novembre:
+========================
+Creazione di un database per una biblioteca
+
+Una biblioteca deve realizzare un database per catalogare tutti i suoi libri e le relative prenotazioni.
+Di ogni libro occorrerebbe memorizzare le seguenti informazioni: titolo, autore, casa editrice, anno di pubblicazione, codice ISBN, numero di pagine, genere.
+Gli autori sono anch'essi catalogati con: nome, cognome, anno di nascita, genere letterario principale, nazionalità.
+Anche i generi letterari sono catalogati, con: codice genere, descrizione, epoca letteraria.
+I clienti della biblioteca, che chiedono in prestito i libri, sono catalogati con le seguenti informazioni: codice cliente, nome, cognome, indirizzo, numero di telefono, email.
+I prestiti hanno le seguenti informazioni: data di prestito, data di restituzione (se è nulla il libro è in prestito), libro prestato, cliente.
+
+Creare con SQL Power Architect uno schema ER del problema e generare (con la funzionalità Forward Engineering) un DB MySql da riempire con alcuni dati di test.
+
+Siete liberi di aggiungere altre informazioni all'archivio (ad esempio, la collocazione nella biblioteca, il numero di copie possedute, ecc..)
+
+ 
