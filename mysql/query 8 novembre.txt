@@ -5,3 +5,12 @@
 5. Elenco di tutti i clienti
 6. Elenco di tutti i libri gialli
 7. Elenco dei libri di narrativa di 'Salani' pubblicati tra il 1990 e il 2010
+----------------
+8. Elenco dei libri pubblicati negli anni 'decadi' del XX secolo (1910, 1920,...)
+9. ELenco degli autori con cognome compresi tra A e M ordinati per anno di nascita dal più giovane
+10. Elenco dei prestiti che non sono ancora stati restituiti
+11. Elenco dei libri che hanno 'Potter' nel titolo
+12. Elenco dei libri con un numero di pagine compreso tra 300 e 600
+13. Elenco degli autori ordinati per anno di nascita, dal più vecchio e, a parità di anno di nascita, per cognome e nome
+14. Elenco degli autori che scrivono prevalentemente libri gialli o fantasy, italiani o inglesi, nati nel XX secolo, ordinati per anno di nascita dal più giovane
+15. Elenco dei libri che hanno il nome della casa editrice nel titolo
