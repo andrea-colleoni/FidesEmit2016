@@ -1,0 +1,7 @@
+1. Elenco dei titoli dei libri pubblicati prima del 1950
+2. Elenco degli autori di nazionalità italiana
+3. Elenco dei libri editi da 'Salani' con più di 400 pagine
+4. Elenco degli autori nati prima del 1950
+5. Elenco di tutti i clienti
+6. Elenco di tutti i libri gialli
+7. Elenco dei libri di narrativa di 'Salani' pubblicati tra il 1990 e il 2010
