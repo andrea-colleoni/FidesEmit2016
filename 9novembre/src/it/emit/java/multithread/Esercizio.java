@@ -1,6 +1,7 @@
 package it.emit.java.multithread;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -13,8 +14,8 @@ public class Esercizio {
 
 	public static void main(String[] args) {
 		List<String> righe = new ArrayList<>();
-		String path = "C:\\Users\\Andrea\\Desktop\\Temp\\CorsoJavaEmit\\Git\\FidesEmit2016\\9novembre\\src";
-		try (BufferedReader br = new BufferedReader(new FileReader(path + "\\" + "inferno.txt"))) {
+		File root = new File(Esercizio.class.getResource("/").getPath());
+		try (BufferedReader br = new BufferedReader(new FileReader(root.getAbsolutePath() + "\\" + "inferno.txt"))) {
 			do {
 				righe.add(br.readLine());
 			} while (righe.get(righe.size() - 1) != null);
