@@ -1,0 +1,9 @@
+Esercizi Java IO ed eccezioni (9 novembre)
+
+1. Scrivere un programma che funzioni come un piccolo editor di testo; tutte le operazioni possono anche essere svolte nel main. Le funzionalità sono le seguenti:
+- Il programma chiede il nome di un file (per leggere la scelta dell'utente utilizzare un BufferedReader costruito sullo stream System.in, invece dello Scanner).
+- Il programma apre il file in scrittura e si mette in lettura di System.in
+- Ad ogni riga letta da System.in, il programma scrive la corrispondente stringa nel file, finché la stringa letta non corrisponde al testo "esci".
+- Quando il programma riceve il comando esci, chide il file e termina.
+
+
