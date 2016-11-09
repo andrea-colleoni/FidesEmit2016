@@ -7,3 +7,7 @@ Esercizi Java IO ed eccezioni (9 novembre)
 - Quando il programma riceve il comando esci, chide il file e termina.
 
 
+2. Dato un file di testo contenente un testo qualunque, riportare su un nuovo file di testo solo le righe cohe contengono una stringa scelta dall'utente.
+- leggo il file riga per riga e metto le righe in un List<String>
+- scorro la list con stream() e uso un predicato e il metodo contains() di String per verificare se la riga contiene la stringa cercata
+- sulla lista delle stringhe che verificano il predicato faccio un forEach che scrive le righe del testo in un nuovo file
