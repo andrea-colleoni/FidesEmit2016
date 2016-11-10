@@ -7,7 +7,7 @@ public class TestDaoLibro {
 
 		ld.tutti().stream()
 			.filter(k -> k.getTitolo().contains("Potter"))
-			.forEach(l -> System.out.println(l.getTitolo()));
+			.forEach(l -> System.out.println(l.getAutore().getCognome()));
 		
 		
 		Libro l = new Libro();
@@ -17,6 +17,10 @@ public class TestDaoLibro {
 		l.setNumeroPagine(10);
 		l.setCasaEditrice("Emit");
 		ld.inserisci(l);
+		
+		
+		l = ld.libroPerIsbn("111");
+		ld.elimina(l);
 	}
 
 }
