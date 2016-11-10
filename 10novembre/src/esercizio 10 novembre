@@ -1,0 +1,12 @@
+Esercizio
+
+Creare il modello a oggetti della parte del
+database Sakila mostrata nel modello (file
+Sakila.pdf).
+
+URL JDBC: jdbc:mysql://172.16.99.13:3307/sakila
+
+- Creare i javabeans actor, film e language
+- creare i 3 DAO
+- Fare un programma che usa i DAO per elencare
+  film, attori e linguaggi
