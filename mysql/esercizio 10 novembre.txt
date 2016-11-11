@@ -5,3 +5,14 @@ Esercizi 10 novembre (JOIN)
 - Elenco dei negozi (store) con: indirizzo (address), nome della citta (city) e nome del paese (country)
 - Elenco dei film con: titolo, citta in cui lo posso trovare (inventory -> store -> city)
  
+--------------------------------
+
+- Elenco dei film in ordine di lunghezza del titolo dal titolo più lungo al più corto
+- Elenco degli attori che hanno il nome più corto del cognome
+- Elenco degli attori che haanno un nome o un cognome palindromo
+- Elenco dei film che sono stati modificati (last_update) negli ultimi 100 giorni
+- Elenco dei film che sono stati modificati di domenica
+- Elenco degli attori con: "Nome Cognome" in una sola colonna chiamata denominazione
+- Elenco degli attori che hanno recitato in film più lunghi di 150 minuti
+- Elenco dei film con titolo e primi 50 caratteri della descrizione
+- Elenco degli attori con nome, cognome e numero di giorni trascorsi dall'ultima modifica
