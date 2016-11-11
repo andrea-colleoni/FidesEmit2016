@@ -1,0 +1,7 @@
+Esercizi 10 novembre (JOIN)
+
+- Elenco di tutti i film (film) con: titolo, descrizione lingua originale (language), descrizione lingua
+- Elenco delle citta (city) con: nome della città e nome del paese (country)
+- Elenco dei negozi (store) con: indirizzo (address), nome della citta (city) e nome del paese (country)
+- Elenco dei film con: titolo, citta in cui lo posso trovare (inventory -> store -> city)
+ 
