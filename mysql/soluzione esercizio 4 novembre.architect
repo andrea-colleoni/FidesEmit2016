@@ -161,24 +161,24 @@
    </folder>
   </table>
   <relationships>
-   <relationship id="REL44" populated="true" UUID="b7b0f2c4-3b0a-46d7-a9e1-b03683fd06ec" deferrability="7" deleteRule="3" fk-table-ref="TAB35" fkCardinality="7" identifying="true" name="LIBRO_New_TablePRESTITO_fk" physicalName="libro_new_tableprestito_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
+   <relationship id="REL44" populated="true" UUID="b7b0f2c4-3b0a-46d7-a9e1-b03683fd06ec" deferrability="7" deleteRule="3" fk-table-ref="TAB35" fkCardinality="7" identifying="true" name="LIBRO_New_TablePRESTITO_fk" physicalName="LIBRO_New_TablePRESTITO_fk" pk-table-ref="TAB1" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP45" populated="true" UUID="d948f76d-551a-4025-8397-4025106f0c27" fk-column-ref="COL37" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL2" />
    </relationship>
-   <relationship id="REL46" populated="true" UUID="1e2ae60a-04c8-4b31-bead-61cdf2e443de" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="N_PAGINE_LIBRO_fk" physicalName="n_pagine_libro_fk" pk-table-ref="TAB11" pkCardinality="2" updateRule="3" >
+   <relationship id="REL46" populated="true" UUID="1e2ae60a-04c8-4b31-bead-61cdf2e443de" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="N_PAGINE_LIBRO_fk" physicalName="N_PAGINE_LIBRO_fk" pk-table-ref="TAB11" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP47" populated="true" UUID="4fa24c28-fbcb-48ba-8370-2c04c3992994" fk-column-ref="COL8" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL12" />
    </relationship>
-   <relationship id="REL48" populated="true" UUID="9c856179-b91a-4771-a787-5215d17fcefd" deferrability="7" deleteRule="3" fk-table-ref="TAB11" fkCardinality="7" identifying="false" name="GENERE_N_PAGINE_fk" physicalName="genere_n_pagine_fk" pk-table-ref="TAB20" pkCardinality="2" updateRule="3" >
+   <relationship id="REL48" populated="true" UUID="9c856179-b91a-4771-a787-5215d17fcefd" deferrability="7" deleteRule="3" fk-table-ref="TAB11" fkCardinality="7" identifying="false" name="GENERE_N_PAGINE_fk" physicalName="GENERE_N_PAGINE_fk" pk-table-ref="TAB20" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP49" populated="true" UUID="017d3341-e150-4019-a3d2-d31d9159d129" fk-column-ref="COL17" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL21" />
    </relationship>
-   <relationship id="REL50" populated="true" UUID="2d70db5a-d5f3-442c-97c3-2e9ecaaf2302" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="GENERE_LIBRO_fk" physicalName="genere_libro_fk" pk-table-ref="TAB20" pkCardinality="2" updateRule="3" >
+   <relationship id="REL50" populated="true" UUID="2d70db5a-d5f3-442c-97c3-2e9ecaaf2302" deferrability="7" deleteRule="3" fk-table-ref="TAB1" fkCardinality="7" identifying="false" name="GENERE_LIBRO_fk" physicalName="GENERE_LIBRO_fk" pk-table-ref="TAB20" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP51" populated="true" UUID="682fcbf4-f99a-44bd-b8e3-be7eeecc040d" fk-column-ref="COL7" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL21" />
    </relationship>
-   <relationship id="REL52" populated="true" UUID="c6989bf7-7b9c-4f14-aec6-fd8b803e1157" deferrability="7" deleteRule="3" fk-table-ref="TAB35" fkCardinality="7" identifying="true" name="CLIENTE_New_TablePRESTITO_fk" physicalName="cliente_new_tableprestito_fk" pk-table-ref="TAB26" pkCardinality="2" updateRule="3" >
+   <relationship id="REL52" populated="true" UUID="c6989bf7-7b9c-4f14-aec6-fd8b803e1157" deferrability="7" deleteRule="3" fk-table-ref="TAB35" fkCardinality="7" identifying="true" name="CLIENTE_New_TablePRESTITO_fk" physicalName="CLIENTE_New_TablePRESTITO_fk" pk-table-ref="TAB26" pkCardinality="2" updateRule="3" >
     <column-mapping id="CMP53" populated="true" UUID="0d6e499d-ff22-4e5f-b372-9e3c77d4ce87" fk-column-ref="COL36" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL27" />
    </relationship>
   </relationships>
  </target-database>
- <ddl-generator type="ca.sqlpower.architect.ddl.MySqlDDLGenerator" allow-connection="false"> </ddl-generator>
+ <ddl-generator type="ca.sqlpower.architect.ddl.MySqlDDLGenerator" allow-connection="true"> </ddl-generator>
  <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
  <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
  <play-pen zoom="0.9999999999999988" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
