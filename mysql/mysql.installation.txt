@@ -1,0 +1,8 @@
+# MySQL Installation - URL utili
+
+# Guida all'utilizzo di MySQL-Workbench (per chi avesse Linux e non volesse/potesse installare Wine per far partire HeidiSQL)
+https://www.youtube.com/watch?v=X_umYKqKaF0
+
+# Installazione di MariaDB (per utenti Linux) DBMS for di MySQL di Oracle
+https://wiki.archlinux.org/index.php/MySQL_(Italiano)
+
