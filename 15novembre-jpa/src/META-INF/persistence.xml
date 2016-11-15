@@ -3,7 +3,7 @@
 	<persistence-unit name="15novembre-jpa" transaction-type="RESOURCE_LOCAL">
 		<class>it.emit.java.jpa.Automobile</class>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3307/colleoni"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://172.16.99.13:3307/colleoni"/>
 			<property name="javax.persistence.jdbc.user" value="emitfides"/>
 			<property name="javax.persistence.jdbc.password" value="password"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
