@@ -9,7 +9,7 @@ Esercizi 10 novembre (JOIN)
 
 - Elenco dei film in ordine di lunghezza del titolo dal titolo più lungo al più corto
 - Elenco degli attori che hanno il nome più corto del cognome
-- Elenco degli attori che haanno un nome o un cognome palindromo
+- Elenco degli attori che hanno un nome o un cognome palindromo
 - Elenco dei film che sono stati modificati (last_update) negli ultimi 100 giorni
 - Elenco dei film che sono stati modificati di domenica
 - Elenco degli attori con: "Nome Cognome" in una sola colonna chiamata denominazione

@@ -1,8 +1,9 @@
 package it.emit.java.jdbc;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Autore {
+public class Autore implements Serializable {
 	
 	int codice;
 	String nome;
