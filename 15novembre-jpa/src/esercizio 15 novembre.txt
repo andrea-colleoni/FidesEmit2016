@@ -1,0 +1,22 @@
+Esercizio
+=========
+
+Adattare il progetto JPA
+------------------------
+
+1. Copiare il progetto JPA prelevato da GIT nel proprio workspace con un nuovo nome, oppure partire da un progetto JPA vuoto
+2. Configurare il file META-INF/persistence.xml in modo che punti al proprio schema sul DB server
+3. Oltre alla classe (entity) Automobile, aggiungere le seguenti classi, tutte gestite come @Entity:
+	- Concessionario
+	- Casa Produttrice (Marca)	
+	- Persona
+	- Proprietario (estende Persona)
+	- Titolare Concessionario (estende Persona)
+   Per ciascuna classe indicare opportune proprietà.
+   Definire per ciascuna una proprietà come @Id ed aggiungere la classe alle managed classes definite in persistence.xml
+4. Sull'Automobile aggiungere le seguenti caratteristiche
+	- Classe ambientale (EURO6, EURO5)
+	- Tipo di alimentazione (Benzina, Diesel, ecc.)
+	- Tipo trazione (anteriore, posteriore, 4x4)
+	- Prezzo di listino in €
+5. Salvare qualche oggetto per ciascuna entità
