@@ -57,3 +57,11 @@ having
 order by 
 	2;
 	
+select 
+	f.*
+from 
+	film f
+order by
+	f.title
+limit 10;
+	

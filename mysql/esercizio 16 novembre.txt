@@ -1,4 +1,5 @@
 Esercizi
+========
 
 - Individuare l'ultima data di aggiornamento (la più recente) dei film per ciascun rating
 - Contare quante copie di film ci sono per ogni store
