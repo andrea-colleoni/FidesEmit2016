@@ -8,11 +8,11 @@ Adattare il progetto JPA
 2. Configurare il file META-INF/persistence.xml in modo che punti al proprio schema sul DB server
 3. Oltre alla classe (entity) Automobile, aggiungere le seguenti classi, tutte gestite come @Entity:
 	- Concessionario
-	- Casa Produttrice (Marca)	
+	- Casa Produttrice (Marca)
 	- Persona
 	- Proprietario (estende Persona)
 	- Titolare Concessionario (estende Persona)
-   Per ciascuna classe indicare opportune proprietà.
+   Per ciascuna classe indicare liberamente le opportune proprietà.
    Definire per ciascuna una proprietà come @Id ed aggiungere la classe alle managed classes definite in persistence.xml
 4. Sull'Automobile aggiungere le seguenti caratteristiche
 	- Classe ambientale (EURO6, EURO5)

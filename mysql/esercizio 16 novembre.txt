@@ -1,0 +1,12 @@
+Esercizi
+
+- Individuare l'ultima data di aggiornamento (la più recente) dei film per ciascun rating
+- Contare quante copie di film ci sono per ogni store
+- Contare i film per ogni categoria (tabelle category e film_category)
+- Calcolare il tempo di noleggio medio (rental_duration) per categoria di film
+- Calcolare il tempo medio effettivo di noleggio in giorni (tabella rental, campi rental_date e return_date)
+- Elencare gli store in ordine di costo totale di sostituzione dal più costoso
+- Stilare una classifica del numero di film recitati per attore
+- Stilare una classifica del numero totale di noleggi (rental) per film
+- Stilare una classifica del numero totale di noleggi (rental) per attore
+- Stilare una classifica del numero totale di noleggi (rental) per cliente (customer)
