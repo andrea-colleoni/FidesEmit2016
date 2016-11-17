@@ -10,4 +10,4 @@ Esercizi
 	- Fascia B: tra 3 e 5 noleggi la settimana
 	- Fascia C: meno di 3 noleggio la settimana
 - Calcolare per ogni film la differenza tra la sua durata e la durata media dei film della sua stessa categoria
-- Media dei giorni trascorsi tra una modifica e l'altra dei film 
+- Media dei giorni trascorsi tra una modifica e l'altra (la successiva) dei film 
