@@ -1,13 +1,13 @@
 Esercizi
 ========
 
-- Elenco dei film più costosi da sostituire
-- Elenco degli ultimi film modificati (last_update)
+- Elenco dei 10 film più costosi da sostituire
+- Elenco degli ultimi 10 film modificati (last_update)
 - Conteggio dei film divisi in fasce di durata (< 100 minuti, tra 100 e 150, tra 150 e 200, oltre 200)
 - Elenco dei clienti che restituiscono i film (almeno un film) oltre il tempo medio di restituzione
 - Elenco dei clienti per fasce:
-	- Fascia A: > 2 noleggi la settimana
-	- Fascia B: tra 1 e 2 noleggi la settimana
-	- Fascia C: meno di 1 noleggio la settimana
+	- Fascia A: > 5 noleggi la settimana
+	- Fascia B: tra 3 e 5 noleggi la settimana
+	- Fascia C: meno di 3 noleggio la settimana
 - Calcolare per ogni film la differenza tra la sua durata e la durata media dei film della sua stessa categoria
 - Media dei giorni trascorsi tra una modifica e l'altra dei film 
