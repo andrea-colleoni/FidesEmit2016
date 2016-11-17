@@ -7,6 +7,7 @@
 	<persistence-unit name="sakila" transaction-type="RESOURCE_LOCAL">
 		<class>it.emit.java.sakila.Film</class>
 		<class>it.emit.java.sakila.Language</class>
+		<class>it.emit.java.sakila.Actor</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://172.16.99.13:3307/sakila"/>
