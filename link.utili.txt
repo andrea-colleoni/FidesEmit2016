@@ -1,0 +1,21 @@
+ESERCIZI usate eclipse 
+Creazione servlet in eclipse (solo servelt)
+http://www.javatpoint.com/creating-servlet-in-eclipse-ide
+
+Creazione servelt che interagisce con la pagina html
+http://www.javatpoint.com/creating-servlet-in-myeclipse-ide
+
+Solo jsp e tomcat
+http://www.srccodes.com/p/article/2/JSP-Hello-World-Program-using-Eclipse-IDE-and-Tomcat-web-server
+
+Solo servlet e tomcat
+http://www.srccodes.com/p/article/3/Tomcat-Hello-World-Servlet-using-Eclipse-IDE
+
+JSP INTRODUZIONI ed esercizio 
+https://www.ntu.edu.sg/home/ehchua/programming/java/JSPByExample.html
+
+Esercizio completo 
+https://www.ntu.edu.sg/home/ehchua/programming/java/JavaServlets.html
+
+
+gli esercizi devono essere personalizzati e bisogna capire tutti i passi
