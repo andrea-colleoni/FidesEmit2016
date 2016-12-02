@@ -19,3 +19,6 @@ https://www.ntu.edu.sg/home/ehchua/programming/java/JavaServlets.html
 
 
 gli esercizi devono essere personalizzati e bisogna capire tutti i passi
+
+ESERCIZIO MODEL VIEW CONTROLL
+http://www.javatpoint.com/MVC-in-jsp
