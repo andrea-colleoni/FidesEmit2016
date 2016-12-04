@@ -5,9 +5,9 @@ Prerequisiti
 Eclipse: https://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/neon1a
 MySQL Server: https://dev.mysql.com/downloads/mysql/
 JDBC Driver for MySQL: https://dev.mysql.com/downloads/connector/j/
-HeidiSQL: http://www.heidisql.com/download.php
+HeidiSQL: http://www.heidisql.com/download.php ( opzionale, potete usare anche MySQL-Workbench, ma faremo riferimento a HeidiSQL per comodità )
 
-1. Aprite HeidiSQL e create una nuova connessione con nome, username e password a vostro piacimento, ma 'scuola' come nome del database e 3306 come porta TCP/IP in ascolto per la connessione.
+1. Aprite HeidiSQL e create una nuova connessione specificando 'scuola' come nome del database e 3306 come porta TCP/IP in ascolto per la connessione.
 2. Aprite Eclipse, selezionate File->New->Java Project, date un nome al progetto e cliccate su Finish per crearlo
 3. Nella cartella src incollate i file .java
 4. Cliccate l'icona del progetto col tasto destro del mouse, poi Properties ( è l'ultima opzione nel menu a tendina ), Java Build Path, Libraries; a questo punto cliccate Add External JARs e trovata la cartella dei connector per java, selezionate il file mysql-connector-java-5.1.40-bin.jar ( 5.1.40 
