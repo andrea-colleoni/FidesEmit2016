@@ -1,0 +1,14 @@
+Come eseguire gli esempi .java
+
+Prerequisiti
+
+Eclipse: https://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/neon1a
+MySQL Server: https://dev.mysql.com/downloads/mysql/
+JDBC Driver for MySQL: https://dev.mysql.com/downloads/connector/j/
+
+1. Aprite Eclipse, selezionate File->New->Java Project, date un nome al progetto e cliccate su Finish per crearlo
+2. Nella cartella src incollate i file .java
+3. Cliccate l'icona del progetto col tasto destro del mouse, poi Properties ( è l'ultima opzione nel menu a tendina ), Java Build Path, Libraries; a 
+questo punto cliccate Add External JARs e trovata la cartella dei connector per java, selezionate il file mysql-connector-java-5.1.40-bin.jar ( 5.1.40 
+è la versione più recente dei connettori java, ma potete avere altre versioni ), infine cliccate Apply e poi OK
+4. Eseguite il programma
