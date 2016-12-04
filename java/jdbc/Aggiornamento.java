@@ -20,8 +20,8 @@ public class Aggiornamento {
 		int matricola;
 		String nome, cognome;
 		String query = "UPDATE studente " +
-			       "SET nome=?, cognome=? " +
-	     		       "WHERE matricola = ?";
+					   "SET matricola=?, nome=?, cognome=? " +
+					   "WHERE matricola = ?";
 		
 		try {
 			// Crea un URL per connettersi al database
@@ -65,6 +65,7 @@ public class Aggiornamento {
 			stmt.setInt(1, matricola);
 			stmt.setString(2, nome);
 			stmt.setString(3, cognome);
+			stmt.setInt(4, matricola);
 			int righe = stmt.executeUpdate();
 			
 			if (righe > 0)
