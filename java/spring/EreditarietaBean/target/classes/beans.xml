@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="helloWorld" class="com.gianluca.EreditarietaBean.HelloWorld">
+		<property name="message1" value="Hello World from message1 (com.gianluca.EreditarietaBean.HelloWorld)" />
+		<property name="message2" value="Hello World from message2 (com.gianluca.EreditarietaBean.HelloWorld)" />
+	</bean>
+	
+	<bean id="helloItalia" class="com.gianluca.EreditarietaBean.HelloItalia"
+		parent="helloWorld">
+		<property name="message1" value="Hello Italia from message1 (Override) (com.gianluca.EreditarietaBean.HelloItalia)" />
+		<property name="message3" value="Hello Italia from message3 (Nuovo) (com.gianluca.EreditarietaBean.HelloItalia)" />
+	</bean>
+
+</beans>
