@@ -17,6 +17,7 @@ public class Inserimento {
 
 		// Connessione al database
 		try {
+			// Carico il driver
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			System.err.println("ClassNotFoundException: " + e.getMessage());
