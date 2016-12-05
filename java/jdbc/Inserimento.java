@@ -31,9 +31,12 @@ public class Inserimento {
 			stmt = con.createStatement();
 
 			// Esegue il comando SQL
-			stmt.executeUpdate(sql);
+			int righe = stmt.executeUpdate(sql);
 
-			System.out.println("Record registrato");
+			if (righe > 0)
+				System.out.println("Record registrato");
+			else
+				System.out.println("Record non registrato");
 
 			stmt.close();
 			con.close();

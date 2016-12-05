@@ -15,17 +15,19 @@ public class Selezione {
 		String url = "jdbc:mysql://127.0.0.1:3306/scuola";
 		Connection con;
 		String query = "SELECT matricola, nome, cognome " +
-					   "FROM studente " + 
-					   "WHERE studente.nome LIKE 'M%'";
+			       "FROM studente " + 
+			       "WHERE studente.nome LIKE 'M%'";
 		Statement stmt;
 		
 		try {
+			// Carico il driver
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			System.err.println("ClassNotFoundException: " + e.getMessage());
 		}
 		
 		try {
+			// Creo la connessione
 			con = DriverManager.getConnection(url, "", "");
 			stmt = con.prepareStatement(query);
 			ResultSet rs = stmt.executeQuery(query);
