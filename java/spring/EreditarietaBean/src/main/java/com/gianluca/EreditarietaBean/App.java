@@ -14,15 +14,15 @@ public class App
     {
         ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
         
-        HelloWorld objA = (HelloWorld) context.getBean("helloWorld");
+        Padre p = (Padre) context.getBean("padre");
         
-        System.out.println("Messaggio: " + objA.getMessage1());
-        System.out.println("Messaggio: " + objA.getMessage2());
+        System.out.println("Messaggio: " + p.getMessage1());
+        System.out.println("Messaggio: " + p.getMessage2());
         
-        HelloItalia objB = (HelloItalia) context.getBean("helloItalia");
+        Figlio f = (Figlio) context.getBean("figlio");
         
-        System.out.println("Messaggio: " + objB.getMessage1()); // Override
-        System.out.println("Messaggio: " + objB.getMessage2()); // Ereditato da HelloWorld
-        System.out.println("Messaggio: " + objB.getMessage3()); // Nuova propriet√†
+        System.out.println("Messaggio: " + f.getMessage1()); // Override
+        System.out.println("Messaggio: " + f.getMessage2()); // Ereditato da Padre
+        System.out.println("Messaggio: " + f.getMessage3()); // Nuova propriet‡
     }
 }

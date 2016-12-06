@@ -4,15 +4,15 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="helloWorld" class="com.gianluca.EreditarietaBean.HelloWorld">
-		<property name="message1" value="Hello World from message1 (com.gianluca.EreditarietaBean.HelloWorld)" />
-		<property name="message2" value="Hello World from message2 (com.gianluca.EreditarietaBean.HelloWorld)" />
+	<bean id="padre" class="com.gianluca.EreditarietaBean.Padre">
+		<property name="message1" value="Hello World from message1 (Padre)" />
+		<property name="message2" value="Hello World from message2 (Padre)" />
 	</bean>
 	
-	<bean id="helloItalia" class="com.gianluca.EreditarietaBean.HelloItalia"
-		parent="helloWorld">
-		<property name="message1" value="Hello Italia from message1 (Override) (com.gianluca.EreditarietaBean.HelloItalia)" />
-		<property name="message3" value="Hello Italia from message3 (Nuovo) (com.gianluca.EreditarietaBean.HelloItalia)" />
+	<bean id="figlio" class="com.gianluca.EreditarietaBean.Figlio"
+		parent="padre">
+		<property name="message1" value="Hello World from message1 (Override) (Figlio)" />
+		<property name="message3" value="Hello World from message3 (Nuovo) (Figlio)" />
 	</bean>
 
 </beans>
