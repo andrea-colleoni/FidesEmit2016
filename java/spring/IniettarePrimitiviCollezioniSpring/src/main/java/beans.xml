@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Definizione del Bean 'collezione' -->
+	<bean id="collezione" class="com.gianluca.IniettareCollezioniSpring.Collezione">
+		
+		<!-- chiamata a setAddressList(List) -->
+		<property name="addressList">
+			<list>
+				<value>Italia</value>
+				<value>Spagna</value>
+				<value>Francia</value>
+			</list>
+		</property>
+		
+		<!-- chiamata a setAddressSet(Set) -->
+		<property name="addressSet">
+			<set>
+				<value>Italia</value>
+				<value>Spagna</value>
+				<value>Francia</value>
+			</set>
+		</property>
+		
+		<!-- chiamata a setAddressMap(Map) -->
+		<property name="addressMap">
+			<map>
+				<entry key="1" value="Italia" />
+				<entry key="2" value="Spagna" />
+				<entry key="3" value="Francia" />
+			</map>
+		</property>
+			
+		<!-- chiamata a setAddressProp(Properties) -->
+		<property name="addressProp">
+			<props>
+				<prop key="one">Italia </prop>
+				<prop key="two">Spagna </prop>
+				<prop key="three">Francia </prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>
