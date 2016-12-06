@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- NO Autowiring -->
+	<!-- TextEditor Bean -->
+	<!-- <bean id="textEditor" class="com.gianluca.Autowiring.TextEditor">
+		<property name="spellChecker" ref="spellChecker" />
+		<property name="name" value="Generic Text Editor" />
+	</bean>
+	
+	<bean id="spellChecker" class="com.gianluca.Autowiring.SpellChecker" />-->
+	
+	
+ 	<!--  Autowiring ByName -->
+ 	<!-- TextEditor Bean -->
+ 	<!--  <bean id="textEditor" class="com.gianluca.Autowiring.TextEditor"
+ 		autowire="byName" >
+		<property name="name" value="Generic Text Editor" />
+	</bean>
+	
+	<bean id="spellChecker" class="com.gianluca.Autowiring.SpellChecker" /> -->
+	
+	<!--  Autowiring ByName -->
+ 	<!-- TextEditor Bean -->
+ 	<!--  <bean id="textEditor" class="com.gianluca.Autowiring.TextEditor"
+ 		autowire="byName" >
+		<property name="name" value="Generic Text Editor" />
+	</bean>
+	
+	<bean id="spellChecker" class="com.gianluca.Autowiring.SpellChecker" /> -->
+	
+	<!--  Autowiring ByType -->
+ 	<!-- TextEditor Bean -->
+ 	<!-- <bean id="textEditor" class="com.gianluca.Autowiring.TextEditor"
+ 		autowire="byType" >
+		<property name="name" value="Generic Text Editor" />
+	</bean>
+	
+	<bean id="spellChecker" class="com.gianluca.Autowiring.SpellChecker" /> -->
+	
+	<!-- Autowiring ByConstructor -->
+	<!-- TextEditor Bean -->
+ 	<bean id="textEditor" class="com.gianluca.Autowiring.TextEditor"
+ 		autowire="constructor" >
+ 		<constructor-arg value="Generic Text Editor" />
+	</bean>
+	
+	<bean id="spellChecker" class="com.gianluca.Autowiring.SpellChecker" />
+</beans>
