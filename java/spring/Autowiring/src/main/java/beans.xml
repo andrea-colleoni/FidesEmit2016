@@ -23,14 +23,6 @@
 	
 	<bean id="spellChecker" class="com.gianluca.Autowiring.SpellChecker" /> -->
 	
-	<!--  Autowiring ByName -->
- 	<!-- TextEditor Bean -->
- 	<!--  <bean id="textEditor" class="com.gianluca.Autowiring.TextEditor"
- 		autowire="byName" >
-		<property name="name" value="Generic Text Editor" />
-	</bean>
-	
-	<bean id="spellChecker" class="com.gianluca.Autowiring.SpellChecker" /> -->
 	
 	<!--  Autowiring ByType -->
  	<!-- TextEditor Bean -->
