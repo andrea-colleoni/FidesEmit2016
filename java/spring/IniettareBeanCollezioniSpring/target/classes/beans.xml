@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Bean dei due indirizzi -->
+	<bean id="address1" class="com.gianluca.IniettareBeanCollezioniSpring.Indirizzo">
+        <constructor-arg index="0" value="Via Roma" />
+        <constructor-arg index="1" value="1" />
+    </bean>
+ 
+    <bean id="address2" class="com.gianluca.IniettareBeanCollezioniSpring.Indirizzo">
+        <constructor-arg index="0" value="Via Milano" />
+        <constructor-arg index="1" value="3" />
+    </bean>
+ 
+    <!-- Bean della collezione -->
+    <bean id="collezione" class="com.gianluca.IniettareBeanCollezioniSpring.Collezione">
+ 
+        <!-- Passaggio del riferimento dei Bean dei due indirizzi -->
+        <property name="addressList">
+            <list>
+                <ref bean="address1" />
+                <ref bean="address2" />
+                <value>Italia</value>
+            </list>
+        </property>
+ 
+    </bean>
+</beans>
