@@ -1,3 +1,0 @@
-File presente solo per far sì che git esporti la cartella anche su github.
-
-Appena verrà aggiunto un esempio .java con le JSON-P API, il file json.txt verrà eliminato.
