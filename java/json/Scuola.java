@@ -45,7 +45,7 @@ public class Scuola {
         /* Istanziamo un nuovo Studente */
 	Studente s = new Studente();
 	s.setMatricola(31);
-        s.setNome("Harry");
+	s.setNome("Harry");
 	s.setCognome("Potter");
 
 	/* Java to JSON Object */
