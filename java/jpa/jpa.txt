@@ -1,3 +1,4 @@
 cartella jpa
 
 07/12/2016 - Aggiunto progetto ScuolaJPA
+           - Aggiunto file build.sh
