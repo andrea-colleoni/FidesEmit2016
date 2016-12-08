@@ -1,5 +1,0 @@
-Come importare un progetto Eclipse compresso come file .zip
-
-1. Posizionarsi nella directory nella quale risiede il file .zip del progetto;
-2. Aprire Eclipse ( se non l'avete già aperto ), e nella barra in alto a sinistra selezionate: File->Import->General->Archive File
-3. Devo ancora scoprire cosa succede ! :)
