@@ -28,6 +28,10 @@ public class Studente {
 	this.cognome = cognome;
     }
 
+    public String getCognome() {
+	return this.cognome;
+    }
+
     public String toString() {
 	    return String.format("Studente[%d, %s, %s]", matricola, nome, cognome);
 	}

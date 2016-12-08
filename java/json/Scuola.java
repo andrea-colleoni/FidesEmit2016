@@ -13,8 +13,14 @@
 
 /* NOTA: si presume che il file javax.json-1.0.4.jar 
  *       si trovi nella stessa cartella in cui compilate le classi .java 
- *       Per sicurezza, il file javax.json-1.0.4.jar è già presente nella cartella */
+ *       Per sicurezza, il file javax.json-1.0.4.jar è già presente nella cartella 
+ */
 
+/* v0.0.1 - Il JSON Object è popolato direttamente con il metodo add() dopo createObjectBuilder() */
+/* v0.0.2 - Creiamo un oggetto Java di tipo Studente e lo popoliamo con i suoi metodi setter.
+ *          Il valore della coppia nome-valore del JSON Object è popolato con i metodi getter
+ *          dell'oggetto Studente 
+ */
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -36,11 +42,17 @@ public class Scuola {
 	 *
 	 * /
 
+        /* Istanziamo un nuovo Studente */
+	Studente s = new Studente();
+	s.setMatricola(31);
+        s.setNome("Harry");
+	s.setCognome("Potter");
+
 	/* Java to JSON Object */
 	JsonObject studente = Json.createObjectBuilder()
-		              .add("matricola", 298)
-			      .add("nome", "Harry")
-			      .add("cognome", "Potter")
+		              .add("matricola", s.getMatricola())
+			      .add("nome", s.getNome())
+			      .add("cognome", s.getCognome())
 			      .build();
 
         /* Creiamo un JsonWriter per scrivere il JSON Object su un file di output */
