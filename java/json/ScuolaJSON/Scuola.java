@@ -11,16 +11,6 @@
 /* Per eseguire il programma da terminale lanciate il seguente comando: */
 /* java -cp .:javax.json-1.0.4.jar Scuola */
 
-/* NOTA: si presume che il file javax.json-1.0.4.jar 
- *       si trovi nella stessa cartella in cui compilate le classi .java 
- *       Per sicurezza, il file javax.json-1.0.4.jar è già presente nella cartella 
- */
-
-/* v0.0.1 - Il JSON Object è popolato direttamente con il metodo add() dopo createObjectBuilder() */
-/* v0.0.2 - Creiamo un oggetto Java di tipo Studente e lo popoliamo con i suoi metodi setter.
- *          Il valore della coppia nome-valore del JSON Object è popolato con i metodi getter
- *          dell'oggetto Studente 
- */
 
 import java.io.FileWriter;
 import java.io.IOException;
