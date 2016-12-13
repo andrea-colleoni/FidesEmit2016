@@ -1,12 +1,11 @@
 /**
- * 
- */
-package com.gianluca.initDestroyBean;
-
-/**
+ *
  * @author aculnaig
  *
  */
+
+package com.gianluca.initDestroyBean;
+
 public class SampleBean {
 	
 	private String message;

@@ -1,17 +1,21 @@
 package com.gianluca.initDestroyBean;
 
 /**
- * Hello world!
+ * 
+ * @author aculnaig
  *
- */
+ */  
+
+package com.gianluca.initDestroyBean;
+
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class App 
-{
-    public static void main( String[] args )
-    {
-        AbstractApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+
+public class App {
+    public static void main( String[] args ) {
+        
+	AbstractApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
         
         SampleBean obj = (SampleBean) context.getBean("initDestroyBean");
         
