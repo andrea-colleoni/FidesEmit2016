@@ -8,14 +8,29 @@
 package com.gianluca.AccountSample;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class App {
     
-	public static void main( String[] args ) {
+	public static void main(String[] args) {
     
-	    AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext(AccountSampleBeansConfiguration.class);
-	
-	    AccountService as = appContext.getBean("accountService", AccountService.class);
+		/* 
+		 * Configurazione del contesto tramite Java
+	     * AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext(AccountSampleBeansConfiguration.class);
+	     *
+	     */
+	    
+		/*
+		 * Configurazione tramite file XML
+		 * ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("com/gianluca/AccountSample/beans.xml");
+		 *
+		 */
+
+		/*
+		 * Configurazione tramite Java annotations
+		 */
+		ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("com/gianluca/AccountSample/beans2.xml");
+	    AccountService as = appContext.getBean("accountServiceImplementation", AccountService.class);
 	
 	    System.out.println("Before money transfer");
 	    System.out.println("Account 1 balance: " + as.getAccount(1).getBalance());
