@@ -4,11 +4,28 @@
     xsi:schemaLocation="http://www.springframework.org/schema/beans
                         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="accountService" class="com.gianluca.AccountSample.AccountServiceImplementation">
-        <property name="accountDao" ref="accountDao" />
+	<bean id="account1" class="com.gianluca.AccountSample.Account">
+        <property name="id" value="1" />
+	<property name="ownerName" value="Gianluca" />
+	<property name="balance" value="10000.0" />
+    </bean>
+    <bean id="account2" class="com.gianluca.AccountSample.Account">
+        <property name="id" value="2" />
+	<property name="ownerName" value="Shouqing" />
+	<property name="balance" value="9500.0" />
     </bean>
 
     <bean id="accountDao" class="com.gianluca.AccountSample.AccountDaoInMemoryImplementation">
+        <property name="accountsMap">
+	    	<map>
+	       		<entry key="1" value-ref="account1" />
+	       		<entry key="2" value-ref="account2" />
+	    	</map>
+		</property>
+    </bean>
+    
+    <bean id="accountServiceImplementation" class="com.gianluca.AccountSample.AccountServiceImplementation">
+        <property name="accountDao" ref="accountDao" />
     </bean>
 
 </beans>

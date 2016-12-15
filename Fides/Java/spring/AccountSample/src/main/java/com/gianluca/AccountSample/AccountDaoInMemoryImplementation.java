@@ -18,7 +18,7 @@ public class AccountDaoInMemoryImplementation implements AccountDao {
     
     private Map<Long,Account> accountsMap = new HashMap<>();
 
-    {
+    /*{
 	    Account account1 = new Account();
 	    account1.setId(1);
 	    account1.setOwnerName("Gianluca");
@@ -26,12 +26,20 @@ public class AccountDaoInMemoryImplementation implements AccountDao {
 
         Account account2 = new Account();
 	    account2.setId(2);
-	    account2.setOwnerName("Gianluca");
-	    account2.setBalance(10000.0);
+	    account2.setOwnerName("Shouqing");
+	    account2.setBalance(9500.0);
 
 		accountsMap.put(account1.getId(), account1);
 		accountsMap.put(account2.getId(), account2);
-    }
+    }*/
+    
+    public void setAccountsMap(Map<Long, Account> accountsMap) {
+		this.accountsMap = accountsMap;
+	}
+
+	public Map<Long, Account> getAccountsMap() {
+	    return this.accountsMap;
+	}   
 
     @Override
     public void update(Account account) {

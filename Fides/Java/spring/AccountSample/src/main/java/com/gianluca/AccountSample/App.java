@@ -22,25 +22,27 @@ public class App {
 	    
 		/*
 		 * Configurazione tramite file XML
-		 * ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("com/gianluca/AccountSample/beans.xml");
-		 *
 		 */
+		ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("com/gianluca/AccountSample/beans.xml");
+		 
 
 		/*
 		 * Configurazione tramite Java annotations
+		 * ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("com/gianluca/AccountSample/beans2.xml");
+		 *
 		 */
-		ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("com/gianluca/AccountSample/beans2.xml");
+		
 	    AccountService as = appContext.getBean("accountServiceImplementation", AccountService.class);
 	
 	    System.out.println("Before money transfer");
-	    System.out.println("Account 1 balance: " + as.getAccount(1).getBalance());
-	    System.out.println("Account 2 balance: " + as.getAccount(2).getBalance());
+	    System.out.println(String.format("Account[%d, %s, %.1f]", as.getAccount(1).getId(), as.getAccount(1).getOwnerName(),as.getAccount(1).getBalance()));
+	    System.out.println(String.format("Account[%d, %s, %.1f]", as.getAccount(2).getId(), as.getAccount(2).getOwnerName(),as.getAccount(2).getBalance()));
 	
 	    as.transferMoney(1, 2, 500.0);
 	
 	    System.out.println("After money transfer");
-	    System.out.println("Account 1 balance: " + as.getAccount(1).getBalance());
-	    System.out.println("Account 2 balance: " + as.getAccount(2).getBalance());
+	    System.out.println(String.format("Account[%d, %s, %.1f]", as.getAccount(1).getId(), as.getAccount(1).getOwnerName(),as.getAccount(1).getBalance()));
+	    System.out.println(String.format("Account[%d, %s, %.1f]", as.getAccount(2).getId(), as.getAccount(2).getOwnerName(),as.getAccount(2).getBalance()));
 
     }
 }
