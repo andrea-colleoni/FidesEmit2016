@@ -14,6 +14,10 @@ import org.springframework.stereotype.Service;
 public class AccountServiceImplementation implements AccountService {
 
     private AccountDao accountDao;
+    
+	public AccountServiceImplementation(AccountDao accountDao) {
+		this.accountDao = accountDao;
+	}
 
 	@Autowired
 	public void setAccountDao(AccountDao accountDao) {

@@ -16,8 +16,8 @@ public class AccountSampleBeansConfiguration {
     @Bean
     public AccountService accountService() {
 	
-	AccountServiceImplementation bean = new AccountServiceImplementation();
-        bean.setAccountDao(accountDao());
+	AccountServiceImplementation bean = new AccountServiceImplementation(accountDao());
+        // bean.setAccountDao(accountDao());
 	return bean;
     }
 

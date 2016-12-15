@@ -25,7 +25,8 @@
     </bean>
     
     <bean id="accountServiceImplementation" class="com.gianluca.AccountSample.AccountServiceImplementation">
-        <property name="accountDao" ref="accountDao" />
+	    <!--<property name="accountDao" ref="accountDao" />-->
+	    <constructor-arg ref="accountDao" />
     </bean>
 
 </beans>
