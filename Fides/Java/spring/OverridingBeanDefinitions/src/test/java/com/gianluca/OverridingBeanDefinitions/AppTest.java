@@ -1,4 +1,4 @@
-package com.gianluca.AccountSample;
+package com.gianluca.OverridingBeanDefinitions;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
