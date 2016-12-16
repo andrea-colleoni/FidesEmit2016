@@ -16,7 +16,8 @@ public class BraveKnightTest {
     public void knightShouldEmbarkOnQuest() {
 	
 	Quest mockQuest = mock(Quest.class); // Create mock Quest
-	BraveKnight knight = new BraveKnight(mockQuest); // Inject mock Quest
+	Minstrel mockMinstrel = mock(Minstrel.class); // Create mock MinstrelS
+	BraveKnight knight = new BraveKnight(mockQuest, mockMinstrel); // Inject mock Quest
 	knight.embarkOnQuest();
 	verify(mockQuest, times(1)).embark();
     }
