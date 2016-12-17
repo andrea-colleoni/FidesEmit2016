@@ -9,7 +9,7 @@ package com.gianluca.Knight;
 
 import org.springframework.beans.factory.DisposableBean;
 
-public class BraveKnight implements DisposableBean {
+public class BraveKnight implements Knight, DisposableBean {
 
 	private Quest quest;
 	private Minstrel minstrel;

@@ -17,7 +17,7 @@ public class App {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("knights.xml");
 		
 		/* Ottiene il bean dal contesto */
-		BraveKnight knight = context.getBean(BraveKnight.class);
+		Knight knight = context.getBean(Knight.class);
 		
 		/* Il cavaliere si imbarca nella sua avventura */
 		knight.embarkOnQuest();

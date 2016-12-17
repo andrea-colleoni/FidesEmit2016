@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class KnightConfig {
 
     @Bean
-    public BraveKnight knight() {
+    public Knight knight() {
         return new BraveKnight(quest(), minstrel());
     }
 

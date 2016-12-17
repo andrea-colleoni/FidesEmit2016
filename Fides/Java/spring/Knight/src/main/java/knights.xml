@@ -7,7 +7,7 @@
     					http://www.springframework.org/schema/beans
                         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="knight" class="com.gianluca.Knight.BraveKnight">
+    <bean id="knight" class="com.gianluca.Knight.Knight">
         <constructor-arg ref="quest" />
         <constructor-arg ref="minstrel" />
     </bean>
