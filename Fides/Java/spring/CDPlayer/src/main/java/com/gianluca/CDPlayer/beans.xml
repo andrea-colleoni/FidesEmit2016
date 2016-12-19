@@ -27,18 +27,21 @@
 	     <bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer"
 		 c:cd-ref="compactDisc" />
 	
-	     E' possibile fare riferimento al parametro del costruttore
-	     in questo modo, facendo riferimento alla posizione del
-	     parametro nella lista dei parametri del costruttore
+             Si può anche fare riferimento a un parametro di un costruttore
+	     specificando il suo indice nella lista dei parametri del costruttore stesso.
 
 	     <bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer"
 		 c:_0-ref="compactDisc" />
 
-             Come ultima possibilità col namespace c:, un parametro di un costruttore
-	     che ha un solo argomento può essere riferito solamente
-	     con _ dato che lista degli argomenti non esiste,
-	     essendocene solo un argomento. 
-	
+             Come ultima possibilità utilizzando il namespace c:, un parametro di un costruttore
+	     che ha un solo argomento può essere specificato solamente
+	     con un solo underscore dato che lista degli argomenti non esiste,
+	     essendo presente appunto un solo argomento.
+
+	     <bean id="cdPlayer"
+	           class="com.gianluca.CDPlayer.CDPlayer"
+		   c:_-ref="compactDisc" />
+
 	-->
 
 
@@ -71,7 +74,7 @@
 
              NOTA: XML non permette che più di un attributo di un dato elemento
 	           abbiano lo stesso nome, quindi non è possibile specificare
-		   ogni singolo argomento con un underscore quando un costruttore
+		   ogni singolo argomento con un solo underscore quando un costruttore
 		   ha più di un parametro, ma è possibile quando è presente
 		   solo un parametro.
 

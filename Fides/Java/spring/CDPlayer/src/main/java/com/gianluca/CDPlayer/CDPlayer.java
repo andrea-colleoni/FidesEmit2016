@@ -50,10 +50,10 @@ public class CDPlayer implements MediaPlayer {
 	 *
 	 * Questo sia che fosse un costruttore, un metodo setter, o qualsiasi altro metodo.
 	 *
-	 * Se non ci sono bean corrispondenti, Spring solleverà un eccezione alla creazione
+	 * Se non ci sono bean corrispondenti, Spring solleverà un'eccezione alla creazione
 	 * del contesto dell'applicazione.
 	 *
-	 * Per evitare l'eccezione, si può impostare l'attributo required in @Autowired a false:
+	 * Per evitare l'eccezione, si può impostare l'attributo 'required' di @Autowired a false:
 	 *
 	 * @Autowired(required=false)
 	 * public CDPlayer(CompactDisc cd) {
@@ -70,7 +70,7 @@ public class CDPlayer implements MediaPlayer {
 	 * se non si controlla se le proprietà del bean sono null.
 	 *
 	 * Nell'eventualità che più bean soddisfino la dipendenza, Spring solleverà
-	 * una eccezione indicando che non sa l'esatto bean da iniettare tramite autowiring.
+	 * un'eccezione indicando che non sa l'esatto bean da iniettare tramite autowiring.
 	 * 
 	 */
 

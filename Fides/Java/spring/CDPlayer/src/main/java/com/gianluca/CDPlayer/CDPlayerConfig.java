@@ -69,7 +69,7 @@ public class CDPlayerConfig {
 	 *
 	 * }
 	 *
-	 * All'atto della creazione di un bean ï¿½ possibile compiere
+	 * All'atto della creazione di un bean è possibile compiere
 	 * l'iniezione delle dipendenze senza l'utilizzo
 	 * del costruttore della classe del bean, ma anche tramite
 	 * il suo metodo setter
