@@ -10,15 +10,20 @@
 			http://www.springframework.org/schema/context
 			http://www.springframework.org/schema/context/spring-context.xsd">
 
-        <!-- <context:component-scan base-package="com.gianluca.CDPlayer" />-->
+    <!-- <context:component-scan base-package="com.gianluca.CDPlayer" /> -->
 
 	<!-- Bean compactDisc -->
-        <bean id="compactDisc" class="com.gianluca.CDPlayer" />
-
+	<bean id="compactDisc" class="com.gianluca.CDPlayer.CompactDisc" />
+       
 	<!-- Bean cdPlayer -->
-	<bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer" >
-            <constructor-arg ref="compactDisc" />
+	<bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer">
+	    <property name="compactDisc" ref="compactDisc" />
 	</bean>
+		 
+        <!-- Bean cdPlayer
+	<bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer" >
+		<constructor-arg ref="compactDisc" />
+	 </bean> -->
 
 	<!-- Serve per caricare il namespace c di Spring -->
 	<!-- xmlns:c="http://www.springframework.org/schema/c" -->
@@ -27,24 +32,27 @@
 	     <bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer"
 		 c:cd-ref="compactDisc" />
 	
-	     E' possibile fare riferimento al parametro del costruttore
-	     in questo modo, facendo riferimento alla posizione del
-	     parametro nella lista dei parametri del costruttore
+             Si puo' anche fare riferimento a un parametro di un costruttore
+	     specificando il suo indice nella lista dei parametri del costruttore stesso.
 
 	     <bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer"
 		 c:_0-ref="compactDisc" />
 
-             Come ultima possibilità col namespace c:, un parametro di un costruttore
-	     che ha un solo argomento può essere riferito solamente
-	     con _ dato che lista degli argomenti non esiste,
-	     essendocene solo un argomento. 
-	
+             Come ultima possibilitï¿½ utilizzando il namespace c:, un parametro di un costruttore
+	     che ha un solo argomento puï¿½ essere specificato solamente
+	     con un solo underscore dato che lista degli argomenti non esiste,
+	     essendo presente appunto un solo argomento.
+
+	     <bean id="cdPlayer"
+	           class="com.gianluca.CDPlayer.CDPlayer"
+		   c:_-ref="compactDisc" />
+
 	-->
 
 
-	<!-- Esiste anche la possibilità di specificare i valori
+	<!-- Esiste anche la possibilitï¿½ di specificare i valori
 	     degli argomenti di un costruttore di un bean
-	     attraverso dei valori letterali anziché l'utilizzo
+	     attraverso dei valori letterali anzichï¿½ l'utilizzo
 	     di un riferimento a un altro bean 
 	     
 	     <bean id="compactDisc" class="com.gianluca.CDPlayer.BlankDisc">
@@ -69,17 +77,119 @@
 		   c:_0="Sgt. Pepper's Lonely Hearts Club Band"
 		   c:_1="The Beatles" />
 
-             NOTA: XML non permette che più di un attributo di un dato elemento
-	           abbiano lo stesso nome, quindi non è possibile specificare
-		   ogni singolo argomento con un underscore quando un costruttore
-		   ha più di un parametro, ma è possibile quando è presente
+             NOTA: XML non permette che piï¿½ di un attributo di un dato elemento
+	           abbiano lo stesso nome, quindi non ï¿½ possibile specificare
+		   ogni singolo argomento con un solo underscore quando un costruttore
+		   ha piï¿½ di un parametro, ma ï¿½ possibile quando ï¿½ presente
 		   solo un parametro.
 
              
 	     WIRING COLLECTIONS
 
+	     La cosa piï¿½ semplice da fare se si deve specificare una lista come argomento
+	     di un costruttore, ï¿½ quella di passare l'elemento <null/>
+
+	     <bean id="compactDisc" class="com.gianluca.CDPlayer.BlankDisc" >
+                 <constructor-arg value="Sgt. Pepper's Lonely Hearts Club Band" />
+		 <constructor-arg value="The Beatles" />
+		 <constructor-arg><null/></constructor-arg>
+	     </bean>
+
+	     <null/> inserirï¿½ il valore Java null all'interno dell'argomento del costruttore
+	     e bypasserï¿½ l'iniezione della dipendenza, ma una volta che si prova a chiamare
+	     il metodo play() verrï¿½ sollevata un'eccezione NullPointerException, quindi non ï¿½ proprio
+	     il metodo ideale quello di inserire <null/>
+
+	     Una soluzione migliore sarebbe quella di fornire una lista di nomi di track.
+	     Ci sono due opzioni.
+	     
+	     La prima ï¿½ specificare la lista con l'elemento <list>:
+
 	      
+	     <bean id="compactDisc" class="com.gianluca.CDPlayer.BlankDisc" >
+                 <constructor-arg value="Sgt. Pepper's Lonely Hearts Club Band" />
+		 <constructor-arg value="The Beatles" />
+		 <constructor-arg>
+		     <list>
+                         <value>Sgt. Pepper's Lonely Hearts Club Band</value>
+			 <value>With a Little Help from My Friends</value>
+			 <value>Lucy in the Sky with Diamonds</value>
+			 <value>Getting Better</value>
+			 <value>Fixing a Hole</value>
+		     </list>
+		 </constructor-arg>
+	     </bean>
+
+	     L'elemento <list> ï¿½ figlio di <constructor-arg> e indica una lista di valori da passare al costruttore
+	     L'elemento <value> specifica il valore degli elementi della lista
+
+	     Similmente, una lista di riferimenti a bean puï¿½ essere costruita con l'elemento <ref> al posto di <value>
+             
+	     Per esempio, supponiamo di avere una classe Discography con il seguente costruttore:
+
+	         public Discography(String artist, List<CompactDisc> cds) { ... }
+
+	     Puoi quindi configurare un bean Discography in questo modo:
+
+	         <bean id="beatlesDiscography" class="com.gianluca.CDPlayer.Discography">
+		     <constructor-arg value="The Beatles" />
+		     <constructor-arg>
+		         <list>
+			     <ref bean="sgtPeppers" />
+			     <ref bean="whiteAlbum" />
+			     <ref bean="hardDaysNight" />
+			     <ref bean="revolver" />
+			 </list>
+		     </constructor-arg>
+		 </bean>
+
+	     Nella stessa maniera, si puï¿½ usare l'elemento <set> in un costruttore per specificare
+	     un set di valori
+
+		 <bean id="compactDisc" class="com.gianluca.CDPlayer.BlankDisc">
+		     <constructor-arg value="Sgt. Pepper's Lonely Hearts Club Band" />
+		     <constructor-arg value="The Beatles" />
+		     <constructor-arg>
+		         <set>
+			     <value>Sgt. Pepper's Lonely Hearts Club Band</value>
+			     <value>With a Little Help from My Friends</value>
+			     <value>Lucy in the Sky with Diamonds</value>
+			     <value>Getting Better</value>
+			     <value>Fixing a Hole</value>
+			 </set>
+		     </constructor-arg>
+		 </bean>
+
+             La differenza sostanziale tra usare una lista (java.util.List) o un set (java.util.Set) ï¿½ che quest'ultimo,
+	     se presenti dei valori duplicati, li discarderï¿½ e l'ordine non ï¿½ garantito che sia preservato.
+
+	     Infine, in ogni caso, anche una lista puï¿½ essere iniettata in un'altra lista, set, o anche un array.
+
+	     Questo modo di specificare le liste, set, etc. non ï¿½ possibile applicarlo al namespace c:
+
+
+             INIEZIONE DELLE PROPRIETA'
+
+	     Vediamo ora come funziona l'iniezione delle proprietï¿½ di un bean tramite XML.
+	     
+	     Ora che la classe CDPlayer non ha nessuna dipendenza, possiamo dichiarare il bean Spring in questo modo:
+
+	         <bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer" />
+
+             Spring non avrï¿½ nessuna difficoltï¿½ a creare il bean, ma CDPlayerTest fallirï¿½ con una NullPointerException
+	     perchï¿½ la proprietï¿½ compactDisc di CDPlayer non ï¿½ mai stata iniettata.
+
+	     Ma ï¿½ possibile rimediare modificando il file XML:
+
+	         <bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer">
+		     <property name="compactDisc" ref="compactDisc" />
+		 </bean>
+
+	    L'elemento <property> fa per le proprietï¿½ dei metodi setter quello che l'elemento <constructor-arg> fa per i costruttori.
+	    In questo caso, referenzia (con l'attributo 'ref') il bean il cui ID ï¿½ 'compactDisc'
+	    per essere iniettato nella proprietï¿½ compactDisc (tramite il metodo setCompactDisc())
 	-->
+
 
 
 </beans>

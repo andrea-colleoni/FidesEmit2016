@@ -54,10 +54,10 @@ public class CDPlayerConfig {
 	 */
 
 	/* Il bean cdPlayer fa riferimento direttamente al bean sgtPeppers */
-    @Bean
+    /*@Bean
 	public CDPlayer cdPlayer() {   
 		return new CDPlayer(sgtPeppers());
-	}
+	}*/
 
 	/* Il bean cdPlayer non fa riferimento direttamente al bean sgtPeppers
 	 * ma ha un parametro CompactDisc e si affida all'autowiring di Spring
@@ -69,7 +69,7 @@ public class CDPlayerConfig {
 	 *
 	 * }
 	 *
-	 * All'atto della creazione di un bean è possibile compiere
+	 * All'atto della creazione di un bean ï¿½ possibile compiere
 	 * l'iniezione delle dipendenze senza l'utilizzo
 	 * del costruttore della classe del bean, ma anche tramite
 	 * il suo metodo setter
