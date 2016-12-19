@@ -1,0 +1,85 @@
+<!-- author: aculnaig - created: 19/12/2016 -->
+<!-- File XML che mostra come abilitare lo scanning automatico dei componenti di una applicazione in Spring -->
+<!-- Per abilitare lo scanning automatico, si usa l'elemento XML <context:component-scan> dal namespace <context> di Spring -->
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd">
+
+        <!-- <context:component-scan base-package="com.gianluca.CDPlayer" />-->
+
+	<!-- Bean compactDisc -->
+        <bean id="compactDisc" class="com.gianluca.CDPlayer" />
+
+	<!-- Bean cdPlayer -->
+	<bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer" >
+            <constructor-arg ref="compactDisc" />
+	</bean>
+
+	<!-- Serve per caricare il namespace c di Spring -->
+	<!-- xmlns:c="http://www.springframework.org/schema/c" -->
+        <!-- Una volta caricato il bean viene definito in questo modo
+
+	     <bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer"
+		 c:cd-ref="compactDisc" />
+	
+	     E' possibile fare riferimento al parametro del costruttore
+	     in questo modo, facendo riferimento alla posizione del
+	     parametro nella lista dei parametri del costruttore
+
+	     <bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer"
+		 c:_0-ref="compactDisc" />
+
+             Come ultima possibilità col namespace c:, un parametro di un costruttore
+	     che ha un solo argomento può essere riferito solamente
+	     con _ dato che lista degli argomenti non esiste,
+	     essendocene solo un argomento. 
+	
+	-->
+
+
+	<!-- Esiste anche la possibilità di specificare i valori
+	     degli argomenti di un costruttore di un bean
+	     attraverso dei valori letterali anziché l'utilizzo
+	     di un riferimento a un altro bean 
+	     
+	     <bean id="compactDisc" class="com.gianluca.CDPlayer.BlankDisc">
+		 <constructor-arg value="Sgt. Pepper's Lonely Hearts Club Band" />
+		 <constructor-arg value="The Beatles" />
+	     </bean>
+
+             
+	     Di seguito il codice tradotto usando il namespace c: con valori letterali
+	     e specificando gli argomenti direttamente col nome del parametro del costruttore corrispondente
+
+	     <bean id="compactDisc" 
+	           class="com.gianluca.CDPlayer.BlankDisc"
+		   c:_title="Sgt. Pepper's Lonely Hearts Club Band"
+		   c:_artist="The Beatles" />
+
+             
+	     Infine usando l'indice dell'argomento nella lista dei parametri del costruttore
+
+             <bean id="compactDisc" 
+	           class="com.gianluca.CDPlayer.BlankDisc"
+		   c:_0="Sgt. Pepper's Lonely Hearts Club Band"
+		   c:_1="The Beatles" />
+
+             NOTA: XML non permette che più di un attributo di un dato elemento
+	           abbiano lo stesso nome, quindi non è possibile specificare
+		   ogni singolo argomento con un underscore quando un costruttore
+		   ha più di un parametro, ma è possibile quando è presente
+		   solo un parametro.
+
+             
+	     WIRING COLLECTIONS
+
+	      
+	-->
+
+
+</beans>

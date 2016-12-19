@@ -1,0 +1,15 @@
+<!-- author: aculnaig - created: 19/12/2016 -->
+<!-- File XML che mostra come abilitare lo scanning automatico dei componenti di una applicazione in Spring -->
+<!-- Per abilitare lo scanning automatico, si usa l'elemento XML <context:component-scan> dal namespace <context> di Spring -->
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.gianluca.CDPlayer" />
+
+</beans>
