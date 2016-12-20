@@ -4,10 +4,10 @@
     xmlns:context="http://www.springframework.org/schema/context"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
                         http://www.springframework.org/schema/beans/spring-beans.xsd
-			            http://www.springframework.org/schema/context
-			            http://www.springframework.org/schema/context/spring-context.xsd">
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- <context:component-scan base-package="com.gianluca.CDPlayer" /> -->
+        <!-- <context:component-scan base-package="com.gianluca.CDPlayer" /> -->
 
 	<!-- Bean compactDisc -->
 	<bean id="compactDisc" class="com.gianluca.CDPlayer.SgtPeppers" />
@@ -374,7 +374,7 @@
 	     Ora supponiamo invece che vorresti configurare BlankDisc in un file XML come segue:
 
 	         <bean id="compactDisc"
-		       class="com.gianluca.CDPlayer"
+		       class="com.gianluca.CDPlayer.BlankDisc"
 		       c:_0="Sgt. Pepper's Lonely Hearts Club Band"
 		       c:_1="The Beatles">
 		     <constructor-arg>
@@ -397,10 +397,18 @@
 		 import org.springframework.context.annotation.Import;
 		 import org.springframework.context.annotation.ImportResource;
 
-         @Configuration
+                 @Configuration
 		 @Import(CDPlayerConfig.class)
-		 @ImportResource("cd-config.xml");
+		 @ImportResource("cd-config.xml")
 		 public class MainConfig {}
+
+	     In questo modo, sia CDPlayer (JavaConfig) che BlankDisc(XML), verranno caricate nel container Spring.
+	     Il metodo @Bean di CDPlayer accetta CompactDisc come parametro, e BlankDisc vi verra' iniettato, 
+	     anche se configurato tramite XML.
+
+
+	     Referencing JavaConfig in XML configuration
+
 	-->
 
 

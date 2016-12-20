@@ -9,10 +9,11 @@ package com.gianluca.CDPlayer;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ImportResource;
 
 @Configuration
 //@Import({CDPlayerConfig.class, CDConfig.class})
 @Import(CDPlayerConfig.class)
-@ImportResource("cd-config.xml")
+@ImportResource("com/gianluca/CDPlayer/cd-config.xml")
 public class MainConfig {}
 
