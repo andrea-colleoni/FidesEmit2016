@@ -183,9 +183,138 @@
 		     <property name="compactDisc" ref="compactDisc" />
 		 </bean>
 
-	    L'elemento <property> fa per le proprieta' dei metodi setter quello che l'elemento <constructor-arg> fa per i costruttori e i suoi argomenti.
-	    In questo caso, referenzia (con l'attributo 'ref') il bean il cui ID e' 'compactDisc'
-	    per essere iniettato nella proprieta' compactDisc (tramite il metodo setCompactDisc()) di CDPlayer.
+	     L'elemento <property> fa per le proprieta' dei metodi setter quello che l'elemento <constructor-arg> fa per i costruttori e i suoi argomenti.
+	     In questo caso, referenzia (con l'attributo 'ref') il bean il cui ID e' 'compactDisc'
+	     per essere iniettato nella proprieta' compactDisc (tramite il metodo setCompactDisc()) di CDPlayer.
+
+             
+             Esattamente come con <constructor-arg> e il namespace c: esiste anche un'alternativa all'elemento <property> ovvero il namespace p
+
+             La sintassi è la seguente:
+
+	         <bean id="cdPlayer" 
+		       class="com.gianluca.CDPlayer.CDPlayer"
+		       p:compactDisc-ref="compactDisc" />
+
+             Si specifica il namespace p seguito da due punti e dal nome della proprieta' del bean
+	     e poi da -ref che indica che si sta iniettando un riferimento a un altro bean.
+	     Il valore dopo l'uguale racchiuso tra doppi apici è l'ID del bean a cui si fa riferimento.
+
+             
+	     INIEZIONE DELLE PROPRIETA' CON VALORI LETTERALI
+
+	     Le proprietà possono essere iniettate con valori letterali nello stesso modo fatto con gli argomenti dei costruttori.
+             Come esempio, riprendiamo il bean BlankDisc:
+
+	         package com.gianluca.CDPlayer;
+
+		 import java.util.List;
+
+		 public class BlankDisc implements CompactDisc {
+
+		     private String title;
+		     private String artist;
+		     private List<String> tracks;
+
+		     public void setTitle(String title) {
+		         this.title = title;
+	             }
+
+		     public void setArtist(String artist) {
+		         this.artist = artist;
+		     }
+
+		     public void setTracks(List<String> tracks) {
+		         this.tracks = tracks;
+		     }
+
+		     public void play() {
+		         System.out.print(String.format("Playing %s by %s\n", title, artist));
+			 for (String track : tracks)
+			     System.out.print(String.format("-Track: %s\n", track));
+		     }
+		 }
+
+	     Ora non dovresti piu' essere obbligato a iniettare queste proprieta'.
+	     Potresti creare un bean come segue:
+
+	         <bean id="reallyBlankDisc"
+		       class="com.gianluca.CDPlayer.BlankDisc" />
+
+	     Naturalmente, settare il bean senza aver settato le sue proprieta' non ha molto senso a runtime.
+             Infatti il metodo play() mostrerebbe che "Playing null by null" per poi sollevare l'eccezione NullPointerException
+	     quando deve elencare la lista di tracks.
+
+	     Percio' dovresti settare queste proprieta' usando l'attributo 'value' delle'elemento <property>
+
+	         <bean id="compactDisc" class="com.gianluca.CDPlayer.BlankDisc">
+		     <property name="title" value="Sgt. Pepper's Lonely Hearts Club Band" />
+		     <property name="artist" value="The Beatles" />
+		     <property name="tracks">
+			 <list>
+			     <value>Sgt. Pepper's Lonely Hearts Club Band</value>
+			     <value>With a Little Help from My Friends</value>
+			     <value>Lucy in the Sky with Diamonds</value>
+			     <value>Getting Better</value>
+			     <value>Fixing a Hole</value>
+			 </list>
+		     </property>
+		 </bean>
+
+             
+	     Notare come la lista e' specificata nella proprieta' nella stessa maniera per l'argomento del costruttore.
+
+	     Facoltativamente, puoi compiere la stessa cosa con il namespace p
+             
+                 <bean id="compactDisc" class="com.gianluca.CDPlayer.BlankDisc"
+		      p:title="Sgt. Pepper's Lonely Hearts Club Band"
+		      p:artist="The Beatles">
+		      <property name="tracks">
+			 <list>
+			     <value>Sgt. Pepper's Lonely Hearts Club Band</value>
+			     <value>With a Little Help from My Friends</value>
+			     <value>Lucy in the Sky with Diamonds</value>
+			     <value>Getting Better</value>
+			     <value>Fixing a Hole</value>
+			 </list>
+		     </property>
+		 </bean>
+
+
+	     Sfortunatamente, non vi è modo per specificare una collection (come una lista e un set) tramite il namespace p
+	     direttamente all'interno della definizione del bean.
+
+	     Ci viene pero' in aiuto il namespace util di Spring.
+
+	     Per prima cosa, bisogna dichiarare il namespace util nello schema XML, come segue:
+
+	         xmlns:util="http://www.springframework.org/schema/util"
+		 xsi:schemaLocation="http://www.springframework.org/schema/util
+		                     http://www.springframework.org/schema/util/spring-util.xsd"
+
+	     
+	     per poi venirci in aiuto l'elemento <util:list> del namespace util, che crea una lista di bean.
+	     Usando <util:list> e' possibile definire una lista a se stante con un proprio ID e specificarla successivamente
+	     all'interno del bean che fa uso della lista:
+
+	         <util:list id="trackList">
+		     <value>Sgt. Pepper's Lonely Hearts Club Band</value>
+		     <value>With a Little Help from My Friends</value>
+		     <value>Lucy in the Sky with Diamonds</value>
+		     <value>Getting Better</value>
+		     <value>Fixing a Hole</value>
+		 </util:list>
+
+	     Ora puoi settare la lista all'interno della proprieta' tracks del bean BlankDisc:
+
+	         <bean id="compactDisc" class="com.gianluca.CDPlayer.BlankDisc"
+		      p:title="Sgt. Pepper's Lonely Hearts Club Band"
+		      p:artist="The Beatles"
+		      p:tracks-ref="trackList" />
+
+	         
+             Fare riferimento alla tabella presente alla pagina 59 del libro Spring in Action, 4th Edition
+	     per un elenco completo di tutti gli elementi che offre il namespace util.
 	-->
 
 

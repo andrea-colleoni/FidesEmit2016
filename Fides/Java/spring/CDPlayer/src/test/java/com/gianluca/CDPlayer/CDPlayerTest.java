@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-/* Test di verifica se un CompactDisc � stato trovato automaticamente dallo scanning dei componenti */
+/* Test di verifica se un CompactDisc e' stato trovato automaticamente dallo scanning dei componenti */
 
 @RunWith(SpringJUnit4ClassRunner.class)
 //@ContextConfiguration(classes=CDPlayerConfig.class)

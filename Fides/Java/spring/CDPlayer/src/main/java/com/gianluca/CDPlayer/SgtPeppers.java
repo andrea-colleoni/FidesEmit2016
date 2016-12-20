@@ -9,7 +9,7 @@ package com.gianluca.CDPlayer;
 
 import org.springframework.stereotype.Component;
 
-/* SgtPeppers � una classe pubblica che implementa l'interfaccia CompactDisc */
+/* SgtPeppers e' una classe pubblica che implementa l'interfaccia CompactDisc */
 
 @Component
 public class SgtPeppers implements CompactDisc {
