@@ -10,7 +10,7 @@ package com.gianluca.CDPlayer;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
-/* BlankDisc è una classe pubblica che implementa l'interfaccia CompactDisc */
+/* BlankDisc e' una classe pubblica che implementa l'interfaccia CompactDisc */
 
 @Component
 public class BlankDisc implements CompactDisc {

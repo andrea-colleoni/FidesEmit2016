@@ -20,7 +20,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 /* Test di verifica se un CompactDisc � stato trovato automaticamente dallo scanning dei componenti */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=CDPlayerConfig.class)
+//@ContextConfiguration(classes=CDPlayerConfig.class)
+@ContextConfiguration("beans.xml")
 public class CDPlayerTest {
 
     @Rule
@@ -41,7 +42,7 @@ public class CDPlayerTest {
     public void play() {
 	
 	player.play();
-	assertEquals("Playing Sgt. Pepper's Lonely Hearts Club Band by The Beatles", log.getLog());
+	assertEquals("Playing Sgt. Pepper's Lonely Hearts Club Band by The Beatles\n", log.getLog());
     }
 }
 

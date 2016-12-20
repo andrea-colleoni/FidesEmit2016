@@ -1,6 +1,3 @@
-<!-- author: aculnaig - created: 19/12/2016 -->
-<!-- File XML che mostra come abilitare lo scanning automatico dei componenti di una applicazione in Spring -->
-<!-- Per abilitare lo scanning automatico, si usa l'elemento XML <context:component-scan> dal namespace <context> di Spring -->
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -13,7 +10,7 @@
     <!-- <context:component-scan base-package="com.gianluca.CDPlayer" /> -->
 
 	<!-- Bean compactDisc -->
-	<bean id="compactDisc" class="com.gianluca.CDPlayer.CompactDisc" />
+	<bean id="compactDisc" class="com.gianluca.CDPlayer.SgtPeppers" />
        
 	<!-- Bean cdPlayer -->
 	<bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer">
