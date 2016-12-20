@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd">
+
+        <!-- <context:component-scan base-package="com.gianluca.CDPlayer" /> -->
+
+	<!-- Bean compactDisc -->
+	<bean id="compactDisc" class="com.gianluca.CDPlayer.SgtPeppers" />
+       
+	<!-- Bean cdPlayer -->
+	<bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer">
+	    <property name="compactDisc" ref="compactDisc" />
+	</bean>
+		 
+        <!-- Bean cdPlayer
+	<bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer" >
+		<constructor-arg ref="compactDisc" />
+	 </bean> -->
+
+	<!-- Serve per caricare il namespace c di Spring -->
+	<!-- xmlns:c="http://www.springframework.org/schema/c" -->
+        <!-- Una volta caricato il bean viene definito in questo modo
+
+	     <bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer"
+		 c:cd-ref="compactDisc" />
+	
+             Si puo' anche fare riferimento a un parametro di un costruttore
+	     specificando il suo indice nella lista dei parametri del costruttore stesso.
+
+	     <bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer"
+		 c:_0-ref="compactDisc" />
+
+	     Utilizzando invece il namespace c:
+	     un argomento di un costruttore che ha un solo parametro nella sua definizione
+	     puo' essere specificato solamente con un solo underscore 
+	     dato che lista dei parametri non esiste,
+	     essendo presente appunto un solo parametro.
+
+	     <bean id="cdPlayer"
+	           class="com.gianluca.CDPlayer.CDPlayer"
+		   c:_-ref="compactDisc" />
+
+	-->
+
+
+	<!-- Vi e' anche la possibilita' di specificare i valori
+	     degli argomenti di un costruttore di un bean
+	     attraverso dei valori letterali anziche' l'utilizzo
+	     di un riferimento a un altro bean 
+	     
+	     <bean id="compactDisc" class="com.gianluca.CDPlayer.BlankDisc">
+		 <constructor-arg value="Sgt. Pepper's Lonely Hearts Club Band" />
+		 <constructor-arg value="The Beatles" />
+	     </bean>
+
+             
+	     Di seguito il codice tradotto usando il namespace c: con valori letterali
+	     e specificando gli argomenti direttamente col nome del parametro del costruttore corrispondente
+
+	     <bean id="compactDisc" 
+	           class="com.gianluca.CDPlayer.BlankDisc"
+		   c:_title="Sgt. Pepper's Lonely Hearts Club Band"
+		   c:_artist="The Beatles" />
+
+             
+	     Infine usando l'indice dell'argomento nella lista dei parametri del costruttore
+
+             <bean id="compactDisc" 
+	           class="com.gianluca.CDPlayer.BlankDisc"
+		   c:_0="Sgt. Pepper's Lonely Hearts Club Band"
+		   c:_1="The Beatles" />
+
+             NOTA: XML non permette che piu' di un attributo di un dato elemento
+	           abbiano lo stesso nome, quindi non e' possibile specificare
+		   ogni singolo argomento con un solo underscore quando un costruttore
+		   ha piu' di un parametro, ma e' possibile quando e' presente
+		   solo un parametro.
+
+             
+	     WIRING COLLECTIONS
+
+	     La cosa piu' semplice da fare se si deve specificare una lista come argomento
+	     di un costruttore, e' quella di passare l'elemento <null/>
+
+	     <bean id="compactDisc" class="com.gianluca.CDPlayer.BlankDisc" >
+                 <constructor-arg value="Sgt. Pepper's Lonely Hearts Club Band" />
+		 <constructor-arg value="The Beatles" />
+		 <constructor-arg><null/></constructor-arg>
+	     </bean>
+
+	     <null/> inserira' il valore Java null all'interno dell'argomento del costruttore
+	     e bypassera' la richiesta dell'iniezione della dipendenza, ma una volta che si prova a chiamare
+	     il metodo play() verra' sollevata un'eccezione NullPointerException, quindi non e' proprio
+	     la cosa ideale quello di inserire <null/>
+
+	     Una soluzione migliore sarebbe quella di fornire una lista di nomi di track.
+	     Ci sono due opzioni.
+	     
+	     La prima e' specificare la lista con l'elemento <list>:
+	      
+	     <bean id="compactDisc" class="com.gianluca.CDPlayer.BlankDisc" >
+                 <constructor-arg value="Sgt. Pepper's Lonely Hearts Club Band" />
+		 <constructor-arg value="The Beatles" />
+		 <constructor-arg>
+		     <list>
+                         <value>Sgt. Pepper's Lonely Hearts Club Band</value>
+			 <value>With a Little Help from My Friends</value>
+			 <value>Lucy in the Sky with Diamonds</value>
+			 <value>Getting Better</value>
+			 <value>Fixing a Hole</value>
+		     </list>
+		 </constructor-arg>
+	     </bean>
+
+	     L'elemento <list> e' figlio di <constructor-arg> e indica una lista di valori da passare al costruttore
+	     L'elemento <value> specifica il valore degli elementi della lista
+
+	     Similmente, una lista di riferimenti a bean puo' essere costruita con l'elemento <ref> al posto di <value>
+             
+	     Per esempio, supponiamo di avere una classe Discography con il seguente costruttore:
+
+	         public Discography(String artist, List<CompactDisc> cds) { ... }
+
+	     Puoi quindi configurare un bean Discography in questo modo:
+
+	         <bean id="beatlesDiscography" class="com.gianluca.CDPlayer.Discography">
+		     <constructor-arg value="The Beatles" />
+		     <constructor-arg>
+		         <list>
+			     <ref bean="sgtPeppers" />
+			     <ref bean="whiteAlbum" />
+			     <ref bean="hardDaysNight" />
+			     <ref bean="revolver" />
+			 </list>
+		     </constructor-arg>
+		 </bean>
+
+	     Nella stessa maniera, si puo' usare l'elemento <set> in un costruttore per specificare
+	     un set di valori
+
+		 <bean id="compactDisc" class="com.gianluca.CDPlayer.BlankDisc">
+		     <constructor-arg value="Sgt. Pepper's Lonely Hearts Club Band" />
+		     <constructor-arg value="The Beatles" />
+		     <constructor-arg>
+		         <set>
+			     <value>Sgt. Pepper's Lonely Hearts Club Band</value>
+			     <value>With a Little Help from My Friends</value>
+			     <value>Lucy in the Sky with Diamonds</value>
+			     <value>Getting Better</value>
+			     <value>Fixing a Hole</value>
+			 </set>
+		     </constructor-arg>
+		 </bean>
+
+             La differenza sostanziale tra usare una lista (java.util.List) o un set (java.util.Set) e' che quest'ultimo,
+	     se presenti dei valori duplicati, li discardera' e l'ordine non e' garantito che sia preservato.
+
+	     Infine, in ogni caso, anche una lista puo' essere iniettata in un'altra lista, set, o anche un array.
+
+	     Questo modo di specificare le liste, set, etc. non e' possibile applicarlo al namespace c:
+
+
+             INIEZIONE DELLE PROPRIETA'
+
+	     Vediamo ora come funziona l'iniezione delle proprieta' di un bean tramite XML.
+	     
+	     Ora che la classe CDPlayer non ha nessuna dipendenza, possiamo dichiarare il bean Spring in questo modo:
+
+	         <bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer" />
+
+             Spring non avra' nessuna difficolta' a creare il bean, ma CDPlayerTest fallira' con una NullPointerException
+	     perche' la proprieta' compactDisc di CDPlayer non e' mai stata iniettata.
+
+	     E' possibile pero' rimediare modificando il file XML:
+
+	         <bean id="cdPlayer" class="com.gianluca.CDPlayer.CDPlayer">
+		     <property name="compactDisc" ref="compactDisc" />
+		 </bean>
+
+	     L'elemento <property> fa per le proprieta' dei metodi setter quello che l'elemento <constructor-arg> fa per i costruttori e i suoi argomenti.
+	     In questo caso, referenzia (con l'attributo 'ref') il bean il cui ID e' 'compactDisc'
+	     per essere iniettato nella proprieta' compactDisc (tramite il metodo setCompactDisc()) di CDPlayer.
+
+             
+             Esattamente come con <constructor-arg> e il namespace c: esiste anche un'alternativa all'elemento <property> ovvero il namespace p
+
+             La sintassi e' la seguente:
+
+	         <bean id="cdPlayer" 
+		       class="com.gianluca.CDPlayer.CDPlayer"
+		       p:compactDisc-ref="compactDisc" />
+
+             Si specifica il namespace p seguito da due punti e dal nome della proprieta' del bean
+	     e poi da -ref che indica che si sta iniettando un riferimento a un altro bean.
+	     Il valore dopo l'uguale racchiuso tra doppi apici � l'ID del bean a cui si fa riferimento.
+
+             
+	     INIEZIONE DELLE PROPRIETA' CON VALORI LETTERALI
+
+	     Le proprieta' possono essere iniettate con valori letterali nello stesso modo fatto con gli argomenti dei costruttori.
+             Come esempio, riprendiamo il bean BlankDisc:
+
+	         package com.gianluca.CDPlayer;
+
+		 import java.util.List;
+
+		 public class BlankDisc implements CompactDisc {
+
+		     private String title;
+		     private String artist;
+		     private List<String> tracks;
+
+		     public void setTitle(String title) {
+		         this.title = title;
+	             }
+
+		     public void setArtist(String artist) {
+		         this.artist = artist;
+		     }
+
+		     public void setTracks(List<String> tracks) {
+		         this.tracks = tracks;
+		     }
+
+		     public void play() {
+		         System.out.print(String.format("Playing %s by %s\n", title, artist));
+			 for (String track : tracks)
+			     System.out.print(String.format("-Track: %s\n", track));
+		     }
+		 }
+
+	     Ora non dovresti piu' essere obbligato a iniettare queste proprieta'.
+	     Potresti creare un bean come segue:
+
+	         <bean id="reallyBlankDisc"
+		       class="com.gianluca.CDPlayer.BlankDisc" />
+
+	     Naturalmente, settare il bean senza aver settato le sue proprieta' non ha molto senso a runtime.
+             Infatti il metodo play() mostrerebbe che "Playing null by null" per poi sollevare l'eccezione NullPointerException
+	     quando deve elencare la lista di tracks.
+
+	     Percio' dovresti settare queste proprieta' usando l'attributo 'value' delle'elemento <property>
+
+	         <bean id="compactDisc" class="com.gianluca.CDPlayer.BlankDisc">
+		     <property name="title" value="Sgt. Pepper's Lonely Hearts Club Band" />
+		     <property name="artist" value="The Beatles" />
+		     <property name="tracks">
+			 <list>
+			     <value>Sgt. Pepper's Lonely Hearts Club Band</value>
+			     <value>With a Little Help from My Friends</value>
+			     <value>Lucy in the Sky with Diamonds</value>
+			     <value>Getting Better</value>
+			     <value>Fixing a Hole</value>
+			 </list>
+		     </property>
+		 </bean>
+
+             
+	     Notare come la lista e' specificata nella proprieta' nella stessa maniera per l'argomento del costruttore.
+
+	     Facoltativamente, puoi compiere la stessa cosa con il namespace p
+             
+                 <bean id="compactDisc" class="com.gianluca.CDPlayer.BlankDisc"
+		      p:title="Sgt. Pepper's Lonely Hearts Club Band"
+		      p:artist="The Beatles">
+		      <property name="tracks">
+			 <list>
+			     <value>Sgt. Pepper's Lonely Hearts Club Band</value>
+			     <value>With a Little Help from My Friends</value>
+			     <value>Lucy in the Sky with Diamonds</value>
+			     <value>Getting Better</value>
+			     <value>Fixing a Hole</value>
+			 </list>
+		     </property>
+		 </bean>
+
+
+	     Sfortunatamente, non vi e' modo per specificare una collection (come una lista e un set) tramite il namespace p
+	     direttamente all'interno della definizione del bean.
+
+	     Ci viene pero' in aiuto il namespace util di Spring.
+
+	     Per prima cosa, bisogna dichiarare il namespace util nello schema XML, come segue:
+
+	         xmlns:util="http://www.springframework.org/schema/util"
+		 xsi:schemaLocation="http://www.springframework.org/schema/util
+		                     http://www.springframework.org/schema/util/spring-util.xsd"
+
+	     
+	     per poi venirci in aiuto l'elemento <util:list> del namespace util, che crea una lista di bean.
+	     Usando <util:list> e' possibile definire una lista a se stante con un proprio ID e specificarla successivamente
+	     all'interno del bean che fa uso della lista:
+
+	         <util:list id="trackList">
+		     <value>Sgt. Pepper's Lonely Hearts Club Band</value>
+		     <value>With a Little Help from My Friends</value>
+		     <value>Lucy in the Sky with Diamonds</value>
+		     <value>Getting Better</value>
+		     <value>Fixing a Hole</value>
+		 </util:list>
+
+	     Ora puoi settare la lista all'interno della proprieta' tracks del bean BlankDisc:
+
+	         <bean id="compactDisc" class="com.gianluca.CDPlayer.BlankDisc"
+		      p:title="Sgt. Pepper's Lonely Hearts Club Band"
+		      p:artist="The Beatles"
+		      p:tracks-ref="trackList" />
+
+	         
+             Fare riferimento alla tabella presente alla pagina 59 del libro Spring in Action, 4th Edition
+	     per un elenco completo di tutti gli elementi che offre il namespace util.
+
+
+	     IMPORTING AND MIXING CONFIGURATIONS
+
+	     Referencing XML configuration in JavaConfig
+
+	     Supponiamo che due bean in un file di configurazione siano troppo difficili da gestire.
+	     Se si volessero separare i due bean dallo stesso file di configurazione,
+	     si potrebbe creare un file di configurazione per ogni bean, quindi, riprendendo l'esempio del CDPlayer
+	     possiamo creare una classe JavaConfig per BlankDisc e chiamarla CDConfig, come segue:
+
+	         package com.gianluca.CDPlayer;
+
+		 import org.springframework.context.annotation.Bean;
+		 import org.springframework.context.annotation.Configuration;
+
+		 @Configuration
+		 public class CDConfig {
+		     
+		     @Bean
+		     public CompactDisc compactDisc() {
+		         return new SgtPeppers();
+		     }
+		 }
+
+
+	     In questo modo, il metodo compactDisc() e' stato rimosso da CDPlayerConfig e un modo per aggiungerlo
+	     e' quello di importare CDConfig in CDPlayerConfig usando l'annotazione @Import:
+
+	         package com.gianluca.CDPlayer;
+
+		 import org.springframework.context.annotation.Bean;
+		 import org.springframework.context.annotation.Configuration;
+		 import org.springframework.context.annotation.Import;
+
+		 @Configuration
+		 @Import(CDConfig.class)
+		 public class CDPlayerConfig {
+
+		     @Bean
+		     public CDPlayer cdPlayer(CompactDisc compactDisc) {
+		         return new CDPlayer(compactDisc);
+		     }
+		 }
+
+             O ancora meglio, puoi creare una JavaConfig a piu' alto livello e importare CDPlayerConfig e CDConfig.
+
+	         package com.gianluca.CDPlayer;
+ 
+		 import org.springframework.context.annotation.Configuration;
+		 import org.springframework.context.annotation.Import;
+
+		 @Configuration
+		 @Import({CDPlayerConfig.class, CDConfig.class})
+		 public class MainConfig {}
+
+	     
+	     Ora supponiamo invece che vorresti configurare BlankDisc in un file XML come segue:
+
+	         <bean id="compactDisc"
+		       class="com.gianluca.CDPlayer.BlankDisc"
+		       c:_0="Sgt. Pepper's Lonely Hearts Club Band"
+		       c:_1="The Beatles">
+		     <constructor-arg>
+		         <list>
+                             <value>Sgt. Pepper's Lonely Hearts Club Band</value>
+			     <value>With a Little Help from My Friends</value>
+			     <value>Lucy in the Sky with Diamonds</value>
+			     <value>Getting Better</value>
+			     <value>Fixing a Hole</value>
+			 </list>
+		     </consutrctor-arg>
+		 </bean>
+
+             
+	     Se il seguente bean risiede nel file cd-config.xml, lo si puo' importare usando @ImportResource, come segue:
+
+	         package com.gianluca.CDPlayer;
+ 
+		 import org.springframework.context.annotation.Configuration;
+		 import org.springframework.context.annotation.Import;
+		 import org.springframework.context.annotation.ImportResource;
+
+                 @Configuration
+		 @Import(CDPlayerConfig.class)
+		 @ImportResource("cd-config.xml")
+		 public class MainConfig {}
+
+	     In questo modo, sia CDPlayer (JavaConfig) che BlankDisc(XML), verranno caricate nel container Spring.
+	     Il metodo @Bean di CDPlayer accetta CompactDisc come parametro, e BlankDisc vi verra' iniettato, 
+	     anche se configurato tramite XML.
+
+
+	     Referencing JavaConfig in XML configuration
+
+	-->
+
+
+
+</beans>

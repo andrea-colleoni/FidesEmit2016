@@ -10,19 +10,26 @@ package com.gianluca.CDPlayer;
 import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
-
-/* @Configuration indica che la classe � una classe di configurazione Spring */
+/* @Configuration indica che la classe e' una classe di configurazione Spring */
 /* @ComponentScan abilita lo scanning automatico dei componenti */
 
 @Configuration
+@Import(CDConfig.class)
 //@ComponentScan
 public class CDPlayerConfig {
 
 	// Dichiarare un Bean
-	@Bean
+	/*@Bean
 	public CompactDisc sgtPeppers() {
 		return new SgtPeppers();
+	}*/
+
+	/* Bean CDPlayer */
+	@Bean
+	public MediaPlayer cdPlayer(CompactDisc compactDisc) {
+		return new CDPlayer(compactDisc);
 	}
 
 	/* Dichiare un Bean con un ID specifico 
@@ -69,7 +76,7 @@ public class CDPlayerConfig {
 	 *
 	 * }
 	 *
-	 * All'atto della creazione di un bean � possibile compiere
+	 * All'atto della creazione di un bean e' possibile compiere
 	 * l'iniezione delle dipendenze senza l'utilizzo
 	 * del costruttore della classe del bean, ma anche tramite
 	 * il suo metodo setter
@@ -81,12 +88,12 @@ public class CDPlayerConfig {
 	 *     return cdPlayer;
 	 * }
 	 *
+	 * @Bean
+	 * public CDPlayer cdPlayer(CompactDisc compactDisc) {
+     *     CDPlayer cdPlayer = new CDPlayer();
+	 *     cdPlayer.setCompactDisc(compactDisc);
+	 *     return cdPlayer;
+	 * }
+	 *
 	 */
-	
-	@Bean
-	public CDPlayer cdPlayer(CompactDisc compactDisc) {
-		CDPlayer cdPlayer = new CDPlayer();
-		cdPlayer.setCompactDisc(compactDisc);
-		return cdPlayer;
-	}
 }
