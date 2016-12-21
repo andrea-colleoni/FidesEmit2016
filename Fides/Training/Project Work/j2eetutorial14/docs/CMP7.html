@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>Building and Running the Roster Example</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="CMP6.html" />
+    <link rel="Next" href="CMP8.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="CMP6.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="CMP8.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp90720"> </a><h2 class="pHeading1">
+Building and Running the Roster Example
+</h2>
+<a name="wp90721"> </a><p class="pBody">
+Once you have coded all of the enterprise beans in the <code class="cCode">Roster</code> example, you do not have to configure any more deployment descriptors or server resources. The IDE configures all of the necessary settings as you create the source code. You will now build and deploy the module as a stand-alone EJB module, then access it from the RosterClient project.
+</p>
+<a name="wp90722"> </a><p class="pBody">
+The RosterClient project and a completed Roster project are located at <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/cmproster/</code>. 
+</p>
+<a name="wp90723"> </a><h3 class="pHeading2">
+Building and Deploying the EJB Module
+</h3>
+<a name="wp90724"> </a><p class="pBody">
+You can build and deploy the module in one action.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp90725"> </a><div class="pSmartList1"><li>In the Runtime window, expand the Servers node, right-click the node for the Sun Java System Application Server, and choose Start/Stop Server. If the server is stopped, click Start Server in the dialog box.</li></div>
+<a name="wp90726"> </a><div class="pSmartList1"><li>In the Projects window, right-click the Roster project and choose Deploy Project. </li></div>
+</ol></div>
+<a name="wp90727"> </a><p class="pBody">
+The IDE does all of the following:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp90728"> </a><div class="pSmartList1"><li>Compiles the EJB module's sources and builds the EJB JAR file. You can view the build output in the project's <code class="cCode">build</code> and <code class="cCode">dist</code> directories in the Files window. </li></div>
+<a name="wp90729"> </a><div class="pSmartList1"><li>Registers the JDBC connection pool and datasource on the server.</li></div>
+<a name="wp90730"> </a><div class="pSmartList1"><li>Undeploys the module if it is already deployed to the server. </li></div>
+<a name="wp90731"> </a><div class="pSmartList1"><li>Deploys the module to the server.</li></div>
+</ol></div>
+<a name="wp90732"> </a><h3 class="pHeading2">
+Running the Client Application
+</h3>
+<a name="wp90733"> </a><p class="pBody">
+To run the client, follow these steps:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp90734"> </a><div class="pSmartList1"><li>If you have not already opened the RosterClient project, choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Open Project (Ctrl-Shift-O). In the file chooser, go to <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/cmproster/</code>, select the <code class="cCode">RosterClient</code> directory, and choose Open Project.</li></div>
+<a name="wp90735"> </a><div class="pSmartList1"><li>The project needs to know the location of some JAR files on its classpath and the Roster project. Right-click the RosterClient project and choose Resolve Reference Problems. Select the <code class="cCode">&quot;Roster&quot; project could not be found message</code> and click Resolve. In the file chooser, select either the completed Roster project in <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/cmproster/</code> or the project you created and click OK.</li></div>
+<a name="wp90736"> </a><div class="pSmartList1"><li>Select the <code class="cCode">&quot;appserv-rt.jar&quot; file/folder could not be found</code> message and click Resolve. Navigate to the <code class="cCode">lib</code> directory in your application server installation, select <code class="cCode">appserv-rt.jar</code>, and click OK. The IDE automatically resolves the location of <code class="cCode">j2ee.jar</code>. Click Close.</li></div>
+<a name="wp90737"> </a><div class="pSmartList1"><li>If the PointBase database server is not running, choose Tools<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>PointBase Database<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Start Local PointBase Database.</li></div>
+<a name="wp90738"> </a><div class="pSmartList1"><li>In the Projects window, right-click the RosterClient project and choose Run Project.</li></div>
+<a name="wp90739"> </a><div class="pSmartList1"><li>In the Output window, the client displays the following output:</li></div>
+<a name="wp90740"> </a><p class="pBodyRelative">
+<code class="cCode">P7 Rebecca Struthers midfielder 777.0<br />P6 Ian Carlyle goalkeeper 555.0<br />P9 Jan Wesley defender 100.0<br />P10 Terry Smithson midfielder 100.0<br />P8 Anne Anderson forward 65.0<br /><br />T2 Gophers Manteca<br />T5 Crows Orland<br />T1 Honey Bees Visalia<br /><br />P2 Alice Smith defender 505.0<br />P5 Barney Bold defender 100.0<br />P25 Frank Fletcher defender 399.0<br />P9 Jan Wesley defender 100.0<br />P22 Janice Walker defender 857.0<br /><br />L1 Mountain Soccer<br />L2 Valley Basketball</code> 
+</p>
+</ol></div>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="CMP6.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="CMP8.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

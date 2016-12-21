@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>Naming Conventions for Enterprise Beans</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="EJBConcepts7.html" />
+    <link rel="Next" href="EJBConcepts9.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="EJBConcepts7.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="EJBConcepts9.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp80101"> </a><h2 class="pHeading1">
+Naming Conventions for Enterprise Beans
+</h2>
+<a name="wp80102"> </a><p class="pBody">
+Because enterprise beans are composed of multiple parts, it's useful to follow a naming convention for your applications. <a  href="EJBConcepts8.html#wp80112">Table 4-2</a> summarizes the conventions for the example beans in this tutorial.
+</p>
+<a name="wp80172"> </a><p class="pBody">
+</p><div align="left">
+<table border="1" summary="Naming Conventions for Enterprise Beans" id="wp80112">
+  <caption><a name="wp80112"> </a><div class="pTableTitle">
+Table 4-2   Naming Conventions for Enterprise Beans&nbsp;
+</div>
+</caption>
+  <tr align="center">    <th><a name="wp80118"> </a><div class="pCellHeading">
+Item
+</div>
+</th>
+    <th><a name="wp80120"> </a><div class="pCellHeading">
+Syntax
+</div>
+</th>
+    <th><a name="wp80122"> </a><div class="pCellHeading">
+Example
+</div>
+</th>
+</tr>
+  <tr align="left">    <td><a name="wp80124"> </a><div class="pCellBody">
+Enterprise bean name (DD<a href="#wp82013"><span class="Footnote">1</span></a>)
+</div>
+</td>
+    <td><a name="wp80126"> </a><div class="pCellBody">
+<code style="font-style: normal" class="cCode">&lt;</code><span style="font-style: italic">name</span><code class="cCode">&gt;Bean</code>
+</div>
+</td>
+    <td><a name="wp80128"> </a><div class="pCellBody">
+<code class="cCode">AccountBean</code>
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp80130"> </a><div class="pCellBody">
+EJB JAR display name (DD)
+</div>
+</td>
+    <td><a name="wp80132"> </a><div class="pCellBody">
+<code style="font-style: normal" class="cCode">&lt;</code><span style="font-style: italic">name</span><code class="cCode">&gt;JAR</code>
+</div>
+</td>
+    <td><a name="wp80134"> </a><div class="pCellBody">
+<code class="cCode">AccountJAR</code>
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp80136"> </a><div class="pCellBody">
+Enterprise bean class
+</div>
+</td>
+    <td><a name="wp80138"> </a><div class="pCellBody">
+<code style="font-style: normal" class="cCode">&lt;</code><span style="font-style: italic">name</span><code class="cCode">&gt;Bean</code>
+</div>
+</td>
+    <td><a name="wp80140"> </a><div class="pCellBody">
+<code class="cCode">AccountBean</code>
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp80142"> </a><div class="pCellBody">
+Home interface
+</div>
+</td>
+    <td><a name="wp80144"> </a><div class="pCellBody">
+<code style="font-style: normal" class="cCode">&lt;</code><span style="font-style: italic">name</span><code class="cCode">&gt;Home</code>
+</div>
+</td>
+    <td><a name="wp80146"> </a><div class="pCellBody">
+<code class="cCode">AccountHome</code>
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp80148"> </a><div class="pCellBody">
+Remote interface
+</div>
+</td>
+    <td><a name="wp80150"> </a><div class="pCellBody">
+<code style="font-style: normal" class="cCode">&lt;</code><span style="font-style: italic">name</span><code class="cCode">&gt;</code>
+</div>
+</td>
+    <td><a name="wp80152"> </a><div class="pCellBody">
+<code class="cCode">Account</code>
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp80154"> </a><div class="pCellBody">
+Local home interface
+</div>
+</td>
+    <td><a name="wp80156"> </a><div class="pCellBody">
+<code style="font-style: normal" class="cCode">&lt;</code><span style="font-style: italic">name</span><code class="cCode">&gt;LocalHome</code>
+</div>
+</td>
+    <td><a name="wp80158"> </a><div class="pCellBody">
+<code class="cCode">AccountLocalHome</code>
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp80160"> </a><div class="pCellBody">
+Local interface
+</div>
+</td>
+    <td><a name="wp80162"> </a><div class="pCellBody">
+&lt;<span style="font-style: italic">name</span>&gt;<code class="cCode">Local</code> 
+</div>
+</td>
+    <td><a name="wp80164"> </a><div class="pCellBody">
+<code class="cCode">AccountLocal</code>
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp80167"> </a><div class="pCellBody">
+Abstract schema (DD)
+</div>
+</td>
+    <td><a name="wp80169"> </a><div class="pCellBody">
+&lt;<span style="font-style: italic">name</span>&gt;
+</div>
+</td>
+    <td><a name="wp80171"> </a><div class="pCellBody">
+<code class="cCode">Account</code>
+</div>
+</td>
+</tr>
+</table>
+
+<table>
+  <tr>
+    <td><a name="wp82013"> </a><div style="color: #000000; font-size: 8pt; font-style: normal; font-variant: normal; font-weight: normal; margin-bottom: 0pt; margin-left: 24pt; margin-right: 24pt; margin-top: 0pt; text-align: left; text-decoration: none; text-indent: 0pt; text-transform: none">
+<a href="#wp80124"><span class="Footnote">1</span></a><em class="cEmphasis">DD</em> means that the item is an element in the bean's deployment descriptor.
+</div>
+</td>
+  </tr>
+</table>
+</div>
+<p class="pBody">
+</p>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="EJBConcepts7.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="EJBConcepts9.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

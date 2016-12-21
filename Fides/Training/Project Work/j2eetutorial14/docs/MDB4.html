@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>The Message-Driven Bean</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="MDB3.html" />
+    <link rel="Next" href="MDB5.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="MDB3.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="MDB5.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp82762"> </a><h2 class="pHeading1">
+The Message-Driven Bean
+</h2>
+<a name="wp82763"> </a><p class="pBody">
+When creating the message-driven bean, you first create an EJB module which contains and manages the context for the bean. You add the message-driven bean to the EJB the module.
+</p>
+<a name="wp82764"> </a><p class="pBody">
+The message-driven bean example requires the following:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82765"> </a><div class="pSmartList1"><li>A JMS connection factory resource</li></div>
+<a name="wp82766"> </a><div class="pSmartList1"><li>A JMS destination resource</li></div>
+<a name="wp82767"> </a><div class="pSmartList1"><li>A physical destination to which the destination resource refers</li></div>
+</ul></div>
+<a name="wp82768"> </a><p class="pBody">
+When you create a message-driven bean, the IDE generates the connection factory and destination resources and adds them to the module. The physical destination is generated upon deployment.
+</p>
+<a name="wp82769"> </a><h3 class="pHeading2">
+Creating the SimpleMessage EJB Module
+</h3>
+<a name="wp82770"> </a><p class="pBody">
+To create the EJB module for the message-driven bean, perform the following steps:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82771"> </a><div class="pSmartList1"><li>Create a new project by choosing File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>New Project.</li></div>
+<a name="wp82772"> </a><div class="pSmartList1"><li>In the New Project wizard, choose Enterprise in the Categories pane and EJB Module in the Projects pane and click Next.</li></div>
+<a name="wp82773"> </a><div class="pSmartList1"><li>Enter <code class="cCode">SimpleMessage</code> for the Project Name and specify a Project Location.</li></div>
+<a name="wp82774"> </a><div class="pSmartList1"><li>Ensure that the server instance of the SJS Application Server is selected in the Server combo box and click Finish.</li></div>
+</ol></div>
+<a name="wp82775"> </a><p class="pBody">
+The SimpleMessage module appears in the Projects window of the IDE. The next step is to add a message-driven bean to the module. 
+</p>
+<a name="wp82778"> </a><h3 class="pHeading2">
+Creating the SimpleMessageMDB
+</h3>
+<a name="wp82780"> </a><p class="pBody">
+The code for the <code class="cCode">SimpleMessageBean</code> class illustrates the requirements of a message-driven bean class:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82781"> </a><div class="pSmartList1"><li>It must implement the <code class="cCode">MessageDrivenBean</code> and <code class="cCode">MessageListener</code> interfaces.</li></div>
+<a name="wp82782"> </a><div class="pSmartList1"><li>The class must be defined as <code class="cCode">public</code>.</li></div>
+<a name="wp82783"> </a><div class="pSmartList1"><li>The class cannot be defined as <code class="cCode">abstract</code> or <code class="cCode">final</code>.</li></div>
+<a name="wp82784"> </a><div class="pSmartList1"><li>It must implement one <code class="cCode">onMessage</code> method.</li></div>
+<a name="wp82785"> </a><div class="pSmartList1"><li>It must implement one <code class="cCode">ejbCreate</code> method and one <code class="cCode">ejbRemove</code> method.</li></div>
+<a name="wp82786"> </a><div class="pSmartList1"><li>It must contain a public constructor with no arguments.</li></div>
+<a name="wp82787"> </a><div class="pSmartList1"><li>It must not define the <code class="cCode">finalize</code> method.</li></div>
+</ul></div>
+<a name="wp82788"> </a><p class="pBody">
+Unlike session and entity beans, message-driven beans do not have the remote or local interfaces that define client access. Client components do not locate message-driven beans and invoke methods on them. Although message-driven beans do not have business methods, they may contain helper methods that are invoked internally by the <code class="cCode">onMessage</code> method.
+</p>
+<a name="wp82790"> </a><p class="pBody">
+To create the message-driven bean, perform the following steps:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82791"> </a><div class="pSmartList1"><li>Right-click the SimpleMessage node and choose New<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Message-Driven Bean. </li></div>
+<a name="wp82792"> </a><div class="pSmartList1"><li>Enter <code class="cCode">SimpleMessage</code> as the Ejb Name.</li></div>
+<a name="wp82793"> </a><div class="pSmartList1"><li>Enter <code class="cCode">beans </code>as the Package name.</li></div>
+<a name="wp82794"> </a><div class="pSmartList1"><li>Select <code class="cCode">queue</code> as the Destination Type and click Finish.</li></div>
+</ol></div>
+<a name="wp82795"> </a><p class="pBody">
+The IDE creates the SimpleMessage enterprise bean and opens the <code class="cCode">SimpleMessageBean</code> class in the Source Editor. 
+</p>
+<a name="wp82796"> </a><p class="pBody">
+For this example, the destination type is being specified as queue. The Destination Type can be either <code class="cCode">javax.jms.Queue</code> or <code class="cCode">javax.jms.Topic</code>. A queue uses the point-to-point messaging domain and can have at most one consumer. A topic uses the publish/subscribe messaging domain; it can have zero, one, or many consumers. 
+</p>
+<a name="wp82797"> </a><p class="pBody">
+When you create the message-driven bean, the IDE generates the following methods in the <code class="cCode">SimpleMessageBean</code> class:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82798"> </a><div class="pSmartList1"><li><code class="cCode">ejbCreate</code> </li></div>
+<a name="wp82799"> </a><div class="pSmartList1"><li><code class="cCode">ejbRemove</code> </li></div>
+<a name="wp82800"> </a><div class="pSmartList1"><li><code class="cCode">onMessage</code></li></div>
+</ul></div>
+<a name="wp82801"> </a><p class="pBody">
+These methods are hidden in the code fold in the Source Editor. Expand the code fold to see the methods generated by the IDE and to add the logic to the methods. 
+</p>
+<a name="wp82804"> </a><h3 class="pHeading2">
+The ejbCreate and ejbRemove Methods
+</h3>
+<a name="wp82805"> </a><p class="pBody">
+The signatures of these methods have the following requirements:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82806"> </a><div class="pSmartList1"><li>The access control modifier must be <code class="cCode">public</code>.</li></div>
+<a name="wp82807"> </a><div class="pSmartList1"><li>The return type must be <code class="cCode">void</code>.</li></div>
+<a name="wp82808"> </a><div class="pSmartList1"><li>The modifier cannot be <code class="cCode">static</code> or <code class="cCode">final</code>.</li></div>
+<a name="wp82809"> </a><div class="pSmartList1"><li>The <code class="cCode">throws</code> clause must not define any application exceptions.</li></div>
+<a name="wp82810"> </a><div class="pSmartList1"><li>The method has no arguments.</li></div>
+</ul></div>
+<a name="wp82811"> </a><p class="pBody">
+In <code class="cCode">SimpleMessageBean</code>, the <code class="cCode">ejbCreate</code> and <code class="cCode">ejbRemove</code> methods are empty. These methods are required, but for this example the methods are not used and are emtpy.
+</p>
+<a name="wp82814"> </a><h3 class="pHeading2">
+The onMessage Method
+</h3>
+<a name="wp82816"> </a><p class="pBody">
+When the queue receives a message, the EJB container invokes the <code class="cCode">onMessage</code> method of the message-driven bean. 
+</p>
+<a name="wp82817"> </a><p class="pBody">
+The <code class="cCode">onMessage</code> method is called by the bean's container when a message has arrived for the bean to service. This method contains the business logic that handles the processing of the message. It is the message-driven bean's responsibility to parse the message and perform the necessary business logic. 
+</p>
+<a name="wp82818"> </a><p class="pBody">
+The <code class="cCode">onMessage</code> method has a single argument: the incoming message. 
+</p>
+<a name="wp82819"> </a><p class="pBody">
+The message-driven bean class defines one <code class="cCode">onMessage</code> method, whose signature must follow these rules: 
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82820"> </a><div class="pSmartList1"><li>The method must be declared as <code class="cCode">public</code> and must not be declared as <code class="cCode">final</code> or <code class="cCode">static</code>. </li></div>
+<a name="wp82821"> </a><div class="pSmartList1"><li>The return type must be <code class="cCode">void</code>. </li></div>
+<a name="wp82822"> </a><div class="pSmartList1"><li>The method must have a single argument of type <code class="cCode">javax.jms.Message</code>. </li></div>
+<a name="wp82823"> </a><div class="pSmartList1"><li>The <code class="cCode">throws</code> clause must not define any application exceptions.</li></div>
+<a name="wp82824"> </a><div class="pSmartList1"><li>The <code class="cCode">onMessage</code> method must be invoked in the scope of a transaction that is determined by the transaction attribute specified in the deployment descriptor. </li></div>
+</ul></div>
+<a name="wp82825"> </a><p class="pBody">
+In the <code class="cCode">SimpleMessageBean</code> class, the <code class="cCode">onMessage</code> method casts the incoming message to a <code class="cCode">TextMessage</code> and displays the text. In the Source Editor, edit the <code class="cCode">onMessage</code> method as follows:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public void onMessage(javax.jms.Message aMessage) {
+&nbsp;&nbsp;TextMessage msg = null;
+
+&nbsp;&nbsp;try {
+&nbsp;&nbsp;&nbsp;&nbsp;if (aMessage instanceof TextMessage) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msg = (TextMessage) aMessage;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logger.info(&quot;MESSAGE BEAN: Message received: &quot; +
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msg.getText());
+&nbsp;&nbsp;&nbsp;&nbsp;} else {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logger.warning(&quot;Message of wrong type: &quot; +
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aMessage.getClass().getName());
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;} catch (JMSException e) {
+&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();
+&nbsp;&nbsp;&nbsp;&nbsp;mdc.setRollbackOnly();
+&nbsp;&nbsp;} catch (Throwable te) {
+&nbsp;&nbsp;&nbsp;&nbsp;te.printStackTrace();
+&nbsp;&nbsp;}
+}<a name="wp82826"> </a>
+</pre></div>
+<a name="wp82827"> </a><p class="pBody">
+In the Source Editor, add the following code to the public class declaration to print information to the server log:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+<code class="cCode">static final Logger logger =
+&nbsp;&nbsp;&nbsp;&nbsp;Logger.getLogger(&quot;SimpleMessageBean&quot;);</code><a name="wp82828"> </a>
+</pre></div>
+<a name="wp82829"> </a><p class="pBody">
+Now import any necessary libraries for the message-driven bean. For the SimpleMessage example, add the following import statements:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+import javax.jms.JMSException;
+import javax.jms.TextMessage;
+import java.util.logging.Logger;<a name="wp82830"> </a>
+</pre></div>
+<a name="wp82831"> </a><p class="pBody">
+Import statements can be added manually, or the IDE can check and fix any import statements in the class. To automatically add and fix the import statements, place the insertion point anywhere in the body of the class in the Source Editor and press Alt-Shift-F to Fix Imports. The IDE removes any unused import statements and adds any missing important statements.
+</p>
+<a name="wp82832"> </a><p class="pBody">
+You are prompted by a dialog box when the IDE cannot locate a library or there is more than one possible library. When there is more than one possible matching library, select the correct library from the combo box.
+</p>
+<a name="wp82833"> </a><p class="pBody">
+
+</p>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="MDB3.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="MDB5.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

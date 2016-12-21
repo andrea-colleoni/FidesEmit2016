@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>Overview of SAAJ</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="SAAJ.html" />
+    <link rel="Next" href="SAAJ3.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="SAAJ.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="SAAJ3.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp98525"> </a><h2 class="pHeading1">
+Overview of SAAJ
+</h2>
+<a name="wp98526"> </a><p class="pBody">
+This section presents a high-level view of how SAAJ messaging works and explains concepts in general terms. Its goal is to give you some terminology and a framework for the explanations and code examples that are presented in the tutorial section.
+</p>
+<a name="wp98527"> </a><p class="pBody">
+The overview looks at SAAJ from two perspectives: messages and connections.
+</p>
+<a name="wp98530"> </a><h3 class="pHeading2">
+Messages
+</h3>
+<a name="wp98531"> </a><p class="pBody">
+SAAJ messages follow SOAP standards, which prescribe the format for messages and also specify some things that are required, optional, or not allowed. With the SAAJ API, you can create XML messages that conform to the SOAP 1.1 and WS-I Basic Profile 1.0 specifications simply by making Java API calls. 
+</p>
+<a name="wp98532"> </a><h4 class="pHeading3">
+The Structure of an XML Document
+</h4>
+<a name="wp98534"> </a><p class="pBody">
+An XML document has a hierarchical structure made up of elements, subelements, subsubelements, and so on. You will notice that many of the SAAJ classes and interfaces represent XML elements in a SOAP message and have the word <em class="cEmphasis">element</em> or <em class="cEmphasis">SOAP</em> (or both) in their names.
+</p>
+<a name="wp98537"> </a><p class="pBody">
+An element is also referred to as a <span style="font-style: italic">node</span>. Accordingly, the SAAJ API has the interface <code class="cCode">Node</code>, which is the base class for all the classes and interfaces that represent XML elements in a SOAP message. There are also methods such as <code class="cCode">SOAPElement.addTextNode</code>, <code class="cCode">Node.detachNode</code>, and <code class="cCode">Node.getValue</code>, which you will see how to use in the tutorial section.
+</p>
+<a name="wp98538"> </a><h4 class="pHeading3">
+What Is in a Message?
+</h4>
+<a name="wp98539"> </a><p class="pBody">
+The two main types of SOAP messages are those that have attachments and those that do not.
+</p>
+<a name="wp98540"> </a><h5 class="pHeading4">
+Messages with No Attachments
+</h5>
+<a name="wp98541"> </a><p class="pBody">
+The following outline shows the very high-level structure of a SOAP message with no attachments. Except for the SOAP header, all the parts listed are required to be in every SOAP message.
+</p>
+<a name="wp98542"> </a><p class="pBody">
+I. SOAP message
+</p>
+<a name="wp98543"> </a><p class="pBody">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A. SOAP part
+</p>
+<a name="wp98544"> </a><p class="pBody">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. SOAP envelope
+</p>
+<a name="wp98545"> </a><p class="pBody">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a. SOAP header (optional)
+</p>
+<a name="wp98546"> </a><p class="pBody">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b. SOAP body
+</p>
+<a name="wp98548"> </a><p class="pBody">
+The SAAJ API provides the <code class="cCode">SOAPMessage</code> class to represent a SOAP message, the <code class="cCode">SOAPPart</code> class to represent the SOAP part, the <code class="cCode">SOAPEnvelope</code> interface to represent the SOAP envelope, and so on. <a  href="SAAJ2.html#wp98578">Figure 3-1</a> illustrates the structure of a SOAP message with no attachments.
+</p>
+<hr>
+<a name="wp98554"> </a><p class="pNote">
+Note: Many SAAJ API interfaces extend DOM interfaces. In a SAAJ message, the <code class="cCode">SOAPPart</code> class is also a DOM document. See <a  href="SAAJ2.html#wp98604">SAAJ and DOM</a> for details.
+</p>
+<hr><a name="wp98558"> </a><p class="pBody">
+When you create a new <code class="cCode">SOAPMessage</code> object, it will automatically have the parts that are required to be in a SOAP message. In other words, a new <code class="cCode">SOAPMessage</code> object has a <code class="cCode">SOAPPart</code> object that contains a <code class="cCode">SOAPEnvelope</code> object. The <code class="cCode">SOAPEnvelope</code> object in turn automatically contains an empty <code class="cCode">SOAPHeader</code> object followed by an empty <code class="cCode">SOAPBody</code> object. If you do not need the <code class="cCode">SOAPHeader</code> object, which is optional, you can delete it. The rationale for having it automatically included is that more often than not you will need it, so it is more convenient to have it provided. 
+</p>
+<a name="wp98561"> </a><p class="pBody">
+The <code class="cCode">SOAPHeader</code> object can include one or more headers that contain metadata about the message (for example, information about the sending and receiving parties). The <code class="cCode">SOAPBody</code> object, which always follows the <code class="cCode">SOAPHeader</code> object if there is one, contains the message content. If there is a <code class="cCode">SOAPFault</code> object (see <a  href="SAAJ3.html#wp99001">Using SOAP Faults</a>), it must be in the <code class="cCode">SOAPBody</code> object.
+</p>
+<a name="wp98576"> </a><p class="pBody">
+</p><div align="left"><img src="images/saaj-noAttach.gif" height="306" width="267" alt="SOAPMessage Object with No Attachments" border="0" hspace="0" vspace="0"/>
+</div><p class="pBody">
+</p>
+
+<p>
+  <a name="wp98578"> </a><font >Figure 3-1    <code class="cCode">SOAPMessage</code> Object with No Attachments</font>
+</p>
+
+<a name="wp98581"> </a><h5 class="pHeading4">
+Messages with Attachments
+</h5>
+<a name="wp98582"> </a><p class="pBody">
+A SOAP message may include one or more attachment parts in addition to the SOAP part. The SOAP part must contain only XML content; as a result, if any of the content of a message is not in XML format, it must occur in an attachment part. So if, for example, you want your message to contain a binary file, your message must have an attachment part for it. Note that an attachment part can contain any kind of content, so it can contain data in XML format as well. <a  href="SAAJ2.html#wp98596">Figure 3-2</a> shows the high-level structure of a SOAP message that has two attachments.
+</p>
+<a name="wp98594"> </a><p class="pBody">
+</p><div align="left"><img src="images/saaj-twoAttach2.gif" height="481" width="269" alt="SOAPMessage Object with Two AttachmentPart Objects" border="0" hspace="0" vspace="0"/>
+</div><p class="pBody">
+</p>
+
+<p>
+  <a name="wp98596"> </a><font >Figure 3-2    <code class="cCode">SOAPMessage</code> Object with Two <code class="cCode">AttachmentPart</code> Objects</font>
+</p>
+
+<a name="wp98598"> </a><p class="pBody">
+The SAAJ API provides the <code class="cCode">AttachmentPart</code> class to represent an attachment part of a SOAP message. A <code class="cCode">SOAPMessage</code> object automatically has a <code class="cCode">SOAPPart</code> object and its required subelements, but because <code class="cCode">AttachmentPart</code> objects are optional, you must create and add them yourself. The tutorial section walks you through creating and populating messages with and without attachment parts.
+</p>
+<a name="wp98599"> </a><p class="pBody">
+If a <code class="cCode">SOAPMessage</code> object has one or more attachments, each <code class="cCode">AttachmentPart</code> object must have a MIME header to indicate the type of data it contains. It may also have additional MIME headers to identify it or to give its location. These headers are optional but can be useful when there are multiple attachments. When a <code class="cCode">SOAPMessage</code> object has one or more <code class="cCode">AttachmentPart</code> objects, its <code class="cCode">SOAPPart</code> object may or may not contain message content. 
+</p>
+<a name="wp98604"> </a><h4 class="pHeading3">
+SAAJ and DOM
+</h4>
+<a name="wp98605"> </a><p class="pBody">
+In SAAJ 1.2, the SAAJ APIs extend their counterparts in the <code class="cCode">org.w3c.dom</code> package: 
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp98606"> </a><div class="pSmartList1"><li>The <code class="cCode">Node</code> interface extends the <code class="cCode">org.w3c.dom.Node</code> interface. </li></div>
+<a name="wp98607"> </a><div class="pSmartList1"><li>The <code class="cCode">SOAPElement</code> interface extends both the <code class="cCode">Node</code> interface and the <code class="cCode">org.w3c.dom.Element</code> interface.</li></div>
+<a name="wp98608"> </a><div class="pSmartList1"><li>The <code class="cCode">SOAPPart</code> class implements the <code class="cCode">org.w3c.dom.Document</code> interface.</li></div>
+<a name="wp98609"> </a><div class="pSmartList1"><li>The <code class="cCode">Text</code> interface extends the <code class="cCode">org.w3c.dom.Text</code> interface.</li></div>
+</ul></div>
+<a name="wp98610"> </a><p class="pBody">
+Moreover, the <code class="cCode">SOAPPart</code> of a <code class="cCode">SOAPMessage</code> is also a DOM Level 2 <code class="cCode">Document</code> and can be manipulated as such by applications, tools, and libraries that use DOM. For details on how to use DOM documents with the SAAJ API, see <a  href="SAAJ3.html#wp98879">Adding Content to the SOAPPart Object</a> and <a  href="SAAJ3.html#wp98898">Adding a Document to the SOAP Body</a>.
+</p>
+<a name="wp98619"> </a><h3 class="pHeading2">
+Connections
+</h3>
+<a name="wp98620"> </a><p class="pBody">
+All SOAP messages are sent and received over a connection. With the SAAJ API, the connection is represented by a <code class="cCode">SOAPConnection</code> object, which goes from the sender directly to its destination. This kind of connection is called a <em class="cEmphasis">point-to-point</em> connection because it goes from one endpoint to another endpoint. Messages sent using the SAAJ API are called <em class="cEmphasis">request-response messages</em>. They<em class="cEmphasis"> </em>are sent over a <code class="cCode">SOAPConnection</code> object with the <code class="cCode">call</code> method, which sends a message (a request) and then blocks until it receives the reply (a response). 
+</p>
+<a name="wp98626"> </a><h4 class="pHeading3">
+SOAPConnection Objects
+</h4>
+<a name="wp98627"> </a><p class="pBody">
+The following code fragment creates the <code class="cCode">SOAPConnection</code> object <code class="cCode">connection</code> and then, after creating and populating the message, uses <code class="cCode">connection</code> to send the message. As stated previously, all messages sent over a <code class="cCode">SOAPConnection</code> object are sent with the <code class="cCode">call</code> method, which both sends the message and blocks until it receives the response. Thus, the return value for the <code class="cCode">call</code> method is the <code class="cCode">SOAPMessage</code> object that is the response to the message that was sent. The <code class="cCode">request</code> parameter is the message being sent; <code class="cCode">endpoint</code> represents where it is being sent. 
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+SOAPConnectionFactory factory =
+&nbsp;&nbsp;SOAPConnectionFactory.newInstance();
+SOAPConnection connection = factory.createConnection();
+
+. . .// create a request message and give it content
+
+java.net.URL endpoint = 
+&nbsp;&nbsp;new URL(&quot;http://fabulous.com/gizmo/order&quot;);
+SOAPMessage response = connection.call(request, endpoint);<a name="wp98628"> </a>
+</pre></div>
+<a name="wp98630"> </a><p class="pBody">
+Note that the second argument to the <code class="cCode">call</code> method, which identifies where the message is being sent, can be a <code class="cCode">String</code> object or a <code class="cCode">URL</code> object. Thus, the last two lines of code from the preceding example could also have been the following:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+String endpoint = &quot;http://fabulous.com/gizmo/order&quot;;
+SOAPMessage response = connection.call(request, endpoint);<a name="wp98631"> </a>
+</pre></div>
+<a name="wp98632"> </a><p class="pBody">
+A web service implemented for request-response messaging must return a response to any message it receives. The response is a <code class="cCode">SOAPMessage</code> object, just as the request is a <code class="cCode">SOAPMessage</code> object. When the request message is an update, the response is an acknowledgment that the update was received. Such an acknowledgment implies that the update was successful. Some messages may not require any response at all. The service that gets such a message is still required to send back a response because one is needed to unblock the <code class="cCode">call</code> method. In this case, the response is not related to the content of the message; it is simply a message to unblock the <code class="cCode">call</code> method.
+</p>
+<a name="wp98633"> </a><p class="pBody">
+Now that you have some background on SOAP messages and SOAP connections, in the next section you will see how to use the SAAJ API.
+</p>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="SAAJ.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="SAAJ3.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

@@ -1,0 +1,749 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>The SavingsAccountBean Example</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="BMP.html" />
+    <link rel="Next" href="BMP3.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="BMP.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="BMP3.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp82464"> </a><h2 class="pHeading1">
+The SavingsAccountBean Example
+</h2>
+<a name="wp82466"> </a><p class="pBody">
+The entity bean illustrated in this section represents a simple bank account. The state of the <code class="cCode">SavingsAccountBean</code> enterprise bean is stored in the <code class="cCode">savingsaccount</code> table of a relational database. The <code class="cCode">savingsaccount</code> table is created by the following SQL statement:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+CREATE TABLE savingsaccount
+&nbsp;&nbsp;(id VARCHAR(3) 
+&nbsp;&nbsp;CONSTRAINT pk_savingsaccount PRIMARY KEY,
+&nbsp;&nbsp;firstname VARCHAR(24),
+&nbsp;&nbsp;lastname  VARCHAR(24),
+&nbsp;&nbsp;balance   NUMERIC(10,2));<a name="wp82469"> </a>
+</pre></div>
+<a name="wp82470"> </a><p class="pBody">
+The <code class="cCode">SavingsAccountBean</code> example requires the following code:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82471"> </a><div class="pSmartList1"><li>Entity bean class (<code class="cCode">SavingsAccountBean</code>)</li></div>
+<a name="wp82472"> </a><div class="pSmartList1"><li>Home interface (<code class="cCode">SavingsAccountLocalHome</code>)</li></div>
+<a name="wp82473"> </a><div class="pSmartList1"><li>Remote interface (<code class="cCode">SavingsAccountLocal</code>)</li></div>
+</ul></div>
+<a name="wp82474"> </a><p class="pBody">
+In addition to these standard files, the IDE also creates a business interface (<code class="cCode">PlayerLocalBusiness</code>) in which it registers business methods. This example also uses the following classes:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82476"> </a><div class="pSmartList1"><li>A utility class named <code class="cCode">InsufficientBalanceException</code></li></div>
+<a name="wp82477"> </a><div class="pSmartList1"><li>A client class called <code class="cCode">SavingsAccountClient</code></li></div>
+</ul></div>
+<a name="wp82478"> </a><p class="pBody">
+The source code for this example is in this directory:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+&lt;<code class="cVariable">INSTALL</code>&gt;/j2eetutorial14/ejb/savingsaccount/ <a name="wp82479"> </a>
+</pre></div>
+<a name="wp82481"> </a><h3 class="pHeading2">
+Creating the SavingsAccount Project
+</h3>
+<a name="wp82482"> </a><p class="pBody">
+In the IDE, we have to create a project for the EJB module. We will create a stand-alone EJB module project.
+</p>
+<a name="wp82483"> </a><h4 class="pHeading3">
+Creating the SavingsAccount Project
+</h4>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82484"> </a><div class="pSmartList1"><li>Choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>New Project (Ctrl-Shift-N).</li></div>
+<a name="wp82485"> </a><div class="pSmartList1"><li>From the Enterprise template category, select EJB Module and click Next. </li></div>
+<a name="wp82486"> </a><div class="pSmartList1"><li>Type <code class="cCode">SavingsAccount</code> as the Project Name, specify a location for the project, and click Finish.</li></div>
+</ol></div>
+<a name="wp82487"> </a><h4 class="pHeading3">
+Creating the SavingsAccount Enterprise Bean
+</h4>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82488"> </a><div class="pSmartList1"><li>In the Projects window, right-click the SavingsAccount project node and choose New<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Entity Bean.</li></div>
+<a name="wp82489"> </a><div class="pSmartList1"><li>In the EJB Name field, type <code class="cCode">SavingsAccount</code>. In the Package field, type <code class="cCode">bank</code>. Set the bean's persistence to Bean and set the bean to only contain remote interfaces. Then click Finish.</li></div>
+</ol></div>
+<a name="wp82490"> </a><h3 class="pHeading2">
+Entity Bean Class
+</h3>
+<a name="wp82491"> </a><p class="pBody">
+The sample entity bean class, <code class="cCode">SavingsAccountBean</code>, is opened in the Source Editor when you create the entity bean. Most of the EJB infrastructure mehtods are hidden in a code fold. Click the + sign at the left of the code fold to inspect these methods. 
+</p>
+<a name="wp82492"> </a><p class="pBody">
+As you look through the bean class, note that it meets the requirements of any entity bean that uses bean-managed persistence. First, it implements the following:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82493"> </a><div class="pSmartList1"><li><code class="cCode">EntityBean</code> interface</li></div>
+<a name="wp82494"> </a><div class="pSmartList1"><li>Zero or more <code class="cCode">ejbCreate</code> and <code class="cCode">ejbPostCreate</code> methods</li></div>
+<a name="wp82495"> </a><div class="pSmartList1"><li>Finder methods</li></div>
+<a name="wp82496"> </a><div class="pSmartList1"><li>Business methods</li></div>
+<a name="wp82497"> </a><div class="pSmartList1"><li>Home methods</li></div>
+</ul></div>
+<a name="wp82498"> </a><p class="pBody">
+In addition, an entity bean class with bean-managed persistence has these requirements:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82499"> </a><div class="pSmartList1"><li>The class is defined as <code class="cCode">public</code>.</li></div>
+<a name="wp82500"> </a><div class="pSmartList1"><li>The class cannot be defined as <code class="cCode">abstract</code> or <code class="cCode">final</code>.</li></div>
+<a name="wp82501"> </a><div class="pSmartList1"><li>It contains an empty constructor.</li></div>
+<a name="wp82502"> </a><div class="pSmartList1"><li>It does not implement the <code class="cCode">finalize</code> method.</li></div>
+</ul></div>
+<a name="wp82505"> </a><h4 class="pHeading3">
+The EntityBean Interface
+</h4>
+<a name="wp82508"> </a><p class="pBody">
+The <code class="cCode"><a  href="http://java.sun.com/j2ee/tutorial/api/javax/ejb/EntityBean.html" target="_blank">EntityBean</a></code> interface extends the <code class="cCode"><a  href="http://java.sun.com/j2ee/tutorial/api/javax/ejb/EnterpriseBean.html" target="_blank">EnterpriseBean</a></code> interface, which extends the <code class="cCode">Serializable</code> interface. The <code class="cCode">EntityBean</code> interface declares a number of methods, such as <code class="cCode">ejbActivate</code> and <code class="cCode">ejbLoad</code>, which you must implement in your entity bean class. These methods are discussed in later sections.
+</p>
+<a name="wp82509"> </a><h4 class="pHeading3">
+The Database Lookup
+</h4>
+<a name="wp82510"> </a><p class="pBody">
+Before you can access the database, you must connect to it. When you generate database lookup code in the IDE, a data source and connection pool area automatically added to the project. These resources are configred on the server when you deploy the project.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82511"> </a><div class="pSmartList1"><li>In the Source Editor, right-click anywhere in the body of the <code class="cCode">SavingsAccountBean</code> class and choose Enterprise Resources<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Use Database. </li></div>
+<a name="wp82512"> </a><div class="pSmartList1"><li>Change the JNDI Name to <code class="cCode">pointbase</code>, select <code class="cCode">jdbc:pointbase://localhost:9092/sun-appserv-samples</code> in the Connection combo box, and click OK.</li></div>
+<a name="wp82513"> </a><div class="pSmartList1"><li>If prompted for a password, type <code class="cCode">pbpublic</code> in the Password field and click OK.</li></div>
+</ol></div>
+<a name="wp82514"> </a><p class="pBody">
+The IDE inserts the following code in the <code class="cCode">SavingsAccountBean</code> class:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+private DataSource getPointbase() throws NamingException {
+&nbsp;&nbsp;Context c = new InitialContext();
+&nbsp;&nbsp;return (DataSource) 
+c.lookup(&quot;java:comp/env/jdbc/pointbase&quot;);
+}<a name="wp82515"> </a>
+</pre></div>
+<a name="wp82516"> </a><p class="pBody">
+Now use the <code class="cCode">DataSource</code> object store a connection to the database in a <code class="cCode">Connection</code> object.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82517"> </a><div class="pSmartList1"><li>In the Source Editor, select the <code class="cCode">SavingsAccountBean</code> class and add the following field to your list of field declarations:</li></div>
+<a name="wp82518"> </a><p class="pBodyRelative">
+<code class="cCode">private Connection con;</code>
+</p>
+<a name="wp82519"> </a><div class="pSmartList1"><li>Add a method that makes a connection to the database:</li></div>
+<a name="wp82520"> </a><p class="pBodyRelative">
+<code class="cCode">private void makeConnection() {<br />&nbsp;&nbsp;try {<br />&nbsp;&nbsp;&nbsp;&nbsp;con = getPointbase().getConnection();<br />&nbsp;&nbsp;} catch (Exception ex) {<br />&nbsp;&nbsp;&nbsp;&nbsp;throw new EJBException(&quot;Unable to connect to database.&quot;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ ex.getMessage());<br />&nbsp;&nbsp;}<br />}</code>
+</p>
+<a name="wp82521"> </a><div class="pSmartList1"><li>Add a method that releases the database connection:</li></div>
+<a name="wp82522"> </a><p class="pBodyRelative">
+<code class="cCode">private void releaseConnection() {<br />&nbsp;&nbsp;try {<br />&nbsp;&nbsp;&nbsp;&nbsp;con.close();<br />&nbsp;&nbsp;} catch (SQLException ex) {<br />&nbsp;&nbsp;&nbsp;&nbsp;throw new EJBException(&quot;releaseConnection: &quot; <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ ex.getMessage());<br />&nbsp;&nbsp;}<br />}</code>
+</p>
+<a name="wp82523"> </a><div class="pSmartList1"><li>Press Alt-Shift-F to generate the following import statements:</li></div>
+<a name="wp82524"> </a><p class="pBodyRelative">
+<code class="cCode">import java.sql.Connection;<br />import java.sql.SQLException;</code>
+</p>
+</ol></div>
+<a name="wp82525"> </a><h4 class="pHeading3">
+Database Access Methods
+</h4>
+<a name="wp82526"> </a><p class="pBody">
+Now that you have a connection to the database, you need to code the methods that implement the calls to the database. 
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82527"> </a><div class="pSmartList1"><li>Add the following field declarations to <code class="cCode">SavingsAccountBean</code>:</li></div>
+<a name="wp82528"> </a><p class="pBodyRelative">
+<code class="cCode">private String id;<br />private String firstName;<br />private String lastName;<br />private BigDecimal bal</code>ance;
+</p>
+<a name="wp82529"> </a><div class="pSmartList1"><li>Generate get and set methods for each of the fields. In the Source Editor, right-click anywhere in <code class="cCode">SavingsAccountBean</code> and choose Refactor<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Encapulate Fields. In the dialog box, select the checkbox for the four fields and click Next. Then click Do Refactoring to generate the methods.</li></div>
+<a name="wp82530"> </a><div class="pSmartList1"><li>Add each of the get methods to the remote interface so that they are available to the clients. In the Source Editor, right-click each method's name (for example, <code class="cCode">getFirstName</code>) and choose EJB Methods<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Add to Remote Interface.</li></div>
+<a name="wp82531"> </a><div class="pSmartList1"><li>Add the database methods to the entity bean class. You can copy the business methods from the <code class="cCode">SavingsAccountBean</code> class in the <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/savingsaccount/SavingsAccount/src/java </code>directory. The business methods start with the <code class="cCode">// Database Methods</code> comment on line 251 and end with the <code class="cCode">selectInRange</code> method on line 535.</li></div>
+<a name="wp82532"> </a><div class="pSmartList1"><li>Press Alt-Shift-F to generate the following import statements:</li></div>
+<a name="wp82533"> </a><p class="pBodyRelative">
+<code class="cCode">import java.math.BigDecimal;<br />import java.sql.PreparedStatement;<br />import java.sql.ResultSet;<br />import java.util.ArrayList;<br />import java.util.Collection;</code>
+</p>
+</ol></div>
+<a name="wp82534"> </a><h4 class="pHeading3">
+The ejbCreate Method
+</h4>
+<a name="wp82537"> </a><p class="pBody">
+When the client invokes a <code class="cCode">create</code> method, the EJB container invokes the corresponding <code class="cCode">ejbCreate</code> method. Typically, an <code class="cCode">ejbCreate</code> method in an entity bean performs the following tasks:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82540"> </a><div class="pSmartList1"><li>Inserts the entity state into the database</li></div>
+<a name="wp82541"> </a><div class="pSmartList1"><li>Initializes the instance variables</li></div>
+<a name="wp82543"> </a><div class="pSmartList1"><li>Returns the primary key</li></div>
+</ul></div>
+<a name="wp82544"> </a><p class="pBody">
+In the IDE, you can generate <code class="cCode">ejbCreate</code> methods into the bean class and the home interface at the same time.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82545"> </a><div class="pSmartList1"><li>In the Source Editor, right-click anywhere in the body of the <code class="cCode">SavingsAccountBean</code> class and choose EJB Methods<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Add Create Method.</li></div>
+<a name="wp82546"> </a><div class="pSmartList1"><li>Use the Add button on the Parameters tab of the dialog box to add the following parameters:</li></div>
+<div class="pSmartList2"><ul class="pSmartList2">
+<a name="wp82547"> </a><div class="pSmartList2"><li><code class="cCode">String id</code></li></div>
+<a name="wp82548"> </a><div class="pSmartList2"><li><code class="cCode">String firstName</code></li></div>
+<a name="wp82549"> </a><div class="pSmartList2"><li><code class="cCode">String lastName</code></li></div>
+<a name="wp82550"> </a><div class="pSmartList2"><li><code class="cCode">BigDecimal bal</code>ance </li></div>
+</ul></div>
+<a name="wp82551"> </a><div class="pSmartList1"><li>Leave the default information in the Exceptions tab and click OK. </li></div>
+</ol></div>
+<a name="wp82552"> </a><p class="pBody">
+The IDE inserts an empty <code class="cCode">ejbCreate</code> method and an empty <code class="cCode">ejbPostCreate</code> method into the <code class="cCode">SavingsAccountBean</code> class. 
+</p>
+<a name="wp82553"> </a><p class="pBody">
+The <code class="cCode">ejbCreate</code> method of <code class="cCode">SavingsAccountBean</code> inserts the entity state into the database by invoking the private <code class="cCode">insertRow</code> method, which issues the SQL <code class="cCode">INSERT </code>statement. Change the contents of the <code class="cCode">ejbCreate</code> method to the following:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public String ejbCreate(String id, String firstName,
+&nbsp;&nbsp;&nbsp;&nbsp;String lastName, BigDecimal balance)
+&nbsp;&nbsp;&nbsp;&nbsp;throws CreateException {
+
+&nbsp;&nbsp;if (balance.signum() == -1)  {
+&nbsp;&nbsp;&nbsp;&nbsp;throw new CreateException
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&quot;A negative initial balance is not allowed.&quot;);
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;try {
+&nbsp;&nbsp;&nbsp;&nbsp;insertRow(id, firstName, lastName, balance);
+&nbsp;&nbsp;} catch (Exception ex) {
+&nbsp;&nbsp;&nbsp;&nbsp;throw new EJBException(&quot;ejbCreate: &quot; + 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ex.getMessage());
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;this.id = id;
+&nbsp;&nbsp;this.firstName = firstName;
+&nbsp;&nbsp;this.lastName = lastName;
+&nbsp;&nbsp;this.balance = balance;
+
+&nbsp;&nbsp;return id;
+}<a name="wp82556"> </a>
+</pre></div>
+<a name="wp82557"> </a><p class="pBody">
+Although the <code class="cCode">SavingsAccountBean</code> class has only one <code class="cCode">ejbCreate</code> method, An enterprise bean can contain multiple <code class="cCode">ejbCreate</code> methods. For an example, see the <code class="cCode">CartBean.java</code> source code in this directory:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+&lt;<code class="cVariable">INSTALL</code>&gt;/j2eetutorial14/examples/ejb/cart/<a name="wp82558"> </a>
+</pre></div>
+<a name="wp82559"> </a><p class="pBody">
+When you write an <code class="cCode">ejbCreate</code> method for an entity bean, be sure to follow these rules:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82560"> </a><div class="pSmartList1"><li>The access control modifier must be <code class="cCode">public</code>.</li></div>
+<a name="wp82561"> </a><div class="pSmartList1"><li>The return type must be the primary key.</li></div>
+<a name="wp82562"> </a><div class="pSmartList1"><li>The arguments must be legal types for the Java RMI API.</li></div>
+<a name="wp82563"> </a><div class="pSmartList1"><li>The method modifier cannot be <code class="cCode">final</code> or <code class="cCode">static.</code></li></div>
+</ul></div>
+<a name="wp82565"> </a><p class="pBody">
+The <code class="cCode">throws</code> clause can include the <code class="cCode">javax.ejb.CreateException</code> and exceptions that are specific to your application. An <code class="cCode">ejbCreate</code> method usually throws a <code class="cCode">CreateException</code> if an input parameter is invalid. If an <code class="cCode">ejbCreate</code> method cannot create an entity because another entity with the same primary key already exists, it should throw a <code class="cCode">javax.ejb.DuplicateKeyException</code> (a subclass of <code class="cCode">CreateException</code>). If a client receives a <code class="cCode">CreateException</code> or a <code class="cCode">DuplicateKeyException</code>, it should assume that the entity was not created.
+</p>
+<a name="wp82566"> </a><p class="pBody">
+The state of an entity bean can be directly inserted into the database by an application that is unknown to the Sun Java System Application Server Platform Edition 8. For example, an SQL script might insert a row into the <code class="cCode">savingsaccount</code> table. Although the entity bean for this row was not created by an <code class="cCode">ejbCreate</code> method, the bean can be located by a client program.
+</p>
+<a name="wp82571"> </a><h4 class="pHeading3">
+The ejbPostCreate Method
+</h4>
+<a name="wp82573"> </a><p class="pBody">
+For each <code class="cCode">ejbCreate</code> method, your entity bean class must contain an <code class="cCode">ejbPostCreate</code> method. The IDE automatically creates an <code class="cCode">ejbPostCreate</code> method whenever you generate a create method. 
+</p>
+<a name="wp82574"> </a><p class="pBody">
+The EJB container invokes <code class="cCode">ejbPostCreate</code> immediately after it calls <code class="cCode">ejbCreate</code>. Unlike the <code class="cCode">ejbCreate</code> method, the <code class="cCode">ejbPostCreate</code> method can invoke the <code class="cCode">getPrimaryKey</code> and <code class="cCode">getEJBObject</code> methods of the <code class="cCode">EntityContext</code> interface. For more information on the <code class="cCode">getEJBObject</code> method, see the section Passing an Enterprise Bean's Object Reference. Often, your <code class="cCode">ejbPostCreate</code> methods will be empty. Leave the <code class="cCode">ejbPostCreate</code> method empty in the <code class="cCode">SavingsAccountBean</code> class.
+</p>
+<a name="wp82581"> </a><p class="pBody">
+The signature of an <code class="cCode">ejbPostCreate</code> method must meet the following requirements:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82582"> </a><div class="pSmartList1"><li>The number and types of arguments must match a corresponding <code class="cCode">ejbCreate</code> method.</li></div>
+<a name="wp82583"> </a><div class="pSmartList1"><li>The access control modifier must be <code class="cCode">public</code>.</li></div>
+<a name="wp82584"> </a><div class="pSmartList1"><li>The method modifier cannot be <code class="cCode">final</code> or <code class="cCode">static</code>.</li></div>
+<a name="wp82585"> </a><div class="pSmartList1"><li>The return type must be <code class="cCode">void</code>.</li></div>
+</ul></div>
+<a name="wp82586"> </a><p class="pBody">
+The <code class="cCode">throws</code> clause can include the <code class="cCode">javax.ejb.CreateException</code> and exceptions that are specific to your application.
+</p>
+<a name="wp82587"> </a><h4 class="pHeading3">
+The ejbRemove Method
+</h4>
+<a name="wp82589"> </a><p class="pBody">
+A client deletes an entity bean by invoking the <code class="cCode">remove</code> method. This invocation causes the EJB container to call the <code class="cCode">ejbRemove</code> method, which deletes the entity state from the database. In the <code class="cCode">SavingsAccountBean</code> class, expand the code fold that contains the EJB infrastructure methods and change the <code class="cCode">ejbRemove</code> method to the following:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public void ejbRemove() {
+&nbsp;&nbsp;try {
+&nbsp;&nbsp;&nbsp;&nbsp;deleteRow(id);
+&nbsp;&nbsp;} catch (Exception ex) {
+&nbsp;&nbsp;&nbsp;&nbsp;throw new EJBException(&quot;ejbRemove: &quot; + ex.getMessage());
+&nbsp;&nbsp;}
+}<a name="wp82592"> </a>
+</pre></div>
+<a name="wp82593"> </a><p class="pBody">
+The <code class="cCode">ejbRemove</code> method invokes a private method named <code class="cCode">deleteRow</code>, which issues an SQL <code class="cCode">DELETE</code> statement.
+</p>
+<a name="wp82596"> </a><p class="pBody">
+If the <code class="cCode">ejbRemove</code> method encounters a system problem, it should throw the <code class="cCode">javax.ejb.EJBException</code>. If it encounters an application error, it should throw a <code class="cCode">javax.ejb.RemoveException</code>.
+</p>
+<a name="wp82597"> </a><p class="pBody">
+An entity bean can also be removed directly by a database deletion. For example, if an SQL script deletes a row that contains an entity bean state, then that entity bean is removed.
+</p>
+<a name="wp82600"> </a><h4 class="pHeading3">
+The ejbLoad and ejbStore Methods
+</h4>
+<a name="wp82601"> </a><p class="pBody">
+If the EJB container needs to synchronize the instance variables of an entity bean with the corresponding values stored in a database, it invokes the <code class="cCode">ejbLoad</code> and <code class="cCode">ejbStore</code> methods. The <code class="cCode">ejbLoad</code> method refreshes the instance variables from the database, and the <code class="cCode">ejbStore</code> method writes the variables to the database. The client cannot call <code class="cCode">ejbLoad</code> and <code class="cCode">ejbStore</code>.
+</p>
+<a name="wp82603"> </a><p class="pBody">
+If a business method is associated with a transaction, the container invokes <code class="cCode">ejbLoad</code> before the business method executes. Immediately after the business method executes, the container calls <code class="cCode">ejbStore</code>. Because the container invokes <code class="cCode">ejbLoad</code> and <code class="cCode">ejbStore</code>, you do not have to refresh and store the instance variables in your business methods. The <code class="cCode">SavingsAccountBean</code> class relies on the container to synchronize the instance variables with the database. Therefore, the business methods of <code class="cCode">SavingsAccountBean</code> should be associated with transactions.
+</p>
+<a name="wp82604"> </a><p class="pBody">
+If the <code class="cCode">ejbLoad</code> and <code class="cCode">ejbStore</code> methods cannot locate an entity in the underlying database, they should throw the <code class="cCode">javax.ejb.NoSuchEntityException</code>. This exception is a subclass of <code class="cCode">EJBException</code>. Because <code class="cCode">EJBException</code> is a subclass of <code class="cCode">RuntimeException</code>, you do not have to include it in the <code class="cCode">throws</code> clause. When <code class="cCode">NoSuchEntityException</code> is thrown, the EJB container wraps it in a <code class="cCode">RemoteException</code> before returning it to the client.
+</p>
+<a name="wp82605"> </a><p class="pBody">
+In the Source Editor, change the <code class="cCode">ejbLoad</code> and <code class="cCode">ejbStore</code> methods to the following:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public void ejbLoad() {
+&nbsp;&nbsp;try {
+&nbsp;&nbsp;&nbsp;&nbsp;loadRow();
+&nbsp;&nbsp;} catch (Exception ex) {
+&nbsp;&nbsp;&nbsp;&nbsp;throw new EJBException(&quot;ejbLoad: &quot; + ex.getMessage());
+&nbsp;&nbsp;}
+}
+
+public void ejbStore() {
+&nbsp;&nbsp;try {
+&nbsp;&nbsp;&nbsp;&nbsp;storeRow();
+&nbsp;&nbsp;} catch (Exception ex) {
+&nbsp;&nbsp;&nbsp;&nbsp;throw new EJBException(&quot;ejbStore: &quot; + ex.getMessage());
+&nbsp;&nbsp;}
+}<a name="wp82606"> </a>
+</pre></div>
+<a name="wp82607"> </a><p class="pBody">
+In the <code class="cCode">SavingsAccountBean</code> class, <code class="cCode">ejbLoad</code> invokes the <code class="cCode">loadRow</code> method, which issues an SQL <code class="cCode">SELECT</code> statement and assigns the retrieved data to the instance variables. The <code class="cCode">ejbStore</code> method calls the <code class="cCode">storeRow</code> method, which stores the instance variables in the database using an SQL <code class="cCode">UPDATE</code> statement.
+</p>
+<a name="wp82609"> </a><h4 class="pHeading3">
+The Finder Methods
+</h4>
+<a name="wp82611"> </a><p class="pBody">
+The finder methods allow clients to locate entity beans. The <code class="cCode">SavingsAccountClient</code> program locates entity beans using three finder methods:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+SavingsAccountRemote jones = home.findByPrimaryKey(&quot;836&quot;);
+...
+Collection c = home.findByLastName(&quot;Smith&quot;);
+...
+Collection c = home.findInRange(new BigDecimal(&quot;20.00&quot;),
+&nbsp;&nbsp;&nbsp;&nbsp;new BigDecimal(&quot;99.00&quot;));<a name="wp82612"> </a>
+</pre></div>
+<a name="wp82613"> </a><p class="pBody">
+For every finder method available to a client, the entity bean class must implement a corresponding method that begins with the prefix <code class="cCode">ejbFind</code>. The <code class="cCode">SavingsAccountBean</code> class, for example, implements two optional finder methods: <code class="cCode">ejbFindByLastName</code> and <code class="cCode">ejbFindInRange</code>.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82614"> </a><div class="pSmartList1"><li>In the Source Editor, right-click anywhere in the body of the <code class="cCode">SavingsAccountBean</code> class and choose EJB Methods<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Add Finder Method.</li></div>
+<a name="wp82615"> </a><div class="pSmartList1"><li>In the Name field, type <code class="cCode">findByLastName</code>. Leave the Return Cardinality set to Many and the Remote interface selected. Use the Parameters tab to add a <code class="cCode">String lastName</code> parameter. Then click OK to generate the finder method in both the bean class and the home interface.</li></div>
+<a name="wp82616"> </a><div class="pSmartList1"><li>Edit the ejbFindByLastName method as follows:</li></div>
+<a name="wp82617"> </a><p class="pBodyRelative">
+<code class="cCode">public Collection ejbFindByLastName(String lastName) <br />&nbsp;&nbsp;&nbsp;&nbsp;throws FinderException {<br />&nbsp;&nbsp;Collection result;<br />&nbsp;&nbsp;try {<br />&nbsp;&nbsp;&nbsp;&nbsp;result = selectByLastName(lastName);<br />&nbsp;&nbsp;} catch (Exception ex) {<br />&nbsp;&nbsp;&nbsp;&nbsp;throw new EJBException(&quot;ejbFindByLastName &quot; + <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ex.getMessage());<br />&nbsp;&nbsp;}<br />&nbsp;&nbsp;return result;<br />}</code>
+</p>
+<a name="wp82618"> </a><div class="pSmartList1"><li>Repeat steps 1-3 to create the following <code class="cCode">ejbFindInRange</code> method:</li></div>
+<a name="wp82619"> </a><p class="pBodyRelative">
+<code class="cCode">public Collection ejbFindInRange(BigDecimal low, <br />&nbsp;&nbsp;&nbsp;&nbsp;BigDecimal high) throws FinderException {<br />&nbsp;&nbsp;Collection result;<br />&nbsp;&nbsp;try {<br />&nbsp;&nbsp;&nbsp;&nbsp;result = selectInRange(low, high);<br />&nbsp;&nbsp;} catch (Exception ex) {<br />&nbsp;&nbsp;&nbsp;&nbsp;throw new EJBException(&quot;ejbFindInRange: &quot; <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ ex.getMessage());<br />&nbsp;&nbsp;}<br />&nbsp;&nbsp;return result;<br />}</code>
+</p>
+</ol></div>
+<a name="wp82620"> </a><p class="pBody">
+The finder methods that are specific to your application, such as <code class="cCode">ejbFindByLastName</code> and <code class="cCode">ejbFindInRange</code>, are optional, but the <code class="cCode">ejbFindByPrimaryKey</code> method is required. As its name implies, the <code class="cCode">ejbFindByPrimaryKey</code> method accepts as an argument the primary key, which it uses to locate an entity bean. In the <code class="cCode">SavingsAccountBean</code> class, the primary key is the <code class="cCode">id</code> variable. Edit the <code class="cCode">ejbFindByPrimaryKey</code> method as follows:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public String ejbFindByPrimaryKey(String aKey) 
+&nbsp;&nbsp;&nbsp;&nbsp;throws FinderException {
+
+&nbsp;&nbsp;boolean result;
+
+&nbsp;&nbsp;try {
+&nbsp;&nbsp;&nbsp;&nbsp;result = selectByPrimaryKey(aKey);
+&nbsp;&nbsp;} catch (Exception ex) {
+&nbsp;&nbsp;&nbsp;&nbsp;throw new EJBException(&quot;ejbFindByPrimaryKey: &quot; + 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ex.getMessage());
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;if (result) {
+&nbsp;&nbsp;&nbsp;&nbsp;return aKey;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;else {
+&nbsp;&nbsp;&nbsp;&nbsp;throw new ObjectNotFoundException
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&quot;Row for id &quot; + aKey + &quot; not found.&quot;);
+&nbsp;&nbsp;}
+}<a name="wp82623"> </a>
+</pre></div>
+<a name="wp82624"> </a><p class="pBody">
+The <code class="cCode">ejbFindByPrimaryKey</code> method may look strange to you, because it uses a primary key for both the method argument and the return value. However, remember that the client does not call <code class="cCode">ejbFindByPrimaryKey</code> directly. It is the EJB container that calls the <code class="cCode">ejbFindByPrimaryKey</code> method. The client invokes the <code class="cCode">findByPrimaryKey</code> method, which is defined in the home interface.
+</p>
+<a name="wp82625"> </a><p class="pBody">
+The following list summarizes the rules for the finder methods that you implement in an entity bean class with bean-managed persistence:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82626"> </a><div class="pSmartList1"><li>The <code class="cCode">ejbFindByPrimaryKey</code> method must be implemented.</li></div>
+<a name="wp82627"> </a><div class="pSmartList1"><li>A finder method name must start with the prefix <code class="cCode">ejbFind</code>.</li></div>
+<a name="wp82628"> </a><div class="pSmartList1"><li>The access control modifier must be <code class="cCode">public</code>.</li></div>
+<a name="wp82629"> </a><div class="pSmartList1"><li>The method modifier cannot be <code class="cCode">final</code> or <code class="cCode">static</code>.</li></div>
+<a name="wp82630"> </a><div class="pSmartList1"><li>The arguments and return type must be legal types for the Java RMI API. (This requirement applies only to methods defined in a remote--and not a local--home interface.)</li></div>
+<a name="wp82631"> </a><div class="pSmartList1"><li>The return type must be the primary key or a collection of primary keys.</li></div>
+</ul></div>
+<a name="wp82633"> </a><p class="pBody">
+The <code class="cCode">throws</code> clause can include the <code class="cCode">javax.ejb.FinderException</code> and exceptions that are specific to your application. If a finder method returns a single primary key and the requested entity does not exist, the method should throw the <code class="cCode">javax.ejb.ObjectNotFoundException</code> (a subclass of <code class="cCode">FinderException</code>). If a finder method returns a collection of primary keys and it does not find any objects, it should return an empty collection.
+</p>
+<a name="wp82635"> </a><h4 class="pHeading3">
+The Business Methods
+</h4>
+<a name="wp82636"> </a><p class="pBody">
+The business methods contain the business logic that you want to encapsulate within the entity bean. Usually, the business methods do not access the database, and this allows you to separate the business logic from the database access code. 
+</p>
+<a name="wp82638"> </a><p class="pBody">
+First you need to create a special Java exception class that your business methods will use.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82639"> </a><div class="pSmartList1"><li>In the Projects window, right-click the SavingsAccount project node and choose New<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>File/Folder.</li></div>
+<a name="wp82640"> </a><div class="pSmartList1"><li>From the Java Classes category, select the Java Exception template and click Next.</li></div>
+<a name="wp82641"> </a><div class="pSmartList1"><li>Name the class <code class="cCode">InsufficientBalanceException</code>, place it in the <code class="cCode">bank</code> package, and choose Finish. The IDE creates the class and opens it in the Source Editor. You could customize the way the exception is handled. For our purposes, we will just use the basic code provided by the template.</li></div>
+</ol></div>
+<a name="wp82642"> </a><p class="pBody">
+Now you can add the business methods.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82643"> </a><div class="pSmartList1"><li>In the Source Editor, right-click anywhere in the body of the <code class="cCode">SavingsAccountBean</code> class and choose EJB Methods<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Add Business Method.</li></div>
+<a name="wp82644"> </a><div class="pSmartList1"><li>In the Name field, type <code class="cCode">debit</code>. Leave <code class="cCode">void</code> in the Return Type combo box. In the Parameters tab, use the Add button to add a <code class="cCode">BigDecimal</code> <code class="cCode">amount</code> parameter. In the Exceptions tab, use the Add button to add an <code class="cCode">InsufficientBalanceException</code> exception. Then click OK to generate the method.</li></div>
+<a name="wp82645"> </a><div class="pSmartList1"><li>Edit the body of the the debit method as follows:</li></div>
+<a name="wp82646"> </a><p class="pBodyRelative">
+<code class="cCode">public void debit(BigDecimal amount) <br />&nbsp;&nbsp;&nbsp;&nbsp;throws InsufficientBalanceException {<br />&nbsp;&nbsp;if (balance.compareTo(amount) == -1) {<br />&nbsp;&nbsp;&nbsp;&nbsp;throw new InsufficientBalanceException();<br />&nbsp;&nbsp;}<br />&nbsp;&nbsp;balance = balance.subtract(amount);<br />}</code>
+</p>
+<a name="wp82647"> </a><div class="pSmartList1"><li>Repeat steps 1-3 to create the following business method. Make sure you set the return types, exceptions, and parameters correctly:</li></div>
+<a name="wp82648"> </a><p class="pBodyRelative">
+<code class="cCode">public void credit(BigDecimal amount) {<br />   balance = balance.add(amount);<br />}</code>
+</p>
+</ol></div>
+<a name="wp82649"> </a><p class="pBody">
+The <code class="cCode">SavingsAccountClient</code> program invokes the business methods as follows:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+BigDecimal zeroAmount = new BigDecimal(&quot;0.00&quot;);
+SavingsAccount duke = home.create(&quot;123&quot;, &quot;Duke&quot;, &quot;Earl&quot;,
+&nbsp;&nbsp;&nbsp;&nbsp;zeroAmount);
+...
+duke.credit(new BigDecimal(&quot;88.50&quot;));
+duke.debit(new BigDecimal(&quot;20.25&quot;));
+BigDecimal balance = duke.getBalance();<a name="wp82650"> </a>
+</pre></div>
+<a name="wp82651"> </a><p class="pBody">
+The requirements for the signature of a business method are the same for session beans and entity beans:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82652"> </a><div class="pSmartList1"><li>The method name must not conflict with a method name defined by the EJB architecture. For example, you cannot call a business method <code class="cCode">ejbCreate</code> or <code class="cCode">ejbActivate</code>. </li></div>
+<a name="wp82653"> </a><div class="pSmartList1"><li>The access control modifier must be <code class="cCode">public</code>.</li></div>
+<a name="wp82654"> </a><div class="pSmartList1"><li>The method modifier cannot be <code class="cCode">final</code> or <code class="cCode">static</code>.</li></div>
+<a name="wp82655"> </a><div class="pSmartList1"><li>The arguments and return types must be legal types for the Java RMI API. This requirement applies only to methods defined in a remote--and not a local--home interface.</li></div>
+</ul></div>
+<a name="wp82656"> </a><p class="pBody">
+The <code class="cCode">throws</code> clause can include the exceptions that you define for your application. The <code class="cCode">debit</code> method, for example, throws the <code class="cCode">InsufficientBalanceException</code>. To indicate a system-level problem, a business method should throw the <code class="cCode">javax.ejb.EJBException</code>.
+</p>
+<a name="wp82659"> </a><h4 class="pHeading3">
+The Home Methods
+</h4>
+<a name="wp82661"> </a><p class="pBody">
+A home method contains the business logic that applies to all entity beans of a particular class. In contrast, the logic in a business method applies to a single entity bean, an instance with a unique identity. During a home method invocation, the instance has neither a unique identity nor a state that represents a business object. Consequently, a home method must not access the bean's persistence state (instance variables). (For container-managed persistence, a home method also must not access relationships.) 
+</p>
+<a name="wp82662"> </a><p class="pBody">
+Typically, a home method locates a collection of bean instances and invokes business methods as it iterates through the collection. This approach is taken by the <code class="cCode">ejbHomeChargeForLowBalance</code> method of the <code class="cCode">SavingsAccountBean</code> class. The <code class="cCode">ejbHomeChargeForLowBalance</code> method applies a service charge to all savings accounts that have balances less than a specified amount. The method locates these accounts by invoking the <code class="cCode">findInRange</code> method. As it iterates through the collection of <code class="cCode">SavingsAccount</code> instances, the <code class="cCode">ejbHomeChargeForLowBalance</code> method checks the balance and invokes the <code class="cCode">debit</code> business method. 
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82663"> </a><div class="pSmartList1"><li>In the Source Editor, right-click anywhere in the body of the <code class="cCode">SavingsAccountBean</code> class and choose EJB Methods<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Add Home Method.</li></div>
+<a name="wp82664"> </a><div class="pSmartList1"><li>In the Name field, type <code class="cCode">chargeForLowBalance</code>. Leave <code class="cCode">void</code> in the Return Type combo box. In the Parameters tab, use the Add button to add the following parameters:</li></div>
+<div class="pSmartList2"><ul class="pSmartList2">
+<a name="wp82665"> </a><div class="pSmartList2"><li><code class="cCode">BigDecimal minimumBalance</code></li></div>
+<a name="wp82666"> </a><div class="pSmartList2"><li><code class="cCode">BigDecimal charge</code></li></div>
+</ul></div>
+<a name="wp82667"> </a><div class="pSmartList1"><li>In the Exceptions tab, use the Add button to add an <code class="cCode">InsufficientBalanceException</code> exception. Then click OK to generate the method.</li></div>
+<a name="wp82668"> </a><div class="pSmartList1"><li>Edit the body of the the method as follows:</li></div>
+<a name="wp82669"> </a><p class="pBodyRelative">
+<code class="cCode">public void ejbHomeChargeForLowBalance(<br />&nbsp;&nbsp;&nbsp;&nbsp;BigDecimal minimumBalance, BigDecimal charge) <br />&nbsp;&nbsp;&nbsp;&nbsp;throws InsufficientBalanceException {<br /><br />&nbsp;&nbsp;try {<br />&nbsp;&nbsp;&nbsp;&nbsp;SavingsAccountRemoteHome home =<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(SavingsAccountRemoteHome)context.getEJBHome();<br />&nbsp;&nbsp;&nbsp;&nbsp;Collection c = home.findInRange(new BigDecimal(&quot;0.00&quot;),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;minimumBalance.subtract(new BigDecimal(&quot;0.01&quot;)));<br /><br />       &nbsp;&nbsp;&nbsp;&nbsp;Iterator i = c.iterator();<br /><br />       &nbsp;&nbsp;&nbsp;&nbsp;while (i.hasNext()) {<br />          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SavingsAccountRemote account = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(SavingsAccountRemote)i.next();<br />          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (account.getBalance().compareTo(charge) == 1) {<br />             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;account.debit(charge);<br />          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />       &nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />   &nbsp;&nbsp;} catch (Exception ex) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new EJBException(&quot;ejbHomeChargeForLowBalance:&quot;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ ex.getMessage());<br />  &nbsp;&nbsp; } <br />}</code> 
+</p>
+</ol></div>
+<a name="wp82671"> </a><p class="pBody">
+The home interface defines a corresponding method named <code class="cCode">chargeForLowBalance</code> (see <a  href="BMP2.html#wp82705">Home Method Definitions</a>). Because the interface provides the client view, the <code class="cCode">SavingsAccountClient</code> program invokes the home method as follows:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+SavingsAccountRemoteHome home;
+...
+home.chargeForLowBalance(new BigDecimal(&quot;10.00&quot;), 
+&nbsp;&nbsp;new BigDecimal(&quot;1.00&quot;));<a name="wp82675"> </a>
+</pre></div>
+<a name="wp82676"> </a><p class="pBody">
+In the entity bean class, the implementation of a home method must adhere to these rules:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82677"> </a><div class="pSmartList1"><li>A home method name must start with the prefix <code class="cCode">ejbHome</code>.</li></div>
+<a name="wp82678"> </a><div class="pSmartList1"><li>The access control modifier must be <code class="cCode">public</code>.</li></div>
+<a name="wp82679"> </a><div class="pSmartList1"><li>The method modifier cannot be <code class="cCode">static</code>.</li></div>
+</ul></div>
+<a name="wp82680"> </a><p class="pBody">
+The <code class="cCode">throws</code> clause can include exceptions that are specific to your application; it must not throw the <code class="cCode">java.rmi.RemoteException</code>.
+</p>
+<a name="wp82682"> </a><h3 class="pHeading2">
+Home Interface
+</h3>
+<a name="wp82683"> </a><p class="pBody">
+The home interface defines the <code class="cCode">create</code>, finder, and home methods. The <code class="cCode">SavingsAccountRemoteHome</code> interface follows:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+import java.util.Collection;
+import java.math.BigDecimal;
+import java.rmi.RemoteException;
+import javax.ejb.*;
+
+public interface SavingsAccountRemoteHome extends EJBHome {
+
+&nbsp;&nbsp;SavingsAccountRemote create(String id, String firstName, 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String lastName, BigDecimal balance)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throws RemoteException, CreateException;
+    
+&nbsp;&nbsp;SavingsAccountRemote findByPrimaryKey(String key) 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throws FinderException, RemoteException;
+    
+&nbsp;&nbsp;Collection findByLastName(String lastName)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throws FinderException, RemoteException;
+
+&nbsp;&nbsp;Collection findInRange(BigDecimal low, BigDecimal high)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throws FinderException, RemoteException;
+
+&nbsp;&nbsp;void chargeForLowBalance(BigDecimal minimumBalance,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BigDecimal charge)&nbsp;&nbsp;throws InsufficientBalanceException,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RemoteException;
+}<a name="wp82685"> </a>
+</pre></div>
+<hr>
+<a name="wp82686"> </a><p class="pNote">
+Note: Since you used simple names of classes to generate the home methods and finder methods, you have to open the home interface and press Alt-Shift-F to generate the necessary import statements.
+</p>
+<hr><a name="wp82687"> </a><h4 class="pHeading3">
+create Method Definitions
+</h4>
+<a name="wp82689"> </a><p class="pBody">
+Each <code class="cCode">create</code> method in the home interface must conform to the following requirements:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82690"> </a><div class="pSmartList1"><li>It must have the same number and types of arguments as its matching <code class="cCode">ejbCreate</code> method in the enterprise bean class.</li></div>
+<a name="wp82691"> </a><div class="pSmartList1"><li>It must return the remote interface type of the enterprise bean.</li></div>
+<a name="wp82693"> </a><div class="pSmartList1"><li>The <code class="cCode">throws</code> clause must include the exceptions specified by the <code class="cCode">throws</code> clause of the corresponding <code class="cCode">ejbCreate</code> and <code class="cCode">ejbPostCreate</code> methods.</li></div>
+<a name="wp82694"> </a><div class="pSmartList1"><li>The <code class="cCode">throws</code> clause must include the <code class="cCode">javax.ejb.CreateException.</code></li></div>
+<a name="wp82695"> </a><div class="pSmartList1"><li>If the method is defined in a remote--and not a local--home interface, then the <code class="cCode">throws</code> clause must include the <code class="cCode">java.rmi.RemoteException</code>.</li></div>
+</ul></div>
+<a name="wp82696"> </a><h4 class="pHeading3">
+Finder Method Definitions
+</h4>
+<a name="wp82698"> </a><p class="pBody">
+Every finder method in the home interface corresponds to a finder method in the entity bean class. The name of a finder method in the home interface begins with <code class="cCode">find</code>, whereas the corresponding name in the entity bean class begins with <code class="cCode">ejbFind</code>. For example, the <code class="cCode">SavingsAccountRemoteHome</code> class defines the <code class="cCode">findByLastName</code> method, and the <code class="cCode">SavingsAccountBean</code> class implements the <code class="cCode">ejbFindByLastName</code> method. The rules for defining the signatures of the finder methods of a home interface follow.
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82699"> </a><div class="pSmartList1"><li>The number and types of arguments must match those of the corresponding method in the entity bean class.</li></div>
+<a name="wp82700"> </a><div class="pSmartList1"><li>The return type must be the entity bean's remote interface type or a collection of those types.</li></div>
+<a name="wp82701"> </a><div class="pSmartList1"><li>The exceptions in the <code class="cCode">throws</code> clause must include those of the corresponding method in the entity bean class.</li></div>
+<a name="wp82702"> </a><div class="pSmartList1"><li>The <code class="cCode">throws</code> clause must contain the <code class="cCode">javax.ejb.FinderException</code>.</li></div>
+<a name="wp82703"> </a><div class="pSmartList1"><li>If the method is defined in a remote--and not a local--home interface, then the <code class="cCode">throws</code> clause must include the <code class="cCode">java.rmi.RemoteException</code>.</li></div>
+</ul></div>
+<a name="wp82705"> </a><h4 class="pHeading3">
+Home Method Definitions
+</h4>
+<a name="wp82707"> </a><p class="pBody">
+Each home method definition in the home interface corresponds to a method in the entity bean class. In the home interface, the method name is arbitrary, provided that it does not begin with <code class="cCode">create</code> or <code class="cCode">find</code>. In the bean class, the matching method name begins with <code class="cCode">ejbHome</code>. For example, in the <code class="cCode">SavingsAccountBean</code> class the name is <code class="cCode">ejbHomeChargeForLowBalance</code>, but in the <code class="cCode">SavingsAccountRemoteHome</code> interface the name is <code class="cCode">chargeForLowBalance</code>.
+</p>
+<a name="wp82708"> </a><p class="pBody">
+The home method signature must follow the same rules specified for finder methods in the preceding section (except that a home method does not throw a <code class="cCode">FinderException</code>). 
+</p>
+<a name="wp82709"> </a><h3 class="pHeading2">
+Remote Interface
+</h3>
+<a name="wp82710"> </a><p class="pBody">
+The remote interface usually extends <code class="cCode">javax.ejb.EJBObject</code> and defines the business methods that a remote client can invoke. Because the IDE enforces best design pratcices, it registers all of an entity bean's business methods in a business interface. The remote interface then extends the remote business interface, and the bean class only implements the business interface.
+</p>
+<a name="wp82711"> </a><p class="pBody">
+The remote interface is therefore empty:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+package bank;
+public interface SavingsAccountRemote extends
+&nbsp;&nbsp;&nbsp;&nbsp;javax.ejb.EJBObject,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bank.SavingsAccountRemoteBusiness {
+
+}<a name="wp82712"> </a>
+</pre></div>
+<a name="wp82713"> </a><p class="pBody">
+Here is the <code class="cCode">SavingsAccountRemoteBusiness</code> interface:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+import java.rmi.RemoteException;
+import java.math.BigDecimal;
+
+public interface SavingsAccountRemote extends EJBObject {
+    
+&nbsp;&nbsp;void debit(BigDecimal amount)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throws InsufficientBalanceException, RemoteException;
+
+&nbsp;&nbsp;void credit(BigDecimal amount)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throws RemoteException;
+ 
+&nbsp;&nbsp;String getId()
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throws RemoteException;
+
+&nbsp;&nbsp;String getFirstName()
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throws RemoteException;
+
+&nbsp;&nbsp;String getLastName()
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throws RemoteException;
+
+&nbsp;&nbsp;BigDecimal getBalance()
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throws RemoteException;
+}<a name="wp82714"> </a>
+</pre></div>
+<hr>
+<a name="wp82715"> </a><p class="pNote">
+Note: Since you used simple names of classes to generate the business methods, you have to open the business interface and press Alt-Shift-F to generate the necessary import statements.
+</p>
+<hr><a name="wp82716"> </a><p class="pBody">
+The requirements for the method definitions in a remote interface are the same for session beans and entity beans:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82717"> </a><div class="pSmartList1"><li>Each method in the remote interface must match a method in the enterprise bean class.</li></div>
+<a name="wp82718"> </a><div class="pSmartList1"><li>The signatures of the methods in the remote interface must be identical to the signatures of the corresponding methods in the enterprise bean class.</li></div>
+<a name="wp82719"> </a><div class="pSmartList1"><li>The arguments and return values must be valid RMI types. </li></div>
+<a name="wp82720"> </a><div class="pSmartList1"><li>The <code class="cCode">throws</code> clause must include <code class="cCode">java.rmi.RemoteException.</code></li></div>
+</ul></div>
+<a name="wp82722"> </a><p class="pBody">
+A local interface has the same requirements, with the following exceptions:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82723"> </a><div class="pSmartList1"><li>The arguments and return values are not required to be valid RMI types. </li></div>
+<a name="wp82724"> </a><div class="pSmartList1"><li>The <code class="cCode">throws</code> clause does not include <code class="cCode">java.rmi.RemoteException.</code></li></div>
+</ul></div>
+<a name="wp82726"> </a><h3 class="pHeading2">
+Running the SavingsAccount Example
+</h3>
+<a name="wp82727"> </a><p class="pBody">
+Before you run this example, you have to create the database and deploy the <code class="cCode">SavingsAccount.jar</code> file.
+</p>
+<a name="wp82728"> </a><h3 class="pHeading2">
+Creating the Sample Database
+</h3>
+<a name="wp82729"> </a><p class="pBody">
+The instructions that follow explain how to use the <code class="cCode">SavingsAccountBean</code> example with PointBase, the database software that is included in the Application Server bundle.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82730"> </a><div class="pSmartList1"><li>In the IDE, choose Tools<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>PointBase Database<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Start Local PointBase Database.</li></div>
+<a name="wp82731"> </a><div class="pSmartList1"><li>Create the database tables by running the <code class="cCode">create.sql</code> script.</li></div>
+<div class="pSmartList2"><ol type="a" class="pSmartList2">
+<a name="wp82732"> </a><div class="pSmartList2"><li>Make sure that the <code class="cCode">appsrv.root</code> property in your <code style="font-style: oblique" class="cCode">&lt;INSTALL&gt;</code><code class="cCode">/j2eetutorial14/examples/</code> file points to the location of your local Application Server installation.</li></div>
+<a name="wp82733"> </a><div class="pSmartList2"><li>In a terminal window, go to this directory:</li></div>
+<a name="wp82734"> </a><p class="pBodyRelative">
+<code style="font-style: oblique" class="cCode">&nbsp;&nbsp;&lt;INSTALL&gt;</code><code class="cCode">/j2eetutorial14/examples/ejb/savingsaccount/</code>
+</p>
+<a name="wp82735"> </a><div class="pSmartList2"><li>Type the following command, which runs the <code class="cCode">create.sql</code> script:</li></div>
+<a name="wp82736"> </a><p class="pBodyRelative">
+<code class="cCode">&nbsp;&nbsp;asant -buildfile create-db.xml</code>
+</p>
+</ol></div>
+<a name="wp82737"> </a><div class="pSmartList1"><li>In the Runtime window, expand the Databases node, right-click the <code class="cCode">jdbc:pointbase:server://localhost:9092/sun-appserv-samples</code> node, and choose Connect. Type <code class="cCode">pbpublic</code> as the password and click OK. Once the connection is established, expand the connection node's Tables node. There should be a node for the <code class="cCode">SAVINGSACCOUNT</code> table.</li></div>
+</ol></div>
+<a name="wp82739"> </a><h4 class="pHeading3">
+Deploying the Application
+</h4>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82740"> </a><div class="pSmartList1"><li>In the Projects window, right-click the SavingsAccount project node and choose Deploy Project. The IDE does the following</li></div>
+<div class="pSmartList2"><ul class="pSmartList2">
+<a name="wp82741"> </a><div class="pSmartList2"><li>Builds the EJB module</li></div>
+<a name="wp82742"> </a><div class="pSmartList2"><li>Starts the application server if it is not already started</li></div>
+<a name="wp82743"> </a><div class="pSmartList2"><li>Configures the data source and connection pool on the application server</li></div>
+<a name="wp82744"> </a><div class="pSmartList2"><li>Deploys the EJB module to the application server</li></div>
+</ul></div>
+<a name="wp82745"> </a><div class="pSmartList1"><li>In the Runtime window, expand Servers<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Sun Java System Application Server<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Applications<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>EJB Modules and verify that the <code class="cCode">SavingsAccount</code> EJB module exists on the server.</li></div>
+</ol></div>
+<a name="wp82747"> </a><h4 class="pHeading3">
+Running the Client
+</h4>
+<a name="wp82748"> </a><p class="pBody">
+The source code for the <code class="cCode">SavingsAccountClient</code> project is in the <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/savingsaccount</code> directory. When you open the project, you have to resolve the references to libraries on the project's classpath.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82749"> </a><div class="pSmartList1"><li>Choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Open Project (Ctrl-Shift-O). In the file chooser, go to <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/savingsaccount/</code>, select the <code class="cCode">SavingsAccountClient</code> directory, and choose Open Project.</li></div>
+<a name="wp82750"> </a><div class="pSmartList1"><li>The project needs to know the location of some JAR files on its classpath and the SavingsAccount project. Right-click the SavingsAccountClient project and choose Resolve Reference Problems. Select the <code class="cCode">&quot;SavingsAccount&quot; project could not be found message</code> and click Resolve. In the file chooser, select either the completed SavingsAccount project in <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/savingsaccount/</code> or the project you created and click OK.</li></div>
+<a name="wp82751"> </a><div class="pSmartList1"><li>Select the <code class="cCode">&quot;appserv-rt.jar&quot; file/folder could not be found</code> message and click Resolve. Navigate to the <code class="cCode">lib</code> directory in your application server installation, select <code class="cCode">appserv-rt.jar</code>, and click OK. The IDE automatically resolves the location of <code class="cCode">j2ee.jar</code>. Click Close.</li></div>
+<a name="wp82752"> </a><div class="pSmartList1"><li>Right-click the SavingsAccountClient project and choose Run Project. The client should display the following lines:</li></div>
+<a name="wp82753"> </a><p class="pBodyRelative">
+<code class="cCode">balance = 68.25<br />balance = 32.55<br />456: 44.77<br />730: 19.54<br />268: 100.07<br />836: 32.55<br />456: 44.77<br />4<br />7</code>
+</p>
+</ol></div>
+<a name="wp82756"> </a><p class="pBody">
+To modify this example, see the instructions in Modifying the J2EE Application.
+</p>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="BMP.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="BMP3.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

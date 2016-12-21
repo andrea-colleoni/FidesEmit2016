@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>Types Supported by JAX-RPC</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="JAXRPC3.html" />
+    <link rel="Next" href="JAXRPC5.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="JAXRPC3.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="JAXRPC5.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp138658"> </a><h2 class="pHeading1">
+Types Supported by JAX-RPC
+</h2>
+<a name="wp138660"> </a><p class="pBody">
+Behind the scenes, JAX-RPC maps types of the Java programming language to XML/WSDL definitions. For example, JAX-RPC maps the <code class="cCode">java.lang.String</code> class to the <code class="cCode">xsd:string</code> XML data type. Application developers don't need to know the details of these mappings, but they should be aware that not every class in the Java 2 Platform, Standard Edition (J2SE) can be used as a method parameter or return type in JAX-RPC.
+</p>
+<a name="wp138665"> </a><h3 class="pHeading2">
+J2SE SDK Classes 
+</h3>
+<a name="wp138666"> </a><p class="pBody">
+JAX-RPC supports the following J2SE SDK classes:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+java.lang.Boolean
+java.lang.Byte
+java.lang.Double
+java.lang.Float
+java.lang.Integer
+java.lang.Long
+java.lang.Short
+java.lang.String
+
+java.math.BigDecimal
+java.math.BigInteger
+
+java.net.URI
+
+java.util.Calendar
+java.util.Date<a name="wp138667"> </a>
+</pre></div>
+<a name="wp138703"> </a><h3 class="pHeading2">
+Primitives
+</h3>
+<a name="wp138704"> </a><p class="pBody">
+JAX-RPC supports the following primitive types of the Java programming language:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+boolean
+byte
+double
+float
+int
+long
+short<a name="wp138705"> </a>
+</pre></div>
+<a name="wp138707"> </a><h3 class="pHeading2">
+Arrays
+</h3>
+<a name="wp138708"> </a><p class="pBody">
+JAX-RPC also supports arrays that have members of supported JAX-RPC types. Examples of supported arrays are <code class="cCode">int[]</code> and <code class="cCode">String[]</code>. Multidimensional arrays, such as <code class="cCode">BigDecimal[][]</code>, are also supported.
+</p>
+<a name="wp138709"> </a><h3 class="pHeading2">
+Value Types
+</h3>
+<a name="wp138711"> </a><p class="pBody">
+A <em class="cEmphasis">value type</em> is a class whose state can be passed between a client and a remote service as a method parameter or return value. For example, in an application for a university library, a client might call a remote procedure with a value type parameter named <code class="cCode">Book</code>, a class that contains the fields <code class="cCode">Title</code>, <code class="cCode">Author</code>, and <code class="cCode">Publisher</code>.
+</p>
+<a name="wp138712"> </a><p class="pBody">
+To be supported by JAX-RPC, a value type must conform to the following rules:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp138713"> </a><div class="pSmartList1"><li>It must have a public default constructor.</li></div>
+<a name="wp138714"> </a><div class="pSmartList1"><li>It must not implement (either directly or indirectly) the <code class="cCode">java.rmi.Remote</code> interface.</li></div>
+<a name="wp138715"> </a><div class="pSmartList1"><li>Its fields must be supported JAX-RPC types.</li></div>
+</ul></div>
+<a name="wp138716"> </a><p class="pBody">
+The value type can contain public, private, or protected fields. The field of a value type must meet these requirements:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp138717"> </a><div class="pSmartList1"><li>A public field cannot be final or transient.</li></div>
+<a name="wp138718"> </a><div class="pSmartList1"><li>A nonpublic field must have corresponding getter and setter methods. </li></div>
+</ul></div>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="JAXRPC3.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="JAXRPC5.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

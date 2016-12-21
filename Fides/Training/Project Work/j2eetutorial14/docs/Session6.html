@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>Handling Exceptions</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="Session5.html" />
+    <link rel="Next" href="BMP.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="Session5.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="BMP.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp83064"> </a><h2 class="pHeading1">
+Handling Exceptions
+</h2>
+<a name="wp83065"> </a><p class="pBody">
+The exceptions thrown by enterprise beans fall into two categories: system and application.
+</p>
+<a name="wp83066"> </a><p class="pBody">
+A <span style="font-style: italic">system exception</span> indicates a problem with the services that support an application. Examples of these problems include the following: a database connection cannot be obtained, an SQL insert fails because the database is full, or a <code class="cCode">lookup</code> method cannot find the desired object. If your enterprise bean encounters a system-level problem, it should throw a <code class="cCode">javax.ejb.EJBException</code>. The container will wrap the <code class="cCode">EJBException</code> in a <code class="cCode">RemoteException</code>, which it passes back to the client. Because the <code class="cCode">EJBException</code> is a subclass of the <code class="cCode">RuntimeException</code>, you do not have to specify it in the <code class="cCode">throws</code> clause of the method declaration. If a system exception is thrown, the EJB container might destroy the bean instance. Therefore, a system exception cannot be handled by the bean's client program; it requires intervention by a system administrator.
+</p>
+<a name="wp83068"> </a><p class="pBody">
+An <span style="font-style: italic">application exception</span> signals an error in the business logic of an enterprise bean. There are two types of application exceptions: customized and predefined. A customized exception is one that you've coded yourself, such as the <code class="cCode">InsufficentBalanceException</code> thrown by the <code class="cCode">debit</code> business method of the <code class="cCode">SavingsAccountBean</code> example. The <code class="cCode">javax.ejb</code> package includes several predefined exceptions that are designed to handle common problems. For example, an <code class="cCode">ejbCreate</code> method should throw a <code class="cCode">CreateException</code> to indicate an invalid input parameter. When an enterprise bean throws an application exception, the container does not wrap it in another exception. The client should be able to handle any application exception it receives.
+</p>
+<a name="wp83071"> </a><p class="pBody">
+If a system exception occurs within a transaction, the EJB container rolls back the transaction. However, if an application exception is thrown within a transaction, the container does not roll back the transaction.
+</p>
+<a name="wp83076"> </a><p class="pBody">
+<a  href="Session6.html#wp83084">Table 6-1</a> summarizes the exceptions of the <code class="cCode">javax.ejb</code> package. All of these exceptions are application exceptions, except for the <code class="cCode">NoSuchEntityException</code> and the <code class="cCode">EJBException</code>, which are system exceptions.</p><div align="left">
+<table border="1" summary="Exceptions" id="wp83084">
+  <caption><a name="wp83084"> </a><div class="pTableTitle">
+Table 6-1   Exceptions&nbsp;
+</div>
+</caption>
+  <tr align="center">    <th><a name="wp83090"> </a><div class="pCellHeading">
+Method Name
+</div>
+</th>
+    <th><a name="wp83092"> </a><div class="pCellHeading">
+Exception It Throws
+</div>
+</th>
+    <th><a name="wp83094"> </a><div class="pCellHeading">
+Reason for Throwing
+</div>
+</th>
+</tr>
+  <tr align="left">    <td><a name="wp83096"> </a><div class="pCellBody">
+<code class="cCode">ejbCreate</code>
+</div>
+</td>
+    <td><a name="wp83098"> </a><div class="pCellBody">
+<code class="cCode">CreateException</code>
+</div>
+</td>
+    <td><a name="wp83100"> </a><div class="pCellBody">
+An input parameter is invalid.
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp83102"> </a><div class="pCellBody">
+<code class="cCode">ejbFindByPrimaryKey</code>
+</div>
+<a name="wp83103"> </a><div class="pCellBody">
+<code class="cCode">(</code>and other finder methods that return a single object<code class="cCode">)</code>
+</div>
+</td>
+    <td><a name="wp83105"> </a><div class="pCellBody">
+<code class="cCode">ObjectNotFoundException</code>
+</div>
+<a name="wp83106"> </a><div class="pCellBody">
+<code class="cCode">(</code>subclass of <code class="cCode">FinderException</code><code class="cCode">)</code>
+</div>
+</td>
+    <td><a name="wp83108"> </a><div class="pCellBody">
+The database row for the requested entity bean cannot be found.
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp83110"> </a><div class="pCellBody">
+<code class="cCode">ejbRemove</code>
+</div>
+</td>
+    <td><a name="wp83112"> </a><div class="pCellBody">
+<code class="cCode">RemoveException</code>
+</div>
+</td>
+    <td><a name="wp83114"> </a><div class="pCellBody">
+The entity bean's row cannot be deleted from the database.
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp83116"> </a><div class="pCellBody">
+<code class="cCode">ejbLoad</code>
+</div>
+</td>
+    <td><a name="wp83118"> </a><div class="pCellBody">
+<code class="cCode">NoSuchEntityException</code>
+</div>
+</td>
+    <td><a name="wp83120"> </a><div class="pCellBody">
+The database row to be loaded into the entity bean cannot be found.
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp83122"> </a><div class="pCellBody">
+<code class="cCode">ejbStore</code>
+</div>
+</td>
+    <td><a name="wp83124"> </a><div class="pCellBody">
+<code class="cCode">NoSuchEntityException</code>
+</div>
+</td>
+    <td><a name="wp83126"> </a><div class="pCellBody">
+The database row to be updated cannot be found. 
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp83128"> </a><div class="pCellBody">
+(all methods<code class="cCode">)</code>
+</div>
+</td>
+    <td><a name="wp83130"> </a><div class="pCellBody">
+<code class="cCode">EJBException</code>
+</div>
+</td>
+    <td><a name="wp83132"> </a><div class="pCellBody">
+A system problem has been encountered.
+</div>
+</td>
+</tr>
+</table>
+</div>
+<p class="pBody">
+</p>
+<a name="wp83133"> </a><p class="pBody">
+
+</p>
+<a name="wp79665"> </a><p class="pBody">
+
+</p>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="Session5.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="BMP.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

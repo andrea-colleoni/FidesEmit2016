@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>J2EE Containers</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="Overview2.html" />
+    <link rel="Next" href="Overview4.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="Overview2.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="Overview4.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp87799"> </a><h2 class="pHeading1">
+J2EE Containers
+</h2>
+<a name="wp87800"> </a><p class="pBody">
+Normally, thin-client multitiered applications are hard to write because they involve many lines of intricate code to handle transaction and state management, multithreading, resource pooling, and other complex low-level details. The component-based and platform-independent J2EE<span style="vertical-align: super"> </span>architecture makes J2EE applications easy to write because business logic is organized into reusable components. In addition, the J2EE server provides underlying services in the form of a container for every component type. Because you do not have to develop these services yourself, you are free to concentrate on solving the business problem at hand.
+</p>
+<a name="wp87801"> </a><h3 class="pHeading2">
+Container Services
+</h3>
+<a name="wp87803"> </a><p class="pBody">
+<em class="cEmphasis">Containers</em> are the interface between a component and the low-level platform-specific functionality that supports the component. Before a web component, enterprise bean, or application client component can be executed, it must be assembled into a J2EE module and deployed into its container. 
+</p>
+<a name="wp87804"> </a><p class="pBody">
+The assembly process involves specifying container settings for each component in the J2EE application and for the J2EE application itself. Container settings customize the underlying support provided by the J2EE server, including services such as security, transaction management, Java Naming and Directory Interface<img src="images/tm.gif" border="0" alt="Trademarked"> (JNDI) lookups, and remote connectivity. Here are some of the highlights:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp87807"> </a><div class="pSmartList1"><li>The J2EE security model lets you configure a web component or enterprise bean so that system resources are accessed only by authorized users. </li></div>
+<a name="wp87809"> </a><div class="pSmartList1"><li>The J2EE transaction model lets you specify relationships among methods that make up a single transaction so that all methods in one transaction are treated as a single unit. </li></div>
+<a name="wp87810"> </a><div class="pSmartList1"><li>JNDI lookup services provide a unified interface to multiple naming and directory services in the enterprise so that application components can access naming and directory services.</li></div>
+<a name="wp87811"> </a><div class="pSmartList1"><li>The J2EE remote connectivity model manages low-level communications between clients and enterprise beans. After an enterprise bean is created, a client invokes methods on it as if it were in the same virtual machine.</li></div>
+</ul></div>
+<a name="wp87813"> </a><p class="pBody">
+Because the J2EE architecture provides configurable services, application components within the same J2EE application can behave differently based on where they are deployed. For example, an enterprise bean can have security settings that allow it a certain level of access to database data in one production environment and another level of database access in another production environment. 
+</p>
+<a name="wp87815"> </a><p class="pBody">
+The container also manages nonconfigurable services such as enterprise bean and servlet life cycles, database connection resource pooling, data persistence, and access to the J2EE platform APIs described in section <a  href="Overview6.html#wp87912">J2EE 1.4 APIs</a>. Although data persistence is a nonconfigurable service, the J2EE architecture lets you override container-managed persistence by including the appropriate code in your enterprise bean implementation when you want more control than the default container-managed persistence provides. For example, you might use bean-managed persistence to implement your own finder (search) methods or to create a customized database cache.
+</p>
+<a name="wp87819"> </a><h3 class="pHeading2">
+Container Types
+</h3>
+<a name="wp87820"> </a><p class="pBody">
+The deployment process installs J2EE application components in the J2EE containers illustrated in <a  href="Overview3.html#wp87833">Figure 1-5</a>.
+</p>
+<a name="wp87831"> </a><p class="pBody">
+</p><div align="left"><img src="images/overview-serverAndContainers5.gif" height="238" width="438" alt="J2EE Server and Containers" border="0" hspace="0" vspace="0"/>
+</div><p class="pBody">
+</p>
+
+<p>
+  <a name="wp87833"> </a><font >Figure 1-5    J2EE Server and Containers</font>
+</p>
+
+<a name="wp87835"> </a><p class="pDefinitionTerm">
+J2EE server
+</p>
+<a name="wp87836"> </a><p class="pDefinition">
+The runtime portion of a J2EE product. A J2EE server provides EJB and web containers. 
+</p>
+<a name="wp87838"> </a><p class="pDefinitionTerm">
+Enterprise JavaBeans (EJB) container
+</p>
+<a name="wp87839"> </a><p class="pDefinition">
+Manages the execution of enterprise beans for J2EE applications. Enterprise beans and their container run on the J2EE server.
+</p>
+<a name="wp87841"> </a><p class="pDefinitionTerm">
+Web container
+</p>
+<a name="wp87842"> </a><p class="pDefinition">
+Manages the execution of JSP page and servlet components for J2EE applications. web components and their container run on the J2EE server.
+</p>
+<a name="wp87844"> </a><p class="pDefinitionTerm">
+Application client container
+</p>
+<a name="wp87845"> </a><p class="pDefinition">
+Manages the execution of application client components. Application clients and their container run on the client.
+</p>
+<a name="wp87847"> </a><p class="pDefinitionTerm">
+Applet container
+</p>
+<a name="wp87848"> </a><p class="pDefinition">
+Manages the execution of applets. Consists of a web browser and Java Plug-in running on the client together.
+</p>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="Overview2.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="Overview4.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

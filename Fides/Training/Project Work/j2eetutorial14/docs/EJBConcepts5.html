@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>What Is a Message-Driven Bean?</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="EJBConcepts4.html" />
+    <link rel="Next" href="EJBConcepts6.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="EJBConcepts4.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="EJBConcepts6.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp79967"> </a><h2 class="pHeading1">
+What Is a Message-Driven Bean?
+</h2>
+<a name="wp79973"> </a><p class="pBody">
+A <span style="font-style: italic">message-driven bean</span> is an enterprise bean that allows J2EE applications to process messages asynchronously. It normally acts as a JMS message listener, which is similar to an event listener except that it receives JMS messages instead of events. The messages can be sent by any J2EE component--an application client, another enterprise bean, or a web component--or by a JMS application or system that does not use J2EE technology. Message-driven beans can process either JMS messages or other kinds of messages.
+</p>
+<a name="wp79982"> </a><p class="pBody">
+For a simple code sample, see Chapter&nbsp;9. 
+</p>
+<a name="wp79983"> </a><h3 class="pHeading2">
+What Makes Message-Driven Beans Different from Session and Entity Beans?
+</h3>
+<a name="wp79984"> </a><p class="pBody">
+The most visible difference between message-driven beans and session and entity beans is that clients do not access message-driven beans through interfaces. Interfaces are described in the section <a  href="EJBConcepts6.html#wp80011">Defining Client Access with Interfaces</a>. Unlike a session or entity bean, a message-driven bean has only a bean class.
+</p>
+<a name="wp79990"> </a><p class="pBody">
+In several respects, a message-driven bean resembles a stateless session bean.
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp79991"> </a><div class="pSmartList1"><li>A message-driven bean's instances retain no data or conversational state for a specific client.</li></div>
+<a name="wp79992"> </a><div class="pSmartList1"><li>All instances of a message-driven bean are equivalent, allowing the EJB container to assign a message to any message-driven bean instance. The container can pool these instances to allow streams of messages to be processed concurrently.</li></div>
+<a name="wp79993"> </a><div class="pSmartList1"><li>A single message-driven bean can process messages from multiple clients.</li></div>
+</ul></div>
+<a name="wp79994"> </a><p class="pBody">
+The instance variables of the message-driven bean instance can contain some state across the handling of client messages--for example, a JMS API connection, an open database connection, or an object reference to an enterprise bean object.
+</p>
+<a name="wp80964"> </a><p class="pBody">
+Client components do not locate message-driven beans and invoke methods directly on them. Instead, a client accesses a message-driven bean through JMS by sending messages to the message destination for which the message-driven bean class is the <code class="cCode">MessageListener</code>. You assign a message-driven bean's destination during deployment by using Application Server resources. 
+</p>
+<a name="wp80817"> </a><p class="pBody">
+Message-driven beans have the following characteristics: 
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp80819"> </a><div class="pSmartList1"><li>They execute upon receipt of a single client message. </li></div>
+<a name="wp80820"> </a><div class="pSmartList1"><li>They are invoked asynchronously. </li></div>
+<a name="wp80821"> </a><div class="pSmartList1"><li>They are relatively short-lived. </li></div>
+<a name="wp80822"> </a><div class="pSmartList1"><li>They do not represent directly shared data in the database, but they can access and update this data. </li></div>
+<a name="wp80823"> </a><div class="pSmartList1"><li>They can be transaction-aware. </li></div>
+<a name="wp79997"> </a><div class="pSmartList1"><li>They are stateless. </li></div>
+</ul></div>
+<a name="wp80922"> </a><p class="pBody">
+When a message arrives, the container calls the message-driven bean's <code class="cCode">onMessage</code> method to process the message. The <code class="cCode">onMessage</code> method normally casts the message to one of the five JMS message types and handles it in accordance with the application's business logic. The <code class="cCode">onMessage</code> method can call helper methods, or it can invoke a session or entity bean to process the information in the message or to store it in a database.
+</p>
+<a name="wp80000"> </a><p class="pBody">
+A message can be delivered to a message-driven bean within a transaction context, so all operations within the <code class="cCode">onMessage</code> method are part of a single transaction. If message processing is rolled back, the message will be redelivered.
+</p>
+<a name="wp80007"> </a><h3 class="pHeading2">
+When to Use Message-Driven Beans
+</h3>
+<a name="wp80008"> </a><p class="pBody">
+Session beans and entity beans allow you to send JMS messages and to receive them synchronously, but not asynchronously. To avoid tying up server resources, you may prefer not to use blocking synchronous receives in a server-side component. To receive messages asynchronously, use a message-driven bean.
+</p>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="EJBConcepts4.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="EJBConcepts6.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>Sun Java System Application Server Platform Edition 8.1</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="Overview6.html" />
+    <link rel="Next" href="JAXRPC.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="Overview6.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="JAXRPC.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp88025"> </a><h2 class="pHeading1">
+Sun Java System Application Server Platform Edition 8.1
+</h2>
+<a name="wp88027"> </a><p class="pBody">
+The Sun Java System Application Server Platform Edition 8.1 is a fully compliant implementation of the J2EE 1.4 platform. In addition to supporting all the APIs described in the previous sections, the Application Server includes a number of J2EE technologies and tools that are not part of the J2EE 1.4 platform but are provided as a convenience to the developer.
+</p>
+<a name="wp88028"> </a><p class="pBody">
+This section briefly summarizes the technologies and tools that make up the Application Server, and instructions for starting and stopping the Application Server, starting the Admin Console, starting <code class="cCode">deploytool</code>, and starting and stopping the PointBase database server. Other chapters explain how to use the remaining tools.
+</p>
+<a name="wp88029"> </a><h3 class="pHeading2">
+Technologies
+</h3>
+<a name="wp88031"> </a><p class="pBody">
+The Application Server includes two user interface technologies--JavaServer Pages Standard Tag Library and JavaServer<img src="images/tm.gif" border="0" alt="Trademarked"> Faces--that are built on and used in conjunction with the J2EE 1.4 platform technologies Java servlet and JavaServer Pages.
+</p>
+<a name="wp88032"> </a><h4 class="pHeading3">
+JavaServer Pages Standard Tag Library
+</h4>
+<a name="wp88034"> </a><p class="pBody">
+The JavaServer Pages Standard Tag Library (JSTL) encapsulates core functionality common to many JSP applications. Instead of mixing tags from numerous vendors in your JSP applications, you employ a single, standard set of tags. This standardization allows you to deploy your applications on any JSP container that supports JSTL and makes it more likely that the implementation of the tags is optimized.
+</p>
+<a name="wp88035"> </a><p class="pBody">
+JSTL has iterator and conditional tags for handling flow control, tags for manipulating XML documents, internationalization tags, tags for accessing databases using SQL, and commonly used functions. 
+</p>
+<a name="wp88036"> </a><h4 class="pHeading3">
+JavaServer Faces
+</h4>
+<a name="wp88038"> </a><p class="pBody">
+JavaServer Faces technology is a user interface framework for building web applications. The main components of JavaServer Faces technology are as follows:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp88039"> </a><div class="pSmartList1"><li>A GUI component framework.</li></div>
+<a name="wp88040"> </a><div class="pSmartList1"><li>A flexible model for rendering components in different kinds of HTML or different markup languages and technologies. A <code class="cCode">Renderer</code> object generates the markup to render the component and converts the data stored in a model object to types that can be represented in a view.</li></div>
+<a name="wp88041"> </a><div class="pSmartList1"><li>A standard <code class="cCode">RenderKit</code> for generating HTML/4.01 markup.</li></div>
+</ul></div>
+<a name="wp88042"> </a><p class="pBody">
+The following features support the GUI components:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp88043"> </a><div class="pSmartList1"><li>Input validation</li></div>
+<a name="wp88044"> </a><div class="pSmartList1"><li>Event handling</li></div>
+<a name="wp88045"> </a><div class="pSmartList1"><li>Data conversion between model objects and components</li></div>
+<a name="wp88046"> </a><div class="pSmartList1"><li>Managed model object creation</li></div>
+<a name="wp88047"> </a><div class="pSmartList1"><li>Page navigation configuration</li></div>
+</ul></div>
+<a name="wp88048"> </a><p class="pBody">
+All this functionality is available via standard Java APIs and XML-based configuration files. 
+</p>
+<a name="wp88049"> </a><h3 class="pHeading2">
+Tools
+</h3>
+<a name="wp88054"> </a><p class="pBody">
+The Application Server contains the tools listed in <a  href="Overview7.html#wp88060">Table 1-1</a>. All can be used from the IDE. Basic usage information for many of the tools appears throughout the tutorial. For detailed information, see the online help in the GUI tools and the man pages at <code class="cCode"><a  href="http://docs.sun.com/db/doc/817-6092" target="_blank">http://docs.sun.com/db/doc/817-6092</a></code> for the command-line tools.</p><div align="left">
+<table border="1" summary="Sun Java System Application Server Tools" id="wp88060">
+  <caption><a name="wp88060"> </a><div class="pTableTitle">
+Table 1-1   Application Server Tools
+</div>
+</caption>
+  <tr align="center">    <th><a name="wp88064"> </a><div class="pCellHeading">
+Component
+</div>
+</th>
+    <th><a name="wp88066"> </a><div class="pCellHeading">
+Description
+</div>
+</th>
+</tr>
+  <tr align="left">    <td><a name="wp88069"> </a><div class="pCellBody">
+Admin Console
+</div>
+</td>
+    <td><a name="wp88071"> </a><div class="pCellBody">
+A web-based GUI Application Server administration utility. Used to stop the Application Server and manage users, resources, and applications.
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp88074"> </a><div class="pCellBody">
+PointBase database
+</div>
+</td>
+    <td><a name="wp88076"> </a><div class="pCellBody">
+An evaluation copy of the PointBase database server.
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp88079"> </a><div class="pCellBody">
+<code class="cCode">verifier</code>
+</div>
+</td>
+    <td><a name="wp88081"> </a><div class="pCellBody">
+A command-line tool to validate J2EE deployment descriptors.
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp88084"> </a><div class="pCellBody">
+<code class="cCode">wscompile</code>
+</div>
+</td>
+    <td><a name="wp88086"> </a><div class="pCellBody">
+A command-line tool to generate stubs, ties, serializers, and WSDL files used in JAX-RPC clients and services.
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp88089"> </a><div class="pCellBody">
+<code class="cCode">wsdeploy</code>
+</div>
+</td>
+    <td><a name="wp88091"> </a><div class="pCellBody">
+A command-line tool to generate implementation-specific, ready-to-deploy WAR files for web service applications that use JAX-RPC.
+</div>
+</td>
+</tr>
+</table>
+</div>
+<p class="pBody">
+</p>
+<a name="wp88094"> </a><h3 class="pHeading2">
+Registering the Application Server
+</h3>
+<a name="wp88096"> </a><p class="pBody">
+Before you can begin working with J2EE project types in the IDE, you have to register the Application Server's installation location and a target domain. Note that if you downloaded and installed the version of the IDE that comes bundled with the Application Server, you do not have to perform this step. The IDE knows the location of the bundled Application Server.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp88097"> </a><div class="pSmartList1"><li>In the IDE, choose Tools<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Server Manager from the main window.</li></div>
+<a name="wp88098"> </a><div class="pSmartList1"><li>Click Add Server. Select Sun Java Systems Application Server 8.1 and give a name to the instance. Then click Next.</li></div>
+<a name="wp88099"> </a><div class="pSmartList1"><li>Specify the installation directory of the application server (for example, <code class="cCode">C:\Sun\Appserver</code>) and click Next.</li></div>
+<a name="wp88100"> </a><div class="pSmartList1"><li>Select the location of a local instance of the application server from the Location combo box.</li></div>
+<a name="wp88101"> </a><div class="pSmartList1"><li>Optionally, enter your administrator username and password. If you do not want to store the username and password in your IDE user directory, you can leave these fields blank. The IDE will prompt you every time it needs the information. Note that the default <code class="cCode">admin</code> password is <code class="cCode">adminadmin</code>.</li></div>
+</ol></div>
+<a name="wp88103"> </a><h3 class="pHeading2">
+Starting and Stopping the Application Server
+</h3>
+<a name="wp88105"> </a><p class="pBody">
+To start the Application Server, open the IDE, go to the Runtime window (Ctrl-5), expand the Servers node, right-click the Application Server's node, and choose Start/Stop Server. In the Server Status dialog box, click Start Server.
+</p>
+<a name="wp88305"> </a><p class="pBody">
+You can also start the Application Server from a terminal window or command prompt by executing the following:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+asadmin start-domain --verbose domain1 <a name="wp88307"> </a>
+</pre></div>
+<a name="wp88107"> </a><p class="pBody">
+A <em class="cEmphasis">domain</em> is a set of one or more Application Server instances managed by one administration server. Associated with a domain are the following:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp88108"> </a><div class="pSmartList1"><li>The Application Server's port number. The default is 8080.</li></div>
+<a name="wp88109"> </a><div class="pSmartList1"><li>The administration server's port number. The default is 4848.</li></div>
+<a name="wp88110"> </a><div class="pSmartList1"><li>An administration user name and password.</li></div>
+</ul></div>
+<a name="wp88111"> </a><p class="pBody">
+You specify these values when you install the Application Server. The examples in this tutorial assume that you choose the default ports.
+</p>
+<a name="wp88112"> </a><p class="pBody">
+With no arguments, the IDE initiates the default domain, which is <code class="cCode">domain1</code>. The <code class="cCode">--verbose</code> flag causes all logging and debugging output to appear in the Output window (it will also go into the server log, which is located in <code class="cCode">&lt;</code><code class="cVariable">J2EE_HOME</code><code class="cCode">&gt;/domains/domain1/logs/server.log</code>).
+</p>
+<a name="wp88113"> </a><p class="pBody">
+After the server has completed its startup sequence, you will see the following output:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+Domain domain1 started.<a name="wp88114"> </a>
+</pre></div>
+<a name="wp88329"> </a><p class="pBody">
+To stop the Application Server, click Stop Server in the Server Status dialog box. You can also stop the Application Server from a terminal window or command prompt by executing the following:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+asadmin stop-domain domain1 <a name="wp88330"> </a>
+</pre></div>
+<a name="wp88327"> </a><p class="pBody">
+When the server has stopped you will see the following output:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+Domain domain1 stopped.<a name="wp88117"> </a>
+</pre></div>
+<a name="wp88120"> </a><h3 class="pHeading2">
+Starting the Admin Console
+</h3>
+<a name="wp88121"> </a><p class="pBody">
+To administer the Application Server and manage users, resources, and J2EE applications, you use the Admin Console tool. The Application Server must be running before you invoke the Admin Console. To start the Admin Console, open the IDE, go to the Runtime window (Ctrl-5), expand the Servers node, right-click the node for the Application Server, and choose View Admin Console.
+</p>
+<a name="wp88294"> </a><p class="pBody">
+Alternatively, you can open a web browser and go to the following URL:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+http://localhost:4848/asadmin/<a name="wp88295"> </a>
+</pre></div>
+<a name="wp88124"> </a><h3 class="pHeading2">
+Starting and Stopping the PointBase Database Server
+</h3>
+<a name="wp88125"> </a><p class="pBody">
+The Application Server includes an evaluation copy of the PointBase database.
+</p>
+<a name="wp88127"> </a><p class="pBody">
+To start the PointBase database server, open the IDE and choose Tools<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Pointbase Database<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Start Local Pointbase Database from the main menu.
+</p>
+<a name="wp88128"> </a><p class="pBody">
+For information about the PointBase database included with the Application Server see the PointBase web site at <code class="cCode"><a  href="http://www.pointbase.com" target="_blank">www.pointbase.com</a></code>.
+</p>
+<a name="wp88130"> </a><h3 class="pHeading2">
+Debugging J2EE Applications
+</h3>
+<a name="wp88131"> </a><p class="pBody">
+This section describes how to determine what is causing an error in your application deployment or execution.
+</p>
+<a name="wp88132"> </a><h4 class="pHeading3">
+Using the Server Log
+</h4>
+<a name="wp88134"> </a><p class="pBody">
+One way to debug applications is to look at the server log in <code class="cCode">&lt;</code><code class="cVariable">J2EE_HOME</code><code class="cCode">&gt;/domains/domain1/logs/server.log</code>. The log contains output from the Application Server and your applications. You can log messages from any Java class in your application with <code class="cCode">System.out.println</code> and the Java Logging APIs (documented at <code class="cCode"><a  href="http://java.sun.com/j2se/1.4.2/docs/guide/util/logging/index.html" target="_blank">http://java.sun.com/j2se/1.4.2/docs/guide/util/logging/index.html</a></code>) and from web components with the <code class="cCode"><a  href="http://java.sun.com/j2ee/1.4/docs/api/javax/servlet/ServletContext.html#log(java.lang.String,java.lang.Throwable)" target="_blank">ServletContext.log</a></code> method.
+</p>
+<a name="wp88139"> </a><p class="pBody">
+You can also view the Server Log in the IDE. Open the IDE, go to the Runtime window (Ctrl-5), expand the Servers node, right-click the node for the Application Server, and choose View Server Log.
+</p>
+<a name="wp88140"> </a><p class="pBody">
+If you start the Application Server with the <code class="cCode">--verbose</code> flag, all logging and debugging output will appear on the terminal window or command prompt and the server log. If you start the Application Server in the background, debugging information is only available in the log. You can view the server log with a text editor or with the Admin Console log viewer. To use the log viewer:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp88141"> </a><div class="pSmartList1"><li>Select the Application Server node.</li></div>
+<a name="wp88142"> </a><div class="pSmartList1"><li>Select the Logging tab.</li></div>
+<a name="wp88143"> </a><div class="pSmartList1"><li>Click the Open Log Viewer button. The log viewer will open and display the last 40 entries. </li></div>
+</ol></div>
+<a name="wp88144"> </a><p class="pBody">
+If you wish to display other entries:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp88145"> </a><div class="pSmartList1"><li>Click the Modify Search button.</li></div>
+<a name="wp88146"> </a><div class="pSmartList1"><li>Specify any constraints on the entries you want to see.</li></div>
+<a name="wp88147"> </a><div class="pSmartList1"><li>Click the Search button at the bottom of the log viewer.</li></div>
+</ol></div>
+<a name="wp88148"> </a><h4 class="pHeading3">
+Using the NetBeans Debugger
+</h4>
+<a name="wp88149"> </a><p class="pBody">
+The IDE uses the Sun Microsystems JPDA debugger to debug your programs. When you start a debugging session, all of the relevant debugger windows appear automatically at the bottom of your screen. You can debug an entire project, any executable class, and any JUnit tests. The IDE also lets you debug applications that are running on a remote machine by attaching the debugger to the application process.
+</p>
+<a name="wp88150"> </a><p class="pBody">
+When you run or debug web applications, JSP pages, or servlets, you can also use the HTTP Monitor to monitor data flow. The HTTP Monitor appears by default. The HTTP Monitor gathers data about HTTP requests that the servlet engine processes. For each HTTP request that the engine processes, the monitor records data about the incoming request, the data states maintained on the server, and the servlet context. You can view data, store data for future sessions, and replay and edit previous requests. 
+</p>
+<a name="wp88151"> </a><p class="pBody">
+When you start a debugging session in the IDE, the IDE compiles the files that you are debugging, runs them in debug mode, and displays debugger output in the Debugger windows. To start a debugging session, select the file that you want to debug and choose one of the following commands from the Run menu:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp88152"> </a><div class="pSmartList1"><li>Debug Main Project (F5). Runs the main project until the first breakpoint is encountered.</li></div>
+<a name="wp88153"> </a><div class="pSmartList1"><li>Step Into (F7). Starts running the main project&#39;s main class and stops at the first executable statement.</li></div>
+<a name="wp88154"> </a><div class="pSmartList1"><li>Run to Cursor (F4). Starts a debugging session, runs the application to the cursor location in the Source Editor, and pauses the application.</li></div>
+</ul></div>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="Overview6.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="JAXRPC.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

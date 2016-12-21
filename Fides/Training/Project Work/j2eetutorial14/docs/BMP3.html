@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>Mapping Table Relationships for Bean-Managed Persistence</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="BMP2.html" />
+    <link rel="Next" href="BMP4.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="BMP2.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="BMP4.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp82760"> </a><h2 class="pHeading1">
+Mapping Table Relationships for Bean-Managed Persistence
+</h2>
+<a name="wp82761"> </a><p class="pBody">
+In a relational database, tables can be related by common columns. The relationships between the tables affect the design of their corresponding entity beans. The entity beans discussed in this section are backed up by tables with the following types of relationships:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82762"> </a><div class="pSmartList1"><li>One-to-one </li></div>
+<a name="wp82763"> </a><div class="pSmartList1"><li>One-to-many </li></div>
+<a name="wp82764"> </a><div class="pSmartList1"><li>Many-to-many </li></div>
+</ul></div>
+<a name="wp82767"> </a><h3 class="pHeading2">
+One-to-One Relationships
+</h3>
+<a name="wp82768"> </a><p class="pBody">
+In a one-to-one relationship, each row in a table is related to a single row in another table. For example, in a warehouse application, a <code class="cCode">storagebin</code> table might have a one-to-one relationship with a <code class="cCode">widget</code> table. This application would model a physical warehouse in which each storage bin contains one type of widget and each widget resides in one storage bin.
+</p>
+<a name="wp82772"> </a><p class="pBody">
+<a  href="BMP3.html#wp82784">Figure 7-1</a> illustrates the <code class="cCode">storagebin</code> and <code class="cCode">widget</code> tables. Because the <code class="cCode">storagebinid</code> uniquely identifies a row in the <code class="cCode">storagebin</code> table, it is that table's primary key. The <code class="cCode">widgetid</code> is the primary key of the <code class="cCode">widget</code> table. The two tables are related because the <code class="cCode">widgetid</code> is also a column in the <code class="cCode">storagebin</code> table. By referring to the primary key of the <code class="cCode">widget</code> table, the <code class="cCode">widgetid</code> in the <code class="cCode">storagebin</code> table identifies which widget resides in a particular storage bin in the warehouse. Because the <code class="cCode">widgetid</code> of the <code class="cCode">storagebin</code> table refers to the primary key of another table, it is called a <span style="font-style: italic">foreign key</span>. (The figures in this chapter denote a primary key with PK and a foreign key with FK.)
+</p>
+<a name="wp82782"> </a><p class="pBody">
+</p><div align="left"><img src="images/bmp-oneToOneRelationship.gif" height="106" width="391" alt="One-to-One Table Relationship" border="0" hspace="0" vspace="0"/>
+</div><p class="pBody">
+</p>
+
+<p>
+  <a name="wp82784"> </a><font >Figure 7-1    One-to-One Table Relationship</font>
+</p>
+
+<a name="wp82785"> </a><p class="pBody">
+A dependent (child) table includes a foreign key that matches the primary key of the referenced (parent) table. The values of the foreign keys in the <code class="cCode">storagebin</code> (child) table depend on the primary keys in the <code class="cCode">widget</code> (parent) table. For example, if the <code class="cCode">storagebin</code> table has a row with a <code class="cCode">widgetid</code> of 344, then the widget table should also have a row whose <code class="cCode">widgetid</code> is 344.
+</p>
+<a name="wp82786"> </a><p class="pBody">
+When designing a database application, you can choose to enforce the dependency between the parent and child tables. There are two ways to enforce such a dependency: by defining a referential constraint in the database or by performing checks in the application code. The <code class="cCode">storagebin</code> table has a referential constraint named <code class="cCode">fk_widgetid</code>:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+CREATE TABLE storagebin
+   (storagebinid VARCHAR(3) 
+    CONSTRAINT pk_storagebin PRIMARY KEY,
+    widgetid VARCHAR(3),
+    quantity INTEGER,
+    CONSTRAINT fk_widgetid
+    FOREIGN KEY (widgetid)
+     REFERENCES widget(widgetid));<a name="wp82788"> </a>
+</pre></div>
+<a name="wp82789"> </a><p class="pBody">
+The source code for the following example is in this directory:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+&lt;<code class="cVariable">INSTALL</code>&gt;/j2eetutorial14/examples/ejb/storagebin/<a name="wp82790"> </a>
+</pre></div>
+<a name="wp82791"> </a><p class="pBody">
+To open the project, choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Open Project (Ctrl-Shift-O). In the file chooser, go to &lt;<code class="cVariable">INSTALL</code>&gt;/j2eetutorial14/examples/ejb/storagebin/, select the <code class="cCode">StorageBin</code> directory, and choose Open Project.
+</p>
+<a name="wp82792"> </a><p class="pBody">
+The <code class="cCode">StorageBinBean</code> and <code class="cCode">WidgetBean</code> classes illustrate the one-to-one relationship of the <code class="cCode">storagebin</code> and <code class="cCode">widget</code> tables. The <code class="cCode">StorageBinBean</code> class contains variables for each column in the <code class="cCode">storagebin</code> table, including the foreign key, <code class="cCode">widgetId</code>:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+private String storageBinId;
+private String widgetId;
+private int quantity;<a name="wp82793"> </a>
+</pre></div>
+<a name="wp82795"> </a><p class="pBody">
+The <code class="cCode">ejbFindByWidgetId</code> method of the <code class="cCode">StorageBinBean</code> class returns the <code class="cCode">storageBinId</code> that matches a given <code class="cCode">widgetId</code>:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public String ejbFindByWidgetId(String widgetId)
+&nbsp;&nbsp;&nbsp;&nbsp;throws FinderException {
+
+&nbsp;&nbsp;String storageBinId;
+
+&nbsp;&nbsp;try {
+&nbsp;&nbsp;&nbsp;&nbsp;storageBinId = selectByWidgetId(widgetId);
+&nbsp;&nbsp;} catch (Exception ex) {
+&nbsp;&nbsp;&nbsp;&nbsp;throw new EJBException(&quot;ejbFindByWidgetId: &quot; + 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ex.getMessage());
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;if (storageBinId == null) {
+&nbsp;&nbsp;&nbsp;&nbsp;throw new ObjectNotFoundException
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(&quot;Row for widgetId &quot; + widgetId + &quot; not found.&quot;);
+&nbsp;&nbsp;}
+&nbsp;&nbsp;else {
+&nbsp;&nbsp;&nbsp;&nbsp;return storageBinId;
+&nbsp;&nbsp;}
+}<a name="wp82796"> </a>
+</pre></div>
+<a name="wp82797"> </a><p class="pBody">
+The <code class="cCode">ejbFindByWidgetId</code> method locates the <code class="cCode">widgetId</code> by querying the database in the <code class="cCode">selectByWidgetId</code> method:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+private String selectByWidgetId(String widgetId) 
+   throws SQLException {
+
+   String storageBinId;
+
+   makeConnection();
+   String selectStatement =
+         &quot;select storagebinid &quot; +
+         &quot;from storagebin where widgetid = ? &quot;;
+   PreparedStatement prepStmt =
+         con.prepareStatement(selectStatement);
+   prepStmt.setString(1, widgetId);
+
+   ResultSet rs = prepStmt.executeQuery();
+
+   if (rs.next()) {
+      storageBinId = rs.getString(1);
+   }
+   else {
+      storageBinId = null;
+   }
+
+   prepStmt.close();
+   releaseConnection();
+   return storageBinId;
+}<a name="wp82798"> </a>
+</pre></div>
+<a name="wp82799"> </a><p class="pBody">
+To find out in which storage bin a widget resides, the <code class="cCode">StorageBinClient</code> program calls the <code class="cCode">findByWidgetId</code> method:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+String widgetId = &quot;777&quot;;
+StorageBin storageBin = 
+   &nbsp;&nbsp;&nbsp;&nbsp;storageBinHome.findByWidgetId(widgetId);
+String storageBinId = (String)storageBin.getPrimaryKey();
+int quantity = storageBin.getQuantity();<a name="wp82800"> </a>
+</pre></div>
+<a name="wp82801"> </a><h4 class="pHeading3">
+Running the StorageBinBean Example
+</h4>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82802"> </a><div class="pSmartList1"><li>In the IDE, choose Tools<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>PointBase Database<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Start Local PointBase Database.</li></div>
+<a name="wp82803"> </a><div class="pSmartList1"><li>Create the database tables by running the <code class="cCode">create.sql</code> script.</li></div>
+<div class="pSmartList2"><ol type="a" class="pSmartList2">
+<a name="wp82804"> </a><div class="pSmartList2"><li>Make sure that the <code class="cCode">appsrv.root</code> property in your <code style="font-style: oblique" class="cCode">&lt;INSTALL&gt;</code><code class="cCode">/j2eetutorial14/examples/</code> file points to the location of your local Application Server installation.</li></div>
+<a name="wp82805"> </a><div class="pSmartList2"><li>In a terminal window, go to this directory:</li></div>
+<a name="wp82806"> </a><p class="pBodyRelative">
+<code style="font-style: oblique" class="cCode">&nbsp;&nbsp;&lt;INSTALL&gt;</code><code class="cCode">/j2eetutorial14/examples/ejb/storagebin/</code>
+</p>
+<a name="wp82807"> </a><div class="pSmartList2"><li>Type the following command, which runs the <code class="cCode">create.sql</code> script:</li></div>
+<a name="wp82808"> </a><p class="pBodyRelative">
+<code class="cCode">&nbsp;&nbsp;asant -buildfile create-db.xml</code>
+</p>
+</ol></div>
+<a name="wp82809"> </a><div class="pSmartList1"><li>Choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Open Project (Ctrl-Shift-O). In the file chooser, go to <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/storagebin/</code>, select the <code class="cCode">StorageBinClient</code> directory, and choose Open Project.</li></div>
+<a name="wp82810"> </a><div class="pSmartList1"><li>The project needs to know the location of some JAR files on its classpath and the StorageBin project. Right-click the StorageBinClient project and choose Resolve Reference Problems. Select the <code class="cCode">&quot;StorageBin&quot; project could not be found message</code> and click Resolve. In the file chooser, select either the completed StorageBin project in <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/storagebin/</code> or the project you created and click OK.</li></div>
+<a name="wp82811"> </a><div class="pSmartList1"><li>Select the <code class="cCode">&quot;appserv-rt.jar&quot; file/folder could not be found</code> message and click Resolve. Navigate to the <code class="cCode">lib</code> directory in your application server installation, select <code class="cCode">appserv-rt.jar</code>, and click OK. The IDE automatically resolves the location of <code class="cCode">j2ee.jar</code>. Click Close.</li></div>
+<a name="wp82812"> </a><div class="pSmartList1"><li>Right-click the StorageBin project and choose Deploy Project. The IDE builds the project, deploys the EJB module, and registers a JDBC connection pool and database resource for the project.</li></div>
+<a name="wp82813"> </a><div class="pSmartList1"><li>Right-click the StorageBinClient project and choose Run Project. The client should display the following:</li></div>
+<a name="wp82814"> </a><p class="pBodyRelative">
+<code class="cCode">&nbsp;&nbsp;...<br />&nbsp;&nbsp;777 388 500 1.0 Duct Tape<br />&nbsp;&nbsp;...</code>
+</p>
+</ol></div>
+<a name="wp82816"> </a><h3 class="pHeading2">
+One-to-Many Relationships
+</h3>
+<a name="wp82817"> </a><p class="pBody">
+If the primary key in a parent table matches multiple foreign keys in a child table, then the relationship is one-to-many. This relationship is common in database applications. For example, an application for a sports league might access a <code class="cCode">team</code> table and a <code class="cCode">player</code> table. Each team has multiple players, and each player belongs to a single team. Every row in the child table (<code class="cCode">player</code>) has a foreign key identifying the player's team. This foreign key matches the <code class="cCode">team</code> table's primary key.
+</p>
+<a name="wp82818"> </a><p class="pBody">
+The sections that follow describe how you might implement one-to-many relationships in entity beans. When designing such entity beans, you must decide whether both tables are represented by entity beans, or only one.
+</p>
+<a name="wp82821"> </a><h4 class="pHeading3">
+A Helper Class for the Child Table
+</h4>
+<a name="wp82822"> </a><p class="pBody">
+Not every database table needs to be mapped to an entity bean. If a database table doesn't represent a business entity, or if it stores information that is contained in another entity, then you should use a helper class to represent the table. In an online shopping application, for example, each order submitted by a customer can have multiple line items. The application stores the information in the database tables shown by <a  href="BMP3.html#wp82835">Figure 7-2</a>.
+</p>
+<a name="wp82833"> </a><p class="pBody">
+</p><div align="left"><img src="images/bmp-oneToManyRelationshipOrderLineItem2.gif" height="111" width="387" alt="One-to-Many Relationship: Order and Line Items" border="0" hspace="0" vspace="0"/>
+</div><p class="pBody">
+</p>
+
+<p>
+  <a name="wp82835"> </a><font >Figure 7-2    One-to-Many Relationship: Order and Line Items</font>
+</p>
+
+<a name="wp82836"> </a><p class="pBody">
+Not only does a line item belong to an order, but it also does not exist without the order. Therefore, the <code class="cCode">lineitems</code> table should be represented with a helper class and not with an entity bean. Using a helper class in this case is not required, but doing so might improve performance because a helper class uses fewer system resources than does an entity bean.
+</p>
+<a name="wp82837"> </a><p class="pBody">
+The source code for the following example is in this directory:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+&lt;<code class="cVariable">INSTALL</code>&gt;/j2eetutorial14/examples/ejb/order/<a name="wp82838"> </a>
+</pre></div>
+<a name="wp82839"> </a><p class="pBody">
+To open the project, choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Open Project (Ctrl-Shift-O). In the file chooser, go to <code class="cCode">&lt;INSTALL&gt;/j2eetutorial14/examples/ejb/order/</code>, select the <code class="cCode">Order</code> directory, and choose Open Project.
+</p>
+<a name="wp82840"> </a><p class="pBody">
+The <code class="cCode">LineItem</code> and <code class="cCode">OrderBean</code> classes show how to implement a one-to-many relationship using a helper class (<code class="cCode">LineItem</code>). The instance variables in the <code class="cCode">LineItem</code> class correspond to the columns in the <code class="cCode">lineitems</code> table. The <code class="cCode">itemNo</code> variable matches the primary key for the <code class="cCode">lineitems</code> table, and the <code class="cCode">orderId</code> variable represents the table's foreign key. Here is the source code for the <code class="cCode">LineItem</code> class:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public class LineItem implements java.io.Serializable {
+
+   String productId;
+   int quantity;
+   double unitPrice;
+   int itemNo;
+   String orderId;
+   
+
+   public LineItem(String productId, int quantity,
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;double unitPrice, int itemNo, String orderId) {
+
+      this.productId = productId;
+      this.quantity = quantity;
+      this.unitPrice = unitPrice;
+      this.itemNo = itemNo;
+      this.orderId = orderId;
+   }
+
+   public String getProductId() {
+      return productId;
+   }
+
+   public int getQuantity() {
+      return quantity;
+   }
+
+   public double getUnitPrice() {
+      return unitPrice;
+   }
+
+   public int getItemNo() {
+      return itemNo;
+   }
+
+   public String getOrderId() {
+      return orderId;
+   }
+}<a name="wp82842"> </a>
+</pre></div>
+<a name="wp82843"> </a><p class="pBody">
+The <code class="cCode">OrderBean</code> class contains an <code class="cCode">ArrayList</code> variable named <code class="cCode">lineItems</code>. Each element in the <code class="cCode">lineItems</code> variable is a <code class="cCode">LineItem</code> object. The <code class="cCode">lineItems</code> variable is passed to the <code class="cCode">OrderBean</code> class in the <code class="cCode">ejbCreate</code> method. For every <code class="cCode">LineItem</code> object in the <code class="cCode">lineItems</code> variable, the <code class="cCode">ejbCreate</code> method inserts a row into the <code class="cCode">lineitems</code> table. It also inserts a single row into the <code class="cCode">orders</code> table. The code for the <code class="cCode">ejbCreate</code> method follows:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public String ejbCreate(String orderId, String customerId,
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String status, double totalPrice, ArrayList lineItems)
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throws CreateException {
+
+    try {
+       insertOrder(orderId, customerId, status, totalPrice);
+       for (int i = 0; i &lt; lineItems.size(); i++) {
+          LineItem item = (LineItem)lineItems.get(i);
+          insertItem(item);
+       }
+    } catch (Exception ex) {
+        throw new EJBException(&quot;ejbCreate: &quot; + 
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ex.getMessage());
+    }
+
+    this.orderId = orderId;
+    this.customerId = customerId;
+    this.status = status;
+    this.totalPrice = totalPrice;
+    this.lineItems = lineItems ;
+
+    return orderId;
+}<a name="wp82845"> </a>
+</pre></div>
+<a name="wp82846"> </a><p class="pBody">
+The <code class="cCode">OrderClient</code> program creates and loads an <code class="cCode">ArrayList</code> of <code class="cCode">LineItem</code> objects. The program passes this <code class="cCode">ArrayList</code> to the entity bean when it invokes the <code class="cCode">create</code> method:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+ArrayList lineItems = new ArrayList();
+lineItems.add(new LineItem(&quot;p23&quot;, 13, 12.00, 1, &quot;123&quot;));
+lineItems.add(new LineItem(&quot;p67&quot;, 47, 89.00, 2, &quot;123&quot;));
+lineItems.add(new LineItem(&quot;p11&quot;, 28, 41.00, 3, &quot;123&quot;));
+...
+OrderRemote duke = home.create(&quot;123&quot;, &quot;c44&quot;, &quot;open&quot;,
+   &nbsp;&nbsp;&nbsp;&nbsp;totalItems(lineItems), lineItems);<a name="wp82848"> </a>
+</pre></div>
+<a name="wp82849"> </a><p class="pBody">
+Other methods in the <code class="cCode">OrderBean</code> class also access both database tables. The <code class="cCode">ejbRemove</code> method, for example, not only deletes a row from the <code class="cCode">orders</code> table but also deletes all corresponding rows in the <code class="cCode">lineitems</code> table. The <code class="cCode">ejbLoad</code> and <code class="cCode">ejbStore</code> methods synchronize the state of an <code class="cCode">OrderBean</code> instance, including the <code class="cCode">lineItems</code> <code class="cCode">ArrayList</code>, with the <code class="cCode">orders</code> and <code class="cCode">lineitems</code> tables.
+</p>
+<a name="wp82850"> </a><p class="pBody">
+The <code class="cCode">ejbFindByProductId</code> method enables clients to locate all orders that have a particular product. This method queries the <code class="cCode">lineitems</code> table for all rows with a specific <code class="cCode">productId</code>. The method returns a <code class="cCode">Collection</code> of <code class="cCode">Order</code> objects. The <code class="cCode">OrderClient</code> program iterates through the <code class="cCode">Collection</code> and prints the primary key of each order:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+Collection c = home.findByProductId(&quot;p67&quot;);
+Iterator i=c.iterator();
+while (i.hasNext()) {
+   OrderRemote order = (OrderRemote)i.next();
+   String id = (String)order.getPrimaryKey();
+   System.out.println(id);
+}<a name="wp82853"> </a>
+</pre></div>
+<a name="wp82854"> </a><h4 class="pHeading3">
+Running the OrderBean Example
+</h4>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82855"> </a><div class="pSmartList1"><li>In the IDE, choose Tools<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>PointBase Database<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Start Local PointBase Database.</li></div>
+<a name="wp82856"> </a><div class="pSmartList1"><li>Create the database tables by running the <code class="cCode">create.sql</code> script.</li></div>
+<div class="pSmartList2"><ol type="a" class="pSmartList2">
+<a name="wp82857"> </a><div class="pSmartList2"><li>Make sure that the <code class="cCode">appsrv.root</code> property in your <code style="font-style: oblique" class="cCode">&lt;INSTALL&gt;</code><code class="cCode">/j2eetutorial14/examples/</code> file points to the location of your local Application Server installation.</li></div>
+<a name="wp82858"> </a><div class="pSmartList2"><li>In a terminal window, go to this directory:</li></div>
+<a name="wp82859"> </a><p class="pBodyRelative">
+<code style="font-style: oblique" class="cCode">&nbsp;&nbsp;&lt;INSTALL&gt;</code><code class="cCode">/j2eetutorial14/examples/ejb/order/</code>
+</p>
+<a name="wp82860"> </a><div class="pSmartList2"><li>Type the following command, which runs the <code class="cCode">create.sql</code> script:</li></div>
+<a name="wp82861"> </a><p class="pBodyRelative">
+<code class="cCode">&nbsp;&nbsp;asant -buildfile create-db.xml</code>
+</p>
+</ol></div>
+<a name="wp82862"> </a><div class="pSmartList1"><li>Choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Open Project (Ctrl-Shift-O). In the file chooser, go to <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/order/</code>, select the <code class="cCode">OrderClient</code> directory, and choose Open Project.</li></div>
+<a name="wp82863"> </a><div class="pSmartList1"><li>The project needs to know the location of some JAR files on its classpath and the Order project. Right-click the OrderClient project and choose Resolve Reference Problems. Select the <code class="cCode">&quot;Order&quot; project could not be found message</code> and click Resolve. In the file chooser, select either the completed Order project in <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/order/</code> or the project you created and click OK.</li></div>
+<a name="wp82864"> </a><div class="pSmartList1"><li>Select the <code class="cCode">&quot;appserv-rt.jar&quot; file/folder could not be found</code> message and click Resolve. Navigate to the <code class="cCode">lib</code> directory in your application server installation, select <code class="cCode">appserv-rt.jar</code>, and click OK. The IDE automatically resolves the location of <code class="cCode">j2ee.jar</code>. Click Close.</li></div>
+<a name="wp82865"> </a><div class="pSmartList1"><li>Right-click the Order project and choose Deploy Project. The IDE builds the project, deploys the EJB module, and registers a JDBC connection pool and database resource for the project.</li></div>
+<a name="wp82866"> </a><div class="pSmartList1"><li>Right-click the OrderClient project and choose Run Project. The client should display the following:</li></div>
+<a name="wp82867"> </a><p class="pBodyRelative">
+<code class="cCode">&nbsp;&nbsp;...<br />&nbsp;&nbsp;123 1 p23 12.0<br />&nbsp;&nbsp;123 2 p67 89.0<br />&nbsp;&nbsp;123 3 p11 41.0<br /><br />&nbsp;&nbsp;123<br />&nbsp;&nbsp;456</code>
+</p>
+</ol></div>
+<a name="wp82869"> </a><h4 class="pHeading3">
+An Entity Bean for the Child Table
+</h4>
+<a name="wp82870"> </a><p class="pBody">
+You should consider building an entity bean for a child table under the following conditions:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82871"> </a><div class="pSmartList1"><li>The information in the child table is not dependent on the parent table.</li></div>
+<a name="wp82872"> </a><div class="pSmartList1"><li>The business entity of the child table could exist without that of the parent table.</li></div>
+<a name="wp82873"> </a><div class="pSmartList1"><li>The child table might be accessed by another application that does not access the parent table.</li></div>
+</ul></div>
+<a name="wp82874"> </a><p class="pBody">
+These conditions exist in the following scenario. Suppose that each sales representative in a company has multiple customers and that each customer has only one sales representative. The company tracks its sales force using a database application. In the database, each row in the <code class="cCode">salesrep</code> table (parent) matches multiple rows in the <code class="cCode">customer</code> table (child). <a  href="BMP3.html#wp82887">Figure 7-3</a> illustrates this relationship.
+</p>
+<a name="wp82885"> </a><p class="pBody">
+</p><div align="left"><img src="images/bmp-oneToManyRelationshipSales3.gif" height="107" width="390" alt="One-to-Many Relationships: Sales Representatives and Customers" border="0" hspace="0" vspace="0"/>
+</div><p class="pBody">
+</p>
+
+<p>
+  <a name="wp82887"> </a><font >Figure 7-3    One-to-Many Relationship: Sales Representative and Customers</font>
+</p>
+
+<a name="wp82888"> </a><p class="pBody">
+The <code class="cCode">SalesRepBean</code> and <code class="cCode">CustomerBean</code> entity bean classes implement the one-to-many relationship of the <code class="cCode">sales</code> and <code class="cCode">customer</code> tables.
+</p>
+<a name="wp82889"> </a><p class="pBody">
+The source code for this example is in this directory:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+&lt;<code class="cVariable">INSTALL</code>&gt;/j2eetutorial14/examples/ejb/salesrep/<a name="wp82890"> </a>
+</pre></div>
+<a name="wp82891"> </a><p class="pBody">
+To open the project, choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Open Project (Ctrl-Shift-O). In the file chooser, go to &lt;<code class="cVariable">INSTALL</code>&gt;/j2eetutorial14/examples/ejb/salesrep/, select the SalesRep directory, and choose Open Project.
+</p>
+<a name="wp82892"> </a><p class="pBody">
+The <code class="cCode">SalesRepBean</code> class contains a variable named <code class="cCode">customerIds</code>, which is an <code class="cCode">ArrayList</code> of <code class="cCode">String</code> elements. These <code class="cCode">String</code> elements identify which customers belong to the sales representative. Because the <code class="cCode">customerIds</code> variable reflects this relationship, the <code class="cCode">SalesRepBean</code> class must keep the variable up-to-date.
+</p>
+<a name="wp82893"> </a><p class="pBody">
+The <code class="cCode">SalesRepBean</code> class instantiates the <code class="cCode">customerIds</code> variable in the <code class="cCode">setEntityContext</code> method and not in <code class="cCode">ejbCreate</code>. The container invokes <code class="cCode">setEntityContext</code> only once--when it creates the bean instance--thereby ensuring that <code class="cCode">customerIds</code> is instantiated only once. Because the same bean instance can assume different identities during its life cycle, instantiating <code class="cCode">customerIds</code> in <code class="cCode">ejbCreate</code> might cause multiple and unnecessary instantiations. Therefore, the <code class="cCode">SalesRepBean</code> class instantiates the <code class="cCode">customerIds</code> variable in <code class="cCode">setEntityContext</code>:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public void setEntityContext(EntityContext context) {
+
+&nbsp;&nbsp;this.context = context;
+&nbsp;&nbsp;customerIds = new ArrayList();
+
+&nbsp;&nbsp;try {
+&nbsp;&nbsp;&nbsp;&nbsp;Context initial = new InitialContext();
+&nbsp;&nbsp;&nbsp;&nbsp;Object objref =
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;initial.lookup(&quot;java:comp/env/ejb/Customer&quot;);
+
+&nbsp;&nbsp;&nbsp;&nbsp;customerHome = 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(CustomerRemoteHome)PortableRemoteObject.narrow
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(objref,CustomerRemoteHome.class);
+&nbsp;&nbsp;} catch (Exception ex) {
+&nbsp;&nbsp;&nbsp;&nbsp;throw new EJBException(&quot;setEntityContext: &quot; +
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ex.getMessage());
+&nbsp;&nbsp;}
+}<a name="wp82895"> </a>
+</pre></div>
+<a name="wp82897"> </a><p class="pBody">
+Invoked by the <code class="cCode">ejbLoad</code> method, <code class="cCode">loadCustomerIds</code> is a private method that refreshes the <code class="cCode">customerIds</code> variable. There are two approaches to coding a method such as <code class="cCode">loadCustomerIds</code>: fetch the identifiers from the <code class="cCode">customer</code> database table, or get them from the <code class="cCode">CustomerBean</code> entity bean. Fetching the identifiers from the database might be faster, but it exposes the code in the <code class="cCode">SalesRepBean</code> class to the <code class="cCode">CustomerBean </code>bean's underlying database table. In the future, if you were to change the <code class="cCode">CustomerBean</code> bean's table (or move the bean to a different Application Server), you might need to change the <code class="cCode">SalesRepBean</code> code. But if the <code class="cCode">SalesRepBean</code> class gets the identifiers from the <code class="cCode">CustomerBean</code> entity bean, no coding changes would be required. The two approaches present a trade-off: performance versus flexibility. The <code class="cCode">SalesRepBean</code> example opts for flexibility, loading the <code class="cCode">customerIds</code> variable by calling the <code class="cCode">findBySalesRep</code> and <code class="cCode">getPrimaryKey</code> methods of <code class="cCode">CustomerBean</code>. Here is the code for the <code class="cCode">loadCustomerIds</code> method:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+private void loadCustomerIds() {
+
+   customerIds.clear();
+
+   try {
+      Collection c = customerHome.findBySalesRep(salesRepId);
+      Iterator i=c.iterator();
+
+      while (i.hasNext()) {
+&nbsp;&nbsp;&nbsp;&nbsp;CustomerRemote customer = (CustomerRemote)i.next();
+&nbsp;&nbsp;&nbsp;&nbsp;String id = (String)customer.getPrimaryKey();
+&nbsp;&nbsp;&nbsp;&nbsp;customerIds.add(id);
+      }
+   
+&nbsp;&nbsp;} catch (Exception ex) {
+       throw new EJBException(&quot;Exception in loadCustomerIds: &quot; +
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ex.getMessage());
+&nbsp;&nbsp;}
+}<a name="wp82901"> </a>
+</pre></div>
+<a name="wp82902"> </a><p class="pBody">
+If a customer's sales representative changes, the client program updates the database by calling the <code class="cCode">setSalesRepId</code> method of the <code class="cCode">CustomerBean</code> class. The next time a business method of the <code class="cCode">SalesRepBean</code> class is called, the <code class="cCode">ejbLoad</code> method invokes <code class="cCode">loadCustomerIds</code>, which refreshes the <code class="cCode">customerIds</code> variable. (To ensure that <code class="cCode">ejbLoad</code> is invoked before each business method, set the transaction attributes of the business methods to <code class="cCode">Required</code>.) For example, the <code class="cCode">SalesRepClient</code> program changes the <code class="cCode">salesRepId</code> for a customer named Mary Jackson as follows:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+CustomerRemote mary = customerHome.findByPrimaryKey(&quot;987&quot;);
+mary.setSalesRepId(&quot;543&quot;);<a name="wp82903"> </a>
+</pre></div>
+<a name="wp82904"> </a><p class="pBody">
+The <code class="cCode">salesRepId</code> value 543 identifies a sales representative named Janice Martin. To list all of Janice's customers, the <code class="cCode">SalesRepClient</code> program invokes the <code class="cCode">getCustomerIds</code> method, iterates through the <code class="cCode">ArrayList</code> of identifiers, and locates each <code class="cCode">CustomerBean</code> entity bean by calling its <code class="cCode">findByPrimaryKey</code> method:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+SalesRepRemote janice = salesHome.findByPrimaryKey(&quot;543&quot;);
+ArrayList a = janice.getCustomerIds();
+i = a.iterator();
+
+while (i.hasNext()) {
+   String customerId = (String)i.next();
+   CustomerRemote customer = &nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;customerHome.findByPrimaryKey(customerId);
+   String name = customer.getName();
+   System.out.println(customerId + &quot;: &quot; + name);
+}<a name="wp82906"> </a>
+</pre></div>
+<a name="wp82907"> </a><h4 class="pHeading3">
+Running the SalesRepBean Example
+</h4>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82908"> </a><div class="pSmartList1"><li>In the IDE, choose Tools<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>PointBase Database<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Start Local PointBase Database.</li></div>
+<a name="wp82909"> </a><div class="pSmartList1"><li>Create the database tables by running the <code class="cCode">create.sql</code> script.</li></div>
+<div class="pSmartList2"><ol type="a" class="pSmartList2">
+<a name="wp82910"> </a><div class="pSmartList2"><li>Make sure that the <code class="cCode">appsrv.root</code> property in your <code style="font-style: oblique" class="cCode">&lt;INSTALL&gt;</code><code class="cCode">/j2eetutorial14/examples/</code> file points to the location of your local Application Server installation.</li></div>
+<a name="wp82911"> </a><div class="pSmartList2"><li>In a terminal window, go to this directory:</li></div>
+<a name="wp82912"> </a><p class="pBodyRelative">
+<code style="font-style: oblique" class="cCode">&nbsp;&nbsp;&lt;INSTALL&gt;</code><code class="cCode">/j2eetutorial14/examples/ejb/salesrep/</code>
+</p>
+<a name="wp82913"> </a><div class="pSmartList2"><li>Type the following command, which runs the <code class="cCode">create.sql</code> script:</li></div>
+<a name="wp82914"> </a><p class="pBodyRelative">
+<code class="cCode">&nbsp;&nbsp;asant -buildfile create-db.xml</code>
+</p>
+</ol></div>
+<a name="wp82915"> </a><div class="pSmartList1"><li>Choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Open Project (Ctrl-Shift-O). In the file chooser, go to <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/salesrep/</code>, select the <code class="cCode">SalesRepClient</code> directory, and choose Open Project.</li></div>
+<a name="wp82916"> </a><div class="pSmartList1"><li>The project needs to know the location of some JAR files on its classpath and the SalesRep project. Right-click the SalesRepClient project and choose Resolve Reference Problems. Select the <code class="cCode">&quot;SalesRep&quot; project could not be found message</code> and click Resolve. In the file chooser, select either the completed SalesRep project in <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/salesrep/</code> or the project you created and click OK.</li></div>
+<a name="wp82917"> </a><div class="pSmartList1"><li>Select the <code class="cCode">&quot;appserv-rt.jar&quot; file/folder could not be found</code> message and click Resolve. Navigate to the <code class="cCode">lib</code> directory in your application server installation, select <code class="cCode">appserv-rt.jar</code>, and click OK. The IDE automatically resolves the location of <code class="cCode">j2ee.jar</code>. Click Close.</li></div>
+<a name="wp82918"> </a><div class="pSmartList1"><li>Right-click the SalesRep project and choose Deploy Project. The IDE builds the project, deploys the EJB module, and registers a JDBC connection pool and database resource for the project.</li></div>
+<a name="wp82919"> </a><div class="pSmartList1"><li>Right-click the SalesRepClient project and choose Run Project. The client should display the following:</li></div>
+<a name="wp82920"> </a><p class="pBodyRelative">
+<code class="cCode">&nbsp;&nbsp;...<br />&nbsp;&nbsp;customerId = 221<br />&nbsp;&nbsp;customerId = 388<br />&nbsp;&nbsp;customerId = 456<br />&nbsp;&nbsp;customerId = 844<br /><br />&nbsp;&nbsp;987: Mary Jackson<br />&nbsp;&nbsp;221: Alice Smith<br />&nbsp;&nbsp;388: Bill Williamson<br />&nbsp;&nbsp;456: Joe Smith<br />&nbsp;&nbsp;844: Buzz Murphy<br />&nbsp;&nbsp;...</code>
+</p>
+</ol></div>
+<a name="wp82923"> </a><h3 class="pHeading2">
+Many-to-Many Relationships
+</h3>
+<a name="wp82924"> </a><p class="pBody">
+In a many-to-many relationship, each entity can be related to multiple occurrences of the other entity. For example, a college course has many students and each student may take several courses. In a database, this relationship is represented by a cross-reference table containing the foreign keys. In <a  href="BMP3.html#wp82937">Figure 7-4</a>, the cross-reference table is the <code class="cCode">enrollment</code> table. These tables are accessed by the <code class="cCode">StudentBean</code>, <code class="cCode">CourseBean</code>, and <code class="cCode">EnrollerBean</code> classes. 
+</p>
+<a name="wp82935"> </a><p class="pBody">
+</p><div align="left"><img src="images/bmp-manyToManyRelationship4.gif" height="242" width="348" alt="Many-to-Many Relationship: Students and Courses" border="0" hspace="0" vspace="0"/>
+</div><p class="pBody">
+</p>
+
+<p>
+  <a name="wp82937"> </a><font >Figure 7-4    Many-to-Many Relationship: Students and Courses</font>
+</p>
+
+<a name="wp82938"> </a><p class="pBody">
+The source code for this example is in this directory:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+&lt;<code class="cVariable">INSTALL</code>&gt;/j2eetutorial14/examples/ejb/enroller/<a name="wp82939"> </a>
+</pre></div>
+<a name="wp82940"> </a><p class="pBody">
+To open the project, choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Open Project (Ctrl-Shift-O). In the file chooser, go to &lt;<code class="cVariable">INSTALL</code>&gt;/j2eetutorial14/examples/ejb/enroller/, select the Enroller directory, and choose Open Project.
+</p>
+<a name="wp82941"> </a><p class="pBody">
+The <code class="cCode">StudentBean</code> and <code class="cCode">CourseBean</code> classes are complementary. Each class contains an <code class="cCode">ArrayList</code> of foreign keys. The <code class="cCode">StudentBean</code> class contains an <code class="cCode">ArrayList</code> named <code class="cCode">courseIds</code>, which identifies the courses the student is enrolled in. Similarly, the <code class="cCode">CourseBean</code> class contains an <code class="cCode">ArrayList</code> named <code class="cCode">studentIds</code>.
+</p>
+<a name="wp82943"> </a><p class="pBody">
+The <code class="cCode">ejbLoad</code> method of the <code class="cCode">StudentBean</code> class adds elements to the <code class="cCode">courseIds</code> <code class="cCode">ArrayList</code> by calling <code class="cCode">loadCourseIds</code>, a private method. The <code class="cCode">loadCourseIds</code> method gets the course identifiers from the <code class="cCode">EnrollerBean</code> session bean. The source code for the <code class="cCode">loadCourseIds</code> method follows:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+private void loadCourseIds() {
+
+   courseIds.clear();
+
+   try {
+      EnrollerRemote enroller = enrollerHome.create();
+      ArrayList a = enroller.getCourseIds(studentId);
+      courseIds.addAll(a);
+
+&nbsp;&nbsp;} catch (Exception ex) {
+       throw new EJBException(&quot;Exception in loadCourseIds: &quot; +
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ex.getMessage());
+&nbsp;&nbsp;}
+}<a name="wp82944"> </a>
+</pre></div>
+<a name="wp82945"> </a><p class="pBody">
+Invoked by the <code class="cCode">loadCourseIds</code> method, the <code class="cCode">getCourseIds</code> method of the <code class="cCode">EnrollerBean</code> class queries the <code class="cCode">enrollment</code> table:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+select courseid from enrollment
+where studentid = ? <a name="wp82946"> </a>
+</pre></div>
+<a name="wp82948"> </a><p class="pBody">
+Only the <code class="cCode">EnrollerBean</code> class accesses the <code class="cCode">enrollment</code> table. Therefore, the <code class="cCode">EnrollerBean</code> class manages the student-course relationship represented in the <code class="cCode">enrollment</code> table. If a student enrolls in a course, for example, the client calls the <code class="cCode">enroll</code> business method, which inserts a row:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+insert into enrollment
+values (studentid, courseid)<a name="wp82949"> </a>
+</pre></div>
+<a name="wp82950"> </a><p class="pBody">
+If a student drops a course, the <code class="cCode">unEnroll</code> method deletes a row:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+delete from enrollment
+where studentid = ? and courseid = ?<a name="wp82951"> </a>
+</pre></div>
+<a name="wp82952"> </a><p class="pBody">
+And if a student leaves the school, the <code class="cCode">deleteStudent</code> method deletes all rows in the table for that student:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+delete from enrollment
+where student = ?<a name="wp82953"> </a>
+</pre></div>
+<a name="wp82954"> </a><p class="pBody">
+The <code class="cCode">EnrollerBean</code> class does not delete the matching row from the <code class="cCode">student</code> table. That action is performed by the <code class="cCode">ejbRemove</code> method of the <code class="cCode">StudentBean</code> class. To ensure that both deletes are executed as a single operation, you must ensure that they belong to the same transaction.
+</p>
+<a name="wp82956"> </a><h4 class="pHeading3">
+Running the EnrollerBean Example
+</h4>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82957"> </a><div class="pSmartList1"><li>In the IDE, choose Tools<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>PointBase Database<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Start Local PointBase Database.</li></div>
+<a name="wp82958"> </a><div class="pSmartList1"><li>Create the database tables by running the <code class="cCode">create.sql</code> script.</li></div>
+<div class="pSmartList2"><ol type="a" class="pSmartList2">
+<a name="wp82959"> </a><div class="pSmartList2"><li>Make sure that the <code class="cCode">appsrv.root</code> property in your <code style="font-style: oblique" class="cCode">&lt;INSTALL&gt;</code><code class="cCode">/j2eetutorial14/examples/</code> file points to the location of your local Application Server installation.</li></div>
+<a name="wp82960"> </a><div class="pSmartList2"><li>In a terminal window, go to this directory:</li></div>
+<a name="wp82961"> </a><p class="pBodyRelative">
+<code style="font-style: oblique" class="cCode">&nbsp;&nbsp;&lt;INSTALL&gt;</code><code class="cCode">/j2eetutorial14/examples/ejb/enroller/</code>
+</p>
+<a name="wp82962"> </a><div class="pSmartList2"><li>Type the following command, which runs the <code class="cCode">create.sql</code> script:</li></div>
+<a name="wp82963"> </a><p class="pBodyRelative">
+<code class="cCode">&nbsp;&nbsp;asant -buildfile create-db.xml</code>
+</p>
+</ol></div>
+<a name="wp82964"> </a><div class="pSmartList1"><li>Choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Open Project (Ctrl-Shift-O). In the file chooser, go to <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/enroller/</code>, select the <code class="cCode">EnrollerClient</code> directory, and choose Open Project.</li></div>
+<a name="wp82965"> </a><div class="pSmartList1"><li>The project needs to know the location of some JAR files on its classpath and the Enroller project. Right-click the EnrollerClient project and choose Resolve Reference Problems. Select the <code class="cCode">&quot;Enroller&quot; project could not be found message</code> and click Resolve. In the file chooser, select either the completed Enroller project in <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/enroller/</code> or the project you created and click OK.</li></div>
+<a name="wp82966"> </a><div class="pSmartList1"><li>Select the <code class="cCode">&quot;appserv-rt.jar&quot; file/folder could not be found</code> message and click Resolve. Navigate to the <code class="cCode">lib</code> directory in your application server installation, select <code class="cCode">appserv-rt.jar</code>, and click OK. The IDE automatically resolves the location of <code class="cCode">j2ee.jar</code>. Click Close.</li></div>
+<a name="wp82967"> </a><div class="pSmartList1"><li>Right-click the Enroller project and choose Deploy Project. The IDE builds the project, deploys the EJB module, and registers a JDBC connection pool and database resource for the project.</li></div>
+<a name="wp82968"> </a><div class="pSmartList1"><li>Right-click the EnrollerClient project and choose Run Project. The client should display the following:</li></div>
+<a name="wp82969"> </a><p class="pBodyRelative">
+<code class="cCode">&nbsp;&nbsp;...<br />&nbsp;&nbsp;Denise Smith:<br />&nbsp;&nbsp;220 Power J2EE Programming<br />&nbsp;&nbsp;333 XML Made Easy<br />&nbsp;&nbsp;777 An Introduction to Java Programming<br /><br />&nbsp;&nbsp;An Introduction to Java Programming:<br />&nbsp;&nbsp;823 Denise Smith<br />&nbsp;&nbsp;456 Joe Smith<br />&nbsp;&nbsp;388 Elizabeth Willis<br />&nbsp;&nbsp;...</code>
+</p>
+</ol></div>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="BMP2.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="BMP4.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

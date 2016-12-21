@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>The HelloService Web Service Example</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="Session2.html" />
+    <link rel="Next" href="Session4.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="Session2.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="Session4.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp82922"> </a><h2 class="pHeading1">
+The HelloService Web Service Example
+</h2>
+<a name="wp82923"> </a><p class="pBody">
+This example demonstrates a simple web service that generates a response based on information received from the client. To understand this example you should read Creating a Simple Web Service and Client with JAX-RPC. HelloService is a stateless session bean that implements a single method, <code class="cCode">sayHello</code>. This method matches the <code class="cCode">sayHello</code> method invoked by the clients. In this section, you will register the HelloService web service with the server and then test the HelloService bean by running the HelloWebClient JAX-RPC client.
+</p>
+<a name="wp83490"> </a><p class="pBody">
+In the source for this example, the location of the HelloService web service is already configured. The source code for the HelloService example is located in the <code class="cVariable">&lt;INSTALL&gt;</code><code class="cCode">/j2eetutorial/examples/ejb/helloservice/</code> directory.
+</p>
+<a name="wp82925"> </a><h4 class="pHeading3">
+Opening the HelloService Example
+</h4>
+<a name="wp82926"> </a><p class="pBody">
+The HelloService project contains the <code class="cCode">HelloServiceBean</code> class and the <span style="font-style: italic">service endpoint interface</span> (SEI). The <code class="cCode">HelloServiceBean</code> class is located in the <code class="cCode">hello</code> package in the Source Packages node and contains the business method. The <code class="cCode">HelloServiceSEI</code> interface is also located in the <code class="cCode">hello</code> package. 
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp83501"> </a><div class="pSmartList1"><li>Choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Open Project (Ctrl-Shift-O). In the file chooser, go to <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/helloservice/</code>, select the <code class="cCode">HelloService</code> directory, and choose Open Project.</li></div>
+<a name="wp82928"> </a><div class="pSmartList1"><li>Expand the <code class="cCode">hello</code> package under the Source Packages node and open the <code class="cCode">HelloServiceSEI</code> interface in the Source Editor.</li></div>
+</ol></div>
+<a name="wp83517"> </a><p class="pBody">
+The IDE generates the bean class and interface when you add a web service. To add a new web service, right-click the project node and choosing New<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Web Service from the contextual menu and supply the details for the web service in the New Web Service wizard.
+</p>
+<a name="wp82930"> </a><h3 class="pHeading2">
+Web Service Endpoint Interface
+</h3>
+<a name="wp83549"> </a><p class="pBody">
+<code class="cCode">HelloServiceSEI</code> is the bean's web service endpoint interface. It provides the client's view of the web service, hiding the stateless session bean from the client. A web service endpoint interface must conform to the rules of a JAX-RPC service definition interface. Here is the source code for the <code class="cCode">HelloService</code> interface:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+package hello;
+
+public interface HelloServiceSEI extends java.rmi.Remote {
+ 
+   public String sayHello(String name) throws
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java.rmi.RemoteException;
+}<a name="wp82935"> </a>
+</pre></div>
+<a name="wp82937"> </a><h3 class="pHeading2">
+Stateless Session Bean Implementation Class
+</h3>
+<a name="wp82938"> </a><p class="pBody">
+The <code class="cCode">HelloServiceBean</code> class implements the <code class="cCode">sayHello</code> method defined by the <code class="cCode">HelloServiceSEI</code> interface. The interface decouples the implementation class from the type of client access. For example, if you added remote and home interfaces to <code class="cCode">HelloServiceBean</code>, the methods of the <code class="cCode">HelloServiceBean</code> class could also be accessed by remote clients. No changes to the <code class="cCode">HelloServiceBean</code> class would be necessary. 
+</p>
+<a name="wp82939"> </a><p class="pBody">
+The source code for the <code class="cCode">HelloServiceBean</code> class follows:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+package hello;
+
+import javax.ejb.*;
+
+public class HelloServiceBean implements javax.ejb.SessionBean 
+{
+&nbsp;&nbsp;private javax.ejb.SessionContext context;
+
+&nbsp;&nbsp;public String sayHello(String name) {
+
+&nbsp;&nbsp;&nbsp;&nbsp;return &quot;Hello &quot;+ name + &quot; (from HelloServiceBean)&quot;;
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;public void ejbCreate() {}
+&nbsp;&nbsp;public void ejbRemove() {}
+&nbsp;&nbsp;public void ejbActivate() {}
+&nbsp;&nbsp;public void ejbPassivate() {}
+&nbsp;&nbsp;public void setSessionContext(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;javax.ejb.SessionContext aContext) {
+&nbsp;&nbsp;&nbsp;&nbsp;context = aContext;
+&nbsp;&nbsp;}
+}<a name="wp82940"> </a>
+</pre></div>
+<a name="wp82941"> </a><p class="pBody">
+To run the HelloService example, you need to build and deploy the application. You also need to register the web service with the application server before you can run the HelloWebClient application to test the HelloService example.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82942"> </a><div class="pSmartList1"><li>In the Projects window, right-click the HelloService module node and choose Run Project.</li></div>
+<a name="wp82943"> </a><div class="pSmartList1"><li>Expand the Web Services node and right-click the HelloService web service and choose Add to Registry. In the Enter WSDL Url dialog box, ensure that the address is correct and corresponds to your server configuration and click OK.</li></div>
+</ol></div>
+<a name="wp82944"> </a><p class="pBody">
+After you register the web service, the web service is visible in the Runtime window under the Web Services node of the server instance and the HelloService application is visible under the EJB Modules under the Applications node. After you have deployed the application and registered the web service, you can test the web service by running the HelloWebClient application.
+</p>
+<a name="wp82953"> </a><h3 class="pHeading2">
+Running the HelloWebClient Application
+</h3>
+<a name="wp82954"> </a><p class="pBody">
+When you run the HelloWebClient client, the HelloWebClient application is deployed to your server and the HelloWebServlet opens in your web browser. This HelloWebClient example already contains the necessary reference to the HelloService web service so you do not need to add it. For this example, it is assumed that your localhost server is running on port 8080. If your server is running on a different port, you will need to edit the following line in the <code class="cCode">HelloService.wsdl</code> file to match your configuration. The <code class="cCode">HelloService.wsdl</code> file is located in the directory <code class="cCode">&lt;INSTALL&gt;/j2eetutorial14/examples/ejb/helloservice/HelloWebClient/web/WEB-INF/wsdl/</code>.
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+<code class="cCode">&lt;soap:address location=&quot;http://localhost:8080/webservice/Hel-
+loService&quot; xmlns:wsdl=&quot;http://schemas.xmlsoap.org/wsdl/&quot;/&gt;</code><a name="wp82955"> </a>
+</pre></div>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82956"> </a><div class="pSmartList1"><li>Choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Open Project (Ctrl-Shift-O). In the file chooser, go to <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/helloservice/</code>, select the <code class="cCode">HelloWebClient</code> directory, and choose Open Project.</li></div>
+<a name="wp82957"> </a><div class="pSmartList1"><li>In the Projects window, right-click the HelloWebClient project node and choose Run Project. The IDE builds the project, registers the server resources and opens the client in your web browser. </li></div>
+<a name="wp82958"> </a><div class="pSmartList1"><li>When the servlet page opens in your web browser, enter your name in the input box and click Submit to test the web service.</li></div>
+</ol></div>
+<a name="wp82959"> </a><p class="pBody">
+The web page displays the text you input followed by <code class="cCode">&quot;(from HelloServiceBean)&quot;</code>
+</p>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="Session2.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="Session4.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

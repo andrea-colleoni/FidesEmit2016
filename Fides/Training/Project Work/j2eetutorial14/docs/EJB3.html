@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>Creating the Enterprise Bean</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="EJB2.html" />
+    <link rel="Next" href="EJB4.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="EJB2.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="EJB4.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp82785"> </a><h2 class="pHeading1">
+Creating the Enterprise Bean
+</h2>
+<a name="wp82786"> </a><p class="pBody">
+The enterprise bean in our example is a stateless session bean called <code class="cCode">ConverterBean</code>. The source code for <code class="cCode">ConverterBean</code> is in the <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/converter/ConverterApp/ConverterApp-ejb/</code> directory.
+</p>
+<a name="wp82787"> </a><p class="pBody">
+Creating <code class="cCode">ConverterBean</code> requires these steps:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82788"> </a><div class="pSmartList1"><li>Generating the bean classes and interfaces from a NetBeans template</li></div>
+<a name="wp82789"> </a><div class="pSmartList1"><li>Adding business methods to the enterprise bean.</li></div>
+</ol></div>
+<a name="wp82790"> </a><h3 class="pHeading2">
+Creating the ConverterBean Enterprise Bean
+</h3>
+<a name="wp82791"> </a><p class="pBody">
+The enterprise bean templates automatically create all of the classes and interfaces necessary for the enterprise bean and register the enterprise bean in the EJB module's deployment descriptor.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82792"> </a><div class="pSmartList1"><li>In the Projects window, right-click the ConverterApp-EJBModule node and choose New<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Session Bean.</li></div>
+<a name="wp82793"> </a><div class="pSmartList1"><li>In the EJB Name field, type <code class="cCode">Converter</code>. In the Package field, type <code class="cCode">converter</code>. Set the bean to be stateless and remote and click Finish.</li></div>
+</ol></div>
+<a name="wp82794"> </a><p class="pBody">
+The IDE creates the following classes:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82795"> </a><div class="pSmartList1"><li><code class="cCode">ConverterBean.java</code>. The enterprise bean class. All of the EJB infrastructure methods are generated automatically and are hidden in a code fold.</li></div>
+<a name="wp82797"> </a><div class="pSmartList1"><li><code class="cCode">ConverterRemote.java</code>. The <em class="cEmphasis">r</em>emote interface. The remote interface usually defines the business methods that a client can call. The business methods are implemented in the enterprise bean code. Because the IDE enforces best coding practices, it actually registers all of the business methods in a remote business interface, which the remote interface extends.</li></div>
+<a name="wp82798"> </a><div class="pSmartList1"><li><code class="cCode">ConverterRemoteBusiness.java</code>. The <span style="font-style: italic">business interface</span>. Presently this class is empty, but as we add business methods to the bean this class will be populated.</li></div>
+<a name="wp82799"> </a><div class="pSmartList1"><li><code class="cCode">ConverterRemoteHome.java</code>. The <span style="font-style: italic">home interface. </span>A home interface defines the methods that allow a client to create, find, or remove an enterprise bean. </li></div>
+</ul></div>
+<a name="wp82800"> </a><h4 class="pHeading3">
+Adding Business Methods
+</h4>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82801"> </a><div class="pSmartList1"><li>Expand the Enterprise JavaBeans node, right-click the ConverterSB node, and choose Add<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Business Method.</li></div>
+<a name="wp82802"> </a><div class="pSmartList1"><li>In the dialog box, type <code class="cCode">dollarToYen</code> in the Name field and <code class="cCode">BigDecimal</code> in the Return Type field. In the Parameters tab, click Add to add a <code class="cCode">BigDecimal</code> parameter named <code class="cCode">dollars</code>. Then click OK to add the business method.</li></div>
+<a name="wp82803"> </a><div class="pSmartList1"><li>Repeat steps 1 and 2 to add a business method called <code class="cCode">yenToEuro</code> that returns a <code class="cCode">BigDecimal</code> and has one <code class="cCode">BigDecimal</code> parameter named <code class="cCode">yen</code>.</li></div>
+<a name="wp82804"> </a><div class="pSmartList1"><li>Press Alt-Shift-F to generate an import statement for <code class="cCode">java.math.bigDecimal</code>.</li></div>
+<a name="wp82805"> </a><div class="pSmartList1"><li>Expand the Source Packages node and the <code class="cCode">converter</code> package node. Double-click <code class="cCode">ConverterRemoteBusiness.java</code> to open it in the Source Editor. Notice that the IDE has automatically declared the <code class="cCode">dollarToYen</code> and <code class="cCode">yenToEuro</code> methods in the interface. Press Alt-Shift-F to generate an import statement for <code class="cCode">java.math.bigDecimal</code>.</li></div>
+<a name="wp82806"> </a><div class="pSmartList1"><li>In <code class="cCode">ConverterBean.java</code>, add the following field declarations right below the class declaration:</li></div>
+<a name="wp82807"> </a><p class="pBodyRelative">
+<code class="cCode">BigDecimal yenRate = new BigDecimal(&quot;121.6000&quot;);<br />BigDecimal euroRate = new BigDecimal(&quot;0.0077&quot;);</code>
+</p>
+<a name="wp82808"> </a><div class="pSmartList1"><li>In <code class="cCode">ConverterBean.java</code>, implement the <code class="cCode">dollarToYen</code> and <code class="cCode">yenToEuro</code> methods as follows:</li></div>
+<a name="wp82809"> </a><p class="pBodyRelative">
+<code class="cCode">public BigDecimal dollarToYen(BigDecimal dollars) {<br />&nbsp;&nbsp;BigDecimal result = dollars.multiply(yenRate);<br />&nbsp;&nbsp;return result.setScale(2, BigDecimal.ROUND_UP);<br />}<br /><br />public BigDecimal yenToEuro(BigDecimal yen) {<br />&nbsp;&nbsp;BigDecimal result = yen.multiply(euroRate);<br />&nbsp;&nbsp;return result.setScale(2, BigDecimal.ROUND_UP);<br />}</code>
+</p>
+</ol></div>
+<a name="wp82811"> </a><p class="pBody">
+The full source code for the <code class="cCode">ConverterBean</code> class follows.
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+import java.rmi.RemoteException; 
+import javax.ejb.SessionBean;
+import javax.ejb.SessionContext;
+import java.math.*;
+
+public class ConverterBean implements SessionBean,
+&nbsp;&nbsp;&nbsp;&nbsp;<code class="cCode">ConverterRemoteBusiness </code>{
+
+&nbsp;&nbsp;private SessionContext context;
+&nbsp;&nbsp;BigDecimal yenRate = new BigDecimal(&quot;121.6000&quot;);
+&nbsp;&nbsp;BigDecimal euroRate = new BigDecimal(&quot;0.0077&quot;);
+
+&nbsp;&nbsp;public void setSessionContext(SessionContext aContext) {
+&nbsp;&nbsp;&nbsp;&nbsp;context = aContext;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;public void ejbRemove() {}
+&nbsp;&nbsp;public void ejbActivate() {}
+&nbsp;&nbsp;public void ejbPassivate() {}
+&nbsp;&nbsp;public void ejbCreate() {}
+
+&nbsp;&nbsp;public BigDecimal dollarToYen(BigDecimal dollars) {
+&nbsp;&nbsp;&nbsp;&nbsp;BigDecimal result = dollars.multiply(yenRate);
+&nbsp;&nbsp;&nbsp;&nbsp;return result.setScale(2,BigDecimal.ROUND_UP);
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;public BigDecimal yenToEuro(BigDecimal yen) {
+&nbsp;&nbsp;&nbsp;&nbsp;BigDecimal result = yen.multiply(euroRate);
+&nbsp;&nbsp;&nbsp;&nbsp;return result.setScale(2,BigDecimal.ROUND_UP);
+   }
+
+}<a name="wp82812"> </a>
+</pre></div>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="EJB2.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="EJB4.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>
