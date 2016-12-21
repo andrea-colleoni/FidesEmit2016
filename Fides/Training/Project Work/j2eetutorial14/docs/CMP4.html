@@ -1,0 +1,852 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>The PlayerBean Code</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="CMP3.html" />
+    <link rel="Next" href="CMP5.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="CMP3.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="CMP5.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp90211"> </a><h2 class="pHeading1">
+The PlayerBean Code
+</h2>
+<a name="wp90212"> </a><p class="pBody">
+The <code class="cCode">PlayerBean</code> entity bean represents a player in a sports league. Like any local entity bean with container-managed persistence, <code class="cCode">PlayerBean</code> needs the following code:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp90213"> </a><div class="pSmartList1"><li>Entity bean class (<code class="cCode">PlayerBean</code>) </li></div>
+<a name="wp90214"> </a><div class="pSmartList1"><li>Local home interface (<code class="cCode">PlayerLocalHome</code>) </li></div>
+<a name="wp90215"> </a><div class="pSmartList1"><li>Local interface (<code class="cCode">PlayerLocal</code>)</li></div>
+</ul></div>
+<a name="wp90216"> </a><p class="pBody">
+In addition to these standard files, the IDE also creates a business interface (<code class="cCode">PlayerLocalBusiness</code>) in which it registers business methods. 
+</p>
+<a name="wp90217"> </a><p class="pBody">
+The source code for this example is in the <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/cmproster/Roster/src/java</code> directory. 
+</p>
+<a name="wp90218"> </a><h3 class="pHeading2">
+Entity Bean Class
+</h3>
+<a name="wp90219"> </a><p class="pBody">
+The code of the entity bean class must meet the container-managed persistence syntax requirements. First, the class must be defined as <code class="cCode">public</code> and <code class="cCode">abstract</code>. Second, the class must implement the following:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp90220"> </a><div class="pSmartList1"><li>The <code class="cCode">EntityBean</code> interface </li></div>
+<a name="wp90221"> </a><div class="pSmartList1"><li>Zero or more <code class="cCode">ejbCreate</code> and <code class="cCode">ejbPostCreate</code> methods</li></div>
+<a name="wp90222"> </a><div class="pSmartList1"><li>The <code class="cCode">get</code> and <code class="cCode">set</code> access methods, defined as <code class="cCode">abstract</code>, for the persistent and relationship fields</li></div>
+<a name="wp90223"> </a><div class="pSmartList1"><li>Any select methods, defining them as <code class="cCode">abstract</code></li></div>
+<a name="wp90224"> </a><div class="pSmartList1"><li>The home methods</li></div>
+<a name="wp90225"> </a><div class="pSmartList1"><li>The business methods</li></div>
+</ul></div>
+<a name="wp90226"> </a><p class="pBody">
+The entity bean class must not implement these methods:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp90228"> </a><div class="pSmartList1"><li>The finder methods</li></div>
+<a name="wp90229"> </a><div class="pSmartList1"><li>The <code class="cCode">finalize</code> method</li></div>
+</ul></div>
+<a name="wp90231"> </a><h4 class="pHeading3">
+Differences between Container-Managed and Bean-Managed Code
+</h4>
+<a name="wp90232"> </a><p class="pBody">
+Because it contains no calls to access the database, an entity bean with container-managed persistence requires a lot less code than one with bean-managed persistence. For example, the <code class="cCode">PlayerBean.java</code> source file discussed in this chapter is much smaller than the <code class="cCode">SavingsAccountBean.java</code> code documented in Chapter&nbsp;7. <a  href="CMP4.html#wp90249">Table 8-1</a> compares the code of the two types of entity beans.</p><div align="left">
+<table border="1" summary="Coding Differences between Persistent Types" id="wp90249">
+  <caption><a name="wp90249"> </a><div class="pTableTitle">
+Table 8-1   Coding Differences between Persistent Types&nbsp;
+</div>
+</caption>
+  <tr align="center">    <th><a name="wp90255"> </a><div class="pCellHeading">
+Difference
+</div>
+</th>
+    <th><a name="wp90257"> </a><div class="pCellHeading">
+Container-Managed
+</div>
+</th>
+    <th><a name="wp90259"> </a><div class="pCellHeading">
+Bean-Managed
+</div>
+</th>
+</tr>
+  <tr align="left">    <td><a name="wp90261"> </a><div class="pCellBody">
+Class definition
+</div>
+</td>
+    <td><a name="wp90263"> </a><div class="pCellBody">
+Abstract
+</div>
+</td>
+    <td><a name="wp90265"> </a><div class="pCellBody">
+Not abstract
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp90267"> </a><div class="pCellBody">
+Database access calls
+</div>
+</td>
+    <td><a name="wp90269"> </a><div class="pCellBody">
+Handled by container
+</div>
+</td>
+    <td><a name="wp90271"> </a><div class="pCellBody">
+Coded by developers
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp90273"> </a><div class="pCellBody">
+Persistent state
+</div>
+</td>
+    <td><a name="wp90275"> </a><div class="pCellBody">
+Represented by virtual persistent fields
+</div>
+</td>
+    <td><a name="wp90277"> </a><div class="pCellBody">
+Coded as instance variables
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp90279"> </a><div class="pCellBody">
+Access methods for persistent and relationship fields
+</div>
+</td>
+    <td><a name="wp90281"> </a><div class="pCellBody">
+Required
+</div>
+</td>
+    <td><a name="wp90283"> </a><div class="pCellBody">
+None
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp90285"> </a><div class="pCellBody">
+<code class="cCode">findByPrimaryKey</code> method
+</div>
+</td>
+    <td><a name="wp90287"> </a><div class="pCellBody">
+Handled by container
+</div>
+</td>
+    <td><a name="wp90289"> </a><div class="pCellBody">
+Coded by developers
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp90291"> </a><div class="pCellBody">
+Customized finder methods
+</div>
+</td>
+    <td><a name="wp90293"> </a><div class="pCellBody">
+Handled by container, but the developer must define the EJB&nbsp;QL queries
+</div>
+</td>
+    <td><a name="wp90295"> </a><div class="pCellBody">
+Coded by developers
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp90297"> </a><div class="pCellBody">
+Select methods
+</div>
+</td>
+    <td><a name="wp90299"> </a><div class="pCellBody">
+Handled by container
+</div>
+</td>
+    <td><a name="wp90301"> </a><div class="pCellBody">
+None
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp90303"> </a><div class="pCellBody">
+Return value of <code class="cCode">ejbCreate</code>
+</div>
+</td>
+    <td><a name="wp90305"> </a><div class="pCellBody">
+<code class="cCode">null</code>
+</div>
+</td>
+    <td><a name="wp90307"> </a><div class="pCellBody">
+Must be the primary key
+</div>
+</td>
+</tr>
+</table>
+</div>
+<p class="pBody">
+</p>
+<a name="wp90308"> </a><p class="pBody">
+Note that for both types of persistence, the rules for implementing business and home methods are the same. See the sections <a  href="CMP4.html#wp90522">Business Methods</a> and Home Interface in Chapter&nbsp;7.
+</p>
+<a name="wp90321"> </a><h4 class="pHeading3">
+Access Methods
+</h4>
+<a name="wp90322"> </a><p class="pBody">
+An entity bean with container-managed persistence has persistent and relationship fields. These fields are virtual, so you do not code them in the class as instance variables. Instead, you specify them in the bean's deployment descriptor. To permit access to the fields, you define abstract <code class="cCode">get</code> and <code class="cCode">set</code> methods in the entity bean class.
+</p>
+<a name="wp90326"> </a><h5 class="pHeading4">
+Access Methods for Persistent Fields
+</h5>
+<a name="wp90328"> </a><p class="pBody">
+The EJB container automatically performs the database storage and retrieval of the bean's persistent fields. The deployment descriptor of <code class="cCode">PlayerBean</code> specifies the following persistent fields:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp90330"> </a><div class="pSmartList1"><li><code class="cCode">id</code> (primary key)</li></div>
+<a name="wp90331"> </a><div class="pSmartList1"><li><code class="cCode">name </code></li></div>
+<a name="wp90332"> </a><div class="pSmartList1"><li><code class="cCode">position </code></li></div>
+<a name="wp90333"> </a><div class="pSmartList1"><li><code class="cCode">salary</code></li></div>
+</ul></div>
+<a name="wp90334"> </a><p class="pBody">
+You can view the CMP fields for each bean by expanding the project's Configuration Files node, double-clicking <code class="cCode">ejb-jar.xml</code>, and expanding the CMP Fields section for the bean.
+</p>
+<a name="wp90336"> </a><p class="pBody">
+The <code class="cCode">PlayerBean</code> class defines the access methods for the persistent fields as follows:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public abstract String getId();
+public abstract void setId(String id);
+
+public abstract String getName();
+public abstract void setName(String name);
+
+public abstract String getPosition();
+public abstract void setPosition(String position);
+
+public abstract Double getSalary();
+public abstract void setSalary(Double salary);<a name="wp90337"> </a>
+</pre></div>
+<a name="wp90338"> </a><p class="pBody">
+The IDE generates each of these getter and setter methods based on the information it finds in the database. The name of an access method begins with <code class="cCode">get</code> or <code class="cCode">set</code>, followed by the capitalized name of the persistent or relationship field. For example, the accessor methods for the <code class="cCode">salary</code> field are <code class="cCode">getSalary</code> and <code class="cCode">setSalary</code>. This naming convention is similar to that of JavaBeans components.
+</p>
+<a name="wp90341"> </a><h5 class="pHeading4">
+Access Methods for Relationship Fields
+</h5>
+<a name="wp90342"> </a><p class="pBody">
+In the <code class="cCode">Roster</code> module, a player can belong to multiple teams, so a <code class="cCode">PlayerBean</code> instance may be related to many <code class="cCode">TeamBean</code> instances. To specify this relationship, the deployment descriptor of <code class="cCode">PlayerBean</code> defines a relationship field named <code class="cCode">teams</code>. 
+</p>
+<a name="wp90343"> </a><p class="pBody">
+The IDE generates the names of CMP fields and relationship fields based solely on the names of the columns it finds in the database. You can give these fields better names by editing the <code class="cCode">ejb-jar.xml</code> deployment descriptor.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp90344"> </a><div class="pSmartList1"><li>In the Projects window, expand the Configuration Files node for the Roster project and double-click <code class="cCode">ejb-jar.xml</code>.</li></div>
+<a name="wp90345"> </a><div class="pSmartList1"><li>In the top of the visual editor, click CMP Relationships. The table lists all of the CMP relationships for the EJB module.</li></div>
+<a name="wp90346"> </a><div class="pSmartList1"><li>Select the <code class="cCode">TeamPlayer</code> row in the table and click Edit. The information on the left of the dialog box defines the <code class="cCode">PlayerBean</code> side of the relationship, while the information on the right describes the <code class="cCode">TeamBean</code> side of the relationship. The multiplicity is set to Many To Many because a team has many players and a player can belong to more than one team. </li></div>
+<a name="wp90347"> </a><p class="pBodyRelative">
+Under the <code class="cCode">PlayerID</code> role, change the value of the Field Name setting from <code class="cCode">teamId</code> to <code class="cCode">teams</code>. Under the <code class="cCode">TeamID</code> role, change the Field Name setting from <code class="cCode">playerId</code> to <code class="cCode">players</code>. Then click OK.
+</p>
+<a name="wp90348"> </a><div class="pSmartList1"><li>In the <code class="cCode">TeamBean-LeagueBean</code> CMP relationship, change the field name for the <code class="cCode">TeamBean</code> role to <code class="cCode">league </code>and the field name for the <code class="cCode">LeagueID</code> role to <code class="cCode">teams</code>.</li></div>
+</ol></div>
+<a name="wp90349"> </a><p class="pBody">
+Notice that the access methods in the enterprise beans are automatically updated to use the new field names. For example, in the <code class="cCode">PlayerBean</code> class, the access methods for the <code class="cCode">teams</code> relationship field are as follows:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public abstract Collection getTeams();
+public abstract void setTeams(Collection teams);<a name="wp90351"> </a>
+</pre></div>
+<a name="wp90352"> </a><h4 class="pHeading3">
+Finder and Select Methods
+</h4>
+<a name="wp90353"> </a><p class="pBody">
+Finder and select methods use EJB QL queries to return objects and state information of entity beans using container-managed persistence.
+</p>
+<a name="wp90356"> </a><p class="pBody">
+A select method is similar to a finder method in the following ways:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp90357"> </a><div class="pSmartList1"><li>A select method can return a local or remote interface (or a collection of interfaces).</li></div>
+<a name="wp90358"> </a><div class="pSmartList1"><li>A select method queries a database.</li></div>
+<a name="wp90360"> </a><div class="pSmartList1"><li>The deployment descriptor specifies an EJB QL query for a select method.</li></div>
+<a name="wp90361"> </a><div class="pSmartList1"><li>The entity bean class does not implement the select method.</li></div>
+</ul></div>
+<a name="wp90362"> </a><p class="pBody">
+However, a select method differs significantly from a finder method:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp90363"> </a><div class="pSmartList1"><li>A select method can return a persistent field (or a collection thereof) of a related entity bean. A finder method can return only a local or remote interface (or a collection of interfaces).</li></div>
+<a name="wp90364"> </a><div class="pSmartList1"><li>Because it is not exposed in any of the local or remote interfaces, a select method cannot be invoked by a client. It can be invoked only by the methods implemented within the entity bean class. A select method is usually invoked by either a business or a home method.</li></div>
+<a name="wp90365"> </a><div class="pSmartList1"><li>A select method is defined in the entity bean class. For bean-managed persistence, a finder method is defined in the entity bean class, but for container-managed persistence it is not.</li></div>
+</ul></div>
+<a name="wp90366"> </a><p class="pBody">
+The IDE automatically generated finder methods for each of your CMP fields when it generated them from the database. In order to run more sophisticated queries on the database, you have to add some additional finder methods to the <code class="cCode">PlayerBean</code> entity bean.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp90367"> </a><div class="pSmartList1"><li>In the Projects window, expand the Configuration Files node and double-click <code class="cCode">ejb-jar.xml</code>.</li></div>
+<a name="wp90368"> </a><div class="pSmartList1"><li>Expand the PlayerEB section and the CMP Finder Methods section and click Add. </li></div>
+<a name="wp90472"> </a><div class="pSmartList1"><li>Use the dialog box to add the finder methods in the following table:<div align="left">
+<table border="1" id="wp90372">
+  <caption><a name="wp90372"> </a><div class="pTableTitle">
+Table 8-2   Additional finder methods for PlayerBean entity bean
+</div>
+</caption>
+  <tr align="center">    <th><a name="wp90380"> </a><div class="pCellHeading">
+Name
+</div>
+</th>
+    <th><a name="wp90382"> </a><div class="pCellHeading">
+Cardinality
+</div>
+</th>
+    <th><a name="wp90384"> </a><div class="pCellHeading">
+EJBQL
+</div>
+</th>
+    <th><a name="wp90386"> </a><div class="pCellHeading">
+Parameters
+</div>
+</th>
+</tr>
+  <tr align="left">    <td><a name="wp90388"> </a><div class="pCellBody">
+findAll
+</div>
+</td>
+    <td><a name="wp90390"> </a><div class="pCellBody">
+Many
+</div>
+</td>
+    <td><a name="wp90392"> </a><div class="pCellBody">
+<code class="cCode">select object(p) from Player p</code>
+</div>
+</td>
+    <td><a name="wp90394"> </a><div class="pCellBody">
+<code class="cCode">none</code>
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp90396"> </a><div class="pCellBody">
+findByCity
+</div>
+</td>
+    <td><a name="wp90398"> </a><div class="pCellBody">
+Many
+</div>
+</td>
+    <td><a name="wp90400"> </a><p class="pBody">
+<code class="cCode">select distinct object(p) from Player p,</code>
+</p>
+<a name="wp90401"> </a><p class="pBody">
+<code class="cCode">in (p.teams) as t</code>
+</p>
+<a name="wp90402"> </a><div class="pCellBody">
+<code class="cCode">where t.city = ?1</code>
+</div>
+</td>
+    <td><a name="wp90404"> </a><div class="pCellBody">
+<code class="cCode">String city</code>
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp90406"> </a><div class="pCellBody">
+findByHigherSalary
+</div>
+</td>
+    <td><a name="wp90408"> </a><div class="pCellBody">
+Many
+</div>
+</td>
+    <td><a name="wp90410"> </a><p class="pBody">
+<code class="cCode">select distinct object(p1)</code>
+</p>
+<a name="wp90411"> </a><p class="pBody">
+<code class="cCode">from Player p1, Player p2</code>
+</p>
+<a name="wp90412"> </a><p class="pBody">
+<code class="cCode">where p1.salary &gt; p2.salary and</code>
+</p>
+<a name="wp90413"> </a><div class="pCellBody">
+<code class="cCode">p2.name = ?1</code>
+</div>
+</td>
+    <td><a name="wp90415"> </a><div class="pCellBody">
+<code class="cCode">String name</code>
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp90417"> </a><div class="pCellBody">
+findByLeague
+</div>
+</td>
+    <td><a name="wp90419"> </a><div class="pCellBody">
+Many
+</div>
+</td>
+    <td><a name="wp90421"> </a><p class="pBody">
+<code class="cCode">select distinct object(p) from Player p,</code>
+</p>
+<a name="wp90422"> </a><p class="pBody">
+<code class="cCode">in (p.teams) as t</code>
+</p>
+<a name="wp90423"> </a><div class="pCellBody">
+<code class="cCode">where t.league = ?1</code>
+</div>
+</td>
+    <td><a name="wp90425"> </a><div class="pCellBody">
+<code class="cCode">team.LeagueLocal league</code>
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp90427"> </a><div class="pCellBody">
+findByPositionAndName
+</div>
+</td>
+    <td><a name="wp90429"> </a><div class="pCellBody">
+Many
+</div>
+</td>
+    <td><a name="wp90431"> </a><p class="pBody">
+<code class="cCode">select distinct object(p) from Player p</code>
+</p>
+<a name="wp90432"> </a><div class="pCellBody">
+<code class="cCode">where p.position = ?1 and p.name = ?2</code>
+</div>
+</td>
+    <td><a name="wp90434"> </a><div class="pCellBody">
+<code class="cCode">String position, String name</code>
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp90436"> </a><div class="pCellBody">
+findBySalaryRange
+</div>
+</td>
+    <td><a name="wp90438"> </a><div class="pCellBody">
+Many
+</div>
+</td>
+    <td><a name="wp90440"> </a><p class="pBody">
+<code class="cCode">select distinct object(p) from Player p</code>
+</p>
+<a name="wp90441"> </a><div class="pCellBody">
+<code class="cCode">where p.salary between ?1 and ?2</code>
+</div>
+</td>
+    <td><a name="wp90443"> </a><div class="pCellBody">
+<code class="cCode">double low, double high</code>
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp90445"> </a><div class="pCellBody">
+findBySport
+</div>
+</td>
+    <td><a name="wp90447"> </a><div class="pCellBody">
+Many
+</div>
+</td>
+    <td><a name="wp90449"> </a><p class="pBody">
+<code class="cCode">select distinct object(p) from Player p,</code>
+</p>
+<a name="wp90450"> </a><p class="pBody">
+<code class="cCode">in (p.teams) as t</code>
+</p>
+<a name="wp90451"> </a><div class="pCellBody">
+<code class="cCode">where t.league.sport = ?1</code>
+</div>
+</td>
+    <td><a name="wp90453"> </a><div class="pCellBody">
+<code class="cCode">String sport</code>
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp90455"> </a><div class="pCellBody">
+<code class="cCode">findByTest</code>
+</div>
+</td>
+    <td><a name="wp90457"> </a><div class="pCellBody">
+Many
+</div>
+</td>
+    <td><a name="wp90459"> </a><p class="pBody">
+<code class="cCode">select distinct object(p) from Player p</code>
+</p>
+<a name="wp90460"> </a><div class="pCellBody">
+<code class="cCode">where p.name = ?1</code>
+</div>
+</td>
+    <td><a name="wp90462"> </a><div class="pCellBody">
+<code class="cCode">String parm1, String parm2, String parm3</code>
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp90464"> </a><div class="pCellBody">
+<code class="cCode">findNotOnTeam</code>
+</div>
+</td>
+    <td><a name="wp90466"> </a><div class="pCellBody">
+Many
+</div>
+</td>
+    <td><a name="wp90468"> </a><p class="pBody">
+<code class="cCode">select object(p) from Player p</code>
+</p>
+<a name="wp90469"> </a><p class="pBody">
+<code class="cCode">where p.teams is empty</code>
+</p>
+</td>
+    <td><a name="wp90471"> </a><div class="pCellBody">
+<code class="cCode">none</code>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li></div>
+</ol></div>
+<a name="wp90473"> </a><p class="pBody">
+You also have to code your bean's select methods.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp90474"> </a><div class="pSmartList1"><li>In the PlayerEB section of the <code class="cCode">ejb-jar.xml</code> editor, expand the CMP Select Methods section and click Add. </li></div>
+<a name="wp90475"> </a><div class="pSmartList1"><li>Use the Add Select Method dialog box to add the select methods in the following table:<div align="left">
+<table border="1" id="wp90478">
+  <caption><a name="wp90478"> </a><div class="pTableTitle">
+Table 8-3   Select methods for the PlayerBean entity bean
+</div>
+</caption>
+  <tr align="center">    <th><a name="wp90486"> </a><div class="pCellHeading">
+Name
+</div>
+</th>
+    <th><a name="wp90488"> </a><div class="pCellHeading">
+Return Type
+</div>
+</th>
+    <th><a name="wp90490"> </a><div class="pCellHeading">
+EJBQL
+</div>
+</th>
+    <th><a name="wp90492"> </a><div class="pCellHeading">
+Parameters
+</div>
+</th>
+</tr>
+  <tr align="left">    <td><a name="wp90494"> </a><div class="pCellBody">
+ejbSelectLeagues
+</div>
+</td>
+    <td><a name="wp90496"> </a><div class="pCellBody">
+<code class="cCode">java.util.Collection</code>
+</div>
+</td>
+    <td><a name="wp90498"> </a><div class="pCellBody">
+<code class="cCode">select distinct t.league</code>
+</div>
+<a name="wp90499"> </a><div class="pCellBody">
+<code class="cCode">from Player p, in (p.teams) as t</code>
+</div>
+<a name="wp90500"> </a><div class="pCellBody">
+<code class="cCode">where p = ?1</code>
+</div>
+</td>
+    <td><a name="wp90502"> </a><div class="pCellBody">
+<code class="cCode">team.PlayerLocal player</code>
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp90504"> </a><div class="pCellBody">
+ejbSelectSports
+</div>
+</td>
+    <td><a name="wp90506"> </a><div class="pCellBody">
+<code class="cCode">java.util.Collection</code>
+</div>
+</td>
+    <td><a name="wp90508"> </a><p class="pBody">
+select distinct t.league.sport
+</p>
+<a name="wp90509"> </a><p class="pBody">
+from Player p, in (p.teams) as t
+</p>
+<a name="wp90510"> </a><div class="pCellBody">
+where p = ?1
+</div>
+</td>
+    <td><a name="wp90512"> </a><div class="pCellBody">
+<code class="cCode">team.PlayerLocal player</code>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li></div>
+</ol></div>
+<a name="wp90513"> </a><p class="pBody">
+The signature for a select method must follow these rules:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp90514"> </a><div class="pSmartList1"><li>The prefix of the method name must be <code class="cCode">ejbSelect</code>.</li></div>
+<a name="wp90515"> </a><div class="pSmartList1"><li>The access control modifier must be <code class="cCode">public</code>.</li></div>
+<a name="wp90516"> </a><div class="pSmartList1"><li>The method must be declared as <code class="cCode">abstract</code>.</li></div>
+<a name="wp90517"> </a><div class="pSmartList1"><li>The <code class="cCode">throws</code> clause must include the <code class="cCode">javax.ejb.FinderException</code>.</li></div>
+</ul></div>
+<a name="wp90518"> </a><h4 class="pHeading3">
+Helper Classes
+</h4>
+<a name="wp90519"> </a><p class="pBody">
+The enterprise beans in the Roster EJB module depend on a few helper classes. You have to add these classes to the EJB module before you continue coding the enterprise beans. 
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp90520"> </a><div class="pSmartList1"><li>Copy the <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/cmproster/Roster/src/java/util </code>directory to the <code class="cCode">src/java</code> directory of your Roster project. </li></div>
+<a name="wp90521"> </a><div class="pSmartList1"><li>In the Projects window, expand the Source Packages node for the Roster project. The <code class="cCode">util</code> package should appear under the node.</li></div>
+</ol></div>
+<a name="wp90522"> </a><h4 class="pHeading3">
+Business Methods
+</h4>
+<a name="wp90523"> </a><p class="pBody">
+Because clients cannot invoke select methods, the <code class="cCode">PlayerBean</code> class wraps them in the <code class="cCode">getLeagues</code> and <code class="cCode">getSports</code> business methods.
+</p>
+<hr>
+<a name="wp90525"> </a><p class="pNote">
+Note: You can quickly copy business methods to an enterprise bean by copying and pasting the methods into your bean class, then right-clicking the method name in the Source Editor and choosing EJB Methods<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Add to Local Interface. When you are done, press Alt-Shift-F to generate any missing import statements.
+</p>
+<hr><div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp90526"> </a><div class="pSmartList1"><li>In the Source Editor, right-click anywhere in the body of the <code class="cCode">PlayerBean</code> class and choose EJB Methods<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Add Business Method.</li></div>
+<a name="wp90527"> </a><div class="pSmartList1"><li>In the Name field, type getLeagues. In the Return Type combo box, type Collection.</li></div>
+<a name="wp90528"> </a><div class="pSmartList1"><li>In the Exceptions tab, use the Add button to add a FinderException.</li></div>
+<a name="wp90529"> </a><div class="pSmartList1"><li>Click OK to generate the finder method in both the bean class and the local business interface. </li></div>
+<a name="wp90530"> </a><div class="pSmartList1"><li>Edit the <code class="cCode">getLeagues</code> method as follows:</li></div>
+<a name="wp90531"> </a><p class="pBodyRelative">
+<code class="cCode">public Collection getLeagues() throws FinderException {<br /><br />&nbsp;&nbsp;PlayerLocal player = <br />&nbsp;&nbsp;&nbsp;&nbsp;(PlayerLocal)context.getEJBLocalObject();<br />&nbsp;&nbsp;return ejbSelectLeagues(player);<br />}</code>
+</p>
+<a name="wp90532"> </a><div class="pSmartList1"><li>Repeat steps 1-5 to enter the following business method:</li></div>
+<a name="wp90533"> </a><p class="pBodyRelative">
+<code class="cCode">public Collection getSports() throws FinderException {<br /><br />&nbsp;&nbsp;PlayerLocal player = <br />&nbsp;&nbsp;&nbsp;&nbsp;(team.PlayerLocal)context.getEJBLocalObject();<br />&nbsp;&nbsp;return ejbSelectSports(player);<br />}</code>
+</p>
+<a name="wp90534"> </a><div class="pSmartList1"><li>You also have to add a few business methods that manage the contents of each entity bean. Add the following business methods to <code class="cCode">TeamBean.java</code>:</li></div>
+<a name="wp90535"> </a><p class="pBodyRelative">
+<code class="cCode">public void addPlayer(PlayerLocal player) {<br />&nbsp;&nbsp;Debug.print(&quot;TeamBean addPlayer&quot;);<br />&nbsp;&nbsp;try {<br />&nbsp;&nbsp;&nbsp;&nbsp;Collection players = getPlayers();<br />&nbsp;&nbsp;&nbsp;&nbsp;players.add(player);<br />&nbsp;&nbsp;} catch (Exception ex) {<br />&nbsp;&nbsp;&nbsp;&nbsp;throw new EJBException(ex.getMessage());<br />&nbsp;&nbsp;}<br />}<br /><br />public void dropPlayer(PlayerLocal player) {<br />&nbsp;&nbsp;Debug.print(&quot;TeamBean dropPlayer&quot;);<br />&nbsp;&nbsp;try {<br />&nbsp;&nbsp;&nbsp;&nbsp;Collection players = getPlayers();<br />&nbsp;&nbsp;&nbsp;&nbsp;players.remove(player);<br />&nbsp;&nbsp;} catch (Exception ex) {<br />&nbsp;&nbsp;&nbsp;&nbsp;throw new EJBException(ex.getMessage());<br />&nbsp;&nbsp;}<br />}<br /><br />public ArrayList getCopyOfPlayers() {<br />&nbsp;&nbsp;Debug.print(&quot;TeamBean getCopyOfPlayers&quot;);<br />&nbsp;&nbsp;ArrayList playerList = new ArrayList();<br />&nbsp;&nbsp;Collection players = getPlayers();<br />&nbsp;&nbsp;Iterator i = players.iterator();<br />&nbsp;&nbsp;while (i.hasNext()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;PlayerLocal player = (PlayerLocal) i.next();<br />&nbsp;&nbsp;&nbsp;&nbsp;PlayerDetails details =<br />&nbsp;&nbsp;&nbsp;&nbsp;new PlayerDetails(player.getId(), player.getName(), player.getPosition(), 0.0);<br />&nbsp;&nbsp;&nbsp;&nbsp;playerList.add(details);<br />&nbsp;&nbsp;}<br />&nbsp;&nbsp;return playerList;<br />}</code>
+</p>
+<a name="wp90536"> </a><div class="pSmartList1"><li>Press Alt-Shift-F to generate the following import statements:</li></div>
+<a name="wp90537"> </a><p class="pBodyRelative">
+<code class="cCode">import java.util.ArrayList;<br />import java.util.Collection;<br />import java.util.Iterator;<br />import util.Debug;<br />import util.PlayerDetails;</code>
+</p>
+<a name="wp90538"> </a><div class="pSmartList1"><li>Add the following business methods to <code class="cCode">LeagueBean.java</code>:</li></div>
+<a name="wp90539"> </a><p class="pBodyRelative">
+<code class="cCode">public void addTeam(team.TeamLocal team) {<br />&nbsp;&nbsp;Debug.print(&quot;TeamBean addTeam&quot;);<br />&nbsp;&nbsp;try {<br />&nbsp;&nbsp;&nbsp;&nbsp;Collection teams = getTeams();<br />&nbsp;&nbsp;&nbsp;&nbsp;teams.add(team);<br />&nbsp;&nbsp;} catch (Exception ex) {<br />&nbsp;&nbsp;&nbsp;&nbsp;throw new EJBException(ex.getMessage());<br />&nbsp;&nbsp;}<br />}<br /><br />public void dropTeam(team.TeamLocal team) {<br />&nbsp;&nbsp;Debug.print(&quot;TeamBean dropTeam&quot;);<br />&nbsp;&nbsp;try {<br />&nbsp;&nbsp;&nbsp;&nbsp;Collection teams = getTeams();<br />&nbsp;&nbsp;&nbsp;&nbsp;teams.remove(team);<br />&nbsp;&nbsp;} catch (Exception ex) {<br />&nbsp;&nbsp;&nbsp;&nbsp;throw new EJBException(ex.getMessage());<br />&nbsp;&nbsp;}<br />}</code>
+</p>
+<a name="wp90540"> </a><div class="pSmartList1"><li>Press Alt-Shift-F to generate the following import statements:</li></div>
+<a name="wp90541"> </a><p class="pBodyRelative">
+<code class="cCode">import java.util.Collection;<br />import util.Debug;</code>
+</p>
+</ol></div>
+<hr>
+<a name="wp90542"> </a><p class="pNote">
+Note: Since you used simple names in the business method declarations, you also need to create import statements in the local business interfaces for the <code class="cCode">TeamBean</code> and <code class="cCode">PlayerBean</code> entity beans. You can quickly open the local business interface by Ctrl-clicking its name in the Source Editor. For example, go to the class declaration of <code class="cCode">PlayerBean.java</code>, hold down the Ctrl key, and click <code class="cCode">PlayerLocalBusiness</code>. The class opens in the Source Editor. Then press Alt-Shift-F to generate the import statements.
+</p>
+<hr><a name="wp90543"> </a><h4 class="pHeading3">
+Entity Bean Methods
+</h4>
+<a name="wp90544"> </a><p class="pBody">
+Because the container handles persistence, the life-cycle methods in the <code class="cCode">PlayerBean</code> class are nearly empty.
+</p>
+<a name="wp90546"> </a><p class="pBody">
+The <code class="cCode">ejbCreate</code> method is generated for you by the IDE. It initializes the bean instance by assigning the input arguments to the persistent fields. At the end of the transaction that contains the create call, the container inserts a row into the database. Here is the source code for the <code class="cCode">ejbCreate</code> method:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public String ejbCreate (String id, String name, 
+    String position, double salary) throws CreateException {
+
+    setPlayerId(id);
+    setName(name);
+    setPosition(position);
+    setSalary(salary);
+    return null;
+}<a name="wp90548"> </a>
+</pre></div>
+<a name="wp90550"> </a><p class="pBody">
+The <code class="cCode">ejbPostCreate</code> method returns <code class="cCode">void</code>, and it has the same input parameters as the <code class="cCode">ejbCreate</code> method. If you want to set a relationship field to initialize the bean instance, you should do so in the <code class="cCode">ejbPostCreate</code> method. You cannot set a relationship field in the <code class="cCode">ejbCreate</code> method.
+</p>
+<a name="wp90552"> </a><p class="pBody">
+Except for a debug statement, the <code class="cCode">ejbRemove</code> method in the <code class="cCode">PlayerBean</code> class is empty. The container invokes <code class="cCode">ejbRemove</code> before removing the entity object.
+</p>
+<a name="wp90553"> </a><p class="pBody">
+The container automatically synchronizes the state of the entity bean with the database. After the container loads the bean's state from the database, it invokes the <code class="cCode">ejbLoad</code> method. In like manner, before storing the state in the database, the container invokes the <code class="cCode">ejbStore</code> method.
+</p>
+<a name="wp90556"> </a><h3 class="pHeading2">
+Refactoring Entity Bean Methods
+</h3>
+<a name="wp90557"> </a><p class="pBody">
+Refactoring is the process of making application-wide changes to your code without breaking the application's functionality. For example, the <code class="cCode">TeamBean</code> enterprise bean's <code class="cCode">ejbCreate</code> method takes four parameters, including a <code class="cCode">LeagueLocal leagueId </code>object. Change the method signature to remove the <code class="cCode">LeagueLocal leagueId</code> object from the list of parameters.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp90558"> </a><div class="pSmartList1"><li>In the <code class="cCode">ejbCreate</code> method, delete the following lines:</li></div>
+<a name="wp90559"> </a><p class="pBodyRelative">
+<code class="cCode">if (leagueId == null) {<br />&nbsp;&nbsp;throw new javax.ejb.CreateException(&quot;The field \&quot;leagueId\&quot; must not be null&quot;);<br />}</code>
+</p>
+<a name="wp90560"> </a><div class="pSmartList1"><li>In the <code class="cCode">ejbPostCreate</code> method, delete the following line:</li></div>
+<a name="wp90561"> </a><p class="pBodyRelative">
+<code class="cCode">setLeagueId(leagueId);</code>
+</p>
+<a name="wp90562"> </a><div class="pSmartList1"><li>Right-click the method name for <code class="cCode">ejbCreate</code> and choose Refactor<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Change Method Parameters. Click Next, select <code class="cCode">leagueId</code>, and click Remove. Then click Next to preview the changes that will be made to your code. Notice that the refactoring will change the method signature of both the <code class="cCode">ejbCreate</code> method in the bean class and the <code class="cCode">create</code> method in the home interface.</li></div>
+<a name="wp90563"> </a><div class="pSmartList1"><li>In the Refactoring window, click Do Refactoring.</li></div>
+</ol></div>
+<a name="wp90565"> </a><h3 class="pHeading2">
+Local Home Interface
+</h3>
+<a name="wp90567"> </a><p class="pBody">
+The local home interface defines the <code class="cCode">create</code>, finder, and home methods that can be invoked by local clients. 
+</p>
+<a name="wp90569"> </a><p class="pBody">
+The syntax rules for a <code class="cCode">create</code> method follow:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp90570"> </a><div class="pSmartList1"><li>The name must begin with <code class="cCode">create</code>.</li></div>
+<a name="wp90571"> </a><div class="pSmartList1"><li>It must have the same number and types of arguments as its matching <code class="cCode">ejbCreate</code> method in the entity bean class. </li></div>
+<a name="wp90572"> </a><div class="pSmartList1"><li>It must return the local interface type of the entity bean. </li></div>
+<a name="wp90573"> </a><div class="pSmartList1"><li>The <code class="cCode">throws</code> clause must include the exceptions specified by the <code class="cCode">throws</code> clause of the corresponding <code class="cCode">ejbCreate</code> method.</li></div>
+<a name="wp90574"> </a><div class="pSmartList1"><li>The <code class="cCode">throws</code> clause must contain the <code class="cCode">javax.ejb.CreateException</code>. </li></div>
+</ul></div>
+<a name="wp90576"> </a><p class="pBody">
+These rules apply for a finder method:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp90577"> </a><div class="pSmartList1"><li>The name must begin with <code class="cCode">find</code>.</li></div>
+<a name="wp90578"> </a><div class="pSmartList1"><li>The return type must be the entity bean's local interface type or a collection of those types. </li></div>
+<a name="wp90579"> </a><div class="pSmartList1"><li>The <code class="cCode">throws</code> clause must contain the <code class="cCode">javax.ejb.FinderException</code>.</li></div>
+<a name="wp90580"> </a><div class="pSmartList1"><li>The <code class="cCode">findByPrimaryKey</code> method must be defined.</li></div>
+</ul></div>
+<a name="wp90582"> </a><p class="pBody">
+An excerpt of the <code class="cCode">PlayerLocalHome</code> interface follows.
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+package team;
+
+import java.util.*;
+import javax.ejb.*;
+
+public interface PlayerLocalHome extends EJBLocalHome {
+    
+    public PlayerLocal create (String id, String name, 
+        String position, Double salary)
+        throws CreateException;
+    
+    public PlayerLocal findByPrimaryKey (String key)
+        throws FinderException;
+    
+    public Collection findByPosition(String position) 
+        throws FinderException;
+     ...
+    public Collection findByLeague(LeagueLocal league) 
+        throws FinderException;
+    ...
+  }<a name="wp90583"> </a>
+</pre></div>
+<a name="wp90585"> </a><h3 class="pHeading2">
+Local Interface
+</h3>
+<a name="wp90589"> </a><p class="pBody">
+This interface defines the business and access methods that a local client can invoke. When you create enterprise beans in the IDE, the business method signatures are automatically generated to a <code class="cCode">LocalBusiness</code> or <code class="cCode">RemoteBusiness</code> interface that is extended by the bean interface and implemented by the bean class. The advantage of this approach is that it lets you separate the business logic from implementation logic, and that it lets you check at compile-time that your bean implements the given interfaces. 
+</p>
+<a name="wp90590"> </a><p class="pBody">
+The local interface is therefore almost empty:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+package team;
+
+import javax.ejb.*;
+
+public interface PlayerLocal extends EJBLocalObject, 
+PlayerLocalBusiness {
+
+}<a name="wp90591"> </a>
+</pre></div>
+<a name="wp90592"> </a><p class="pBody">
+The <code class="cCode">PlayerBean</code> class implements two business methods: <code class="cCode">getLeagues</code> and <code class="cCode">getSports</code>. It also defines several <code class="cCode">get</code> and <code class="cCode">set</code> access methods for the persistent and relationship fields. The IDE automatically adds both the set and get methods for the fields to the local business interface. An excerpt of the local business method is as follows:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+package team;
+
+import java.util.Collection;
+import javax.ejb.FinderException;
+
+public interface PlayerLocalBusiness {
+
+&nbsp;&nbsp;public abstract String getId();
+&nbsp;&nbsp;public abstract String getName();
+&nbsp;&nbsp;public abstract void setName(String name);
+&nbsp;&nbsp;public abstract String getPosition();
+&nbsp;&nbsp;
+&nbsp;&nbsp;...
+
+&nbsp;&nbsp;Collection getLeagues() throws FinderException;
+&nbsp;&nbsp;Collection getSports() throws FinderException;
+&nbsp;&nbsp;
+&nbsp;&nbsp;...
+
+}<a name="wp90593"> </a>
+</pre></div>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="CMP3.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="CMP5.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

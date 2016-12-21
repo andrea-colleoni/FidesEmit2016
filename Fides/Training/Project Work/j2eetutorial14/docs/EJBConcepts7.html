@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>The Contents of an Enterprise Bean</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="EJBConcepts6.html" />
+    <link rel="Next" href="EJBConcepts8.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="EJBConcepts6.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="EJBConcepts8.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp80083"> </a><h2 class="pHeading1">
+The Contents of an Enterprise Bean
+</h2>
+<a name="wp80084"> </a><p class="pBody">
+To develop an enterprise bean, you must provide the following files:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp80086"> </a><div class="pSmartList1"><li><span style="font-weight: normal">Deployment descriptor</span>: An XML file that specifies information about the bean such as its persistence type and transaction attributes. The <code class="cCode">deploytool</code> utility creates the deployment descriptor when you step through the New Enterprise Bean wizard.</li></div>
+<a name="wp80088"> </a><div class="pSmartList1"><li><em class="cEmphasis">Enterprise bean class</em>: Implements the methods defined in the following interfaces.</li></div>
+<a name="wp80090"> </a><div class="pSmartList1"><li><em class="cEmphasis">Interfaces</em>: The remote and home interfaces are required for remote access. For local access, the local and local home interfaces are required. For access by web service clients, the web service endpoint interface is required. See the section <a  href="EJBConcepts6.html#wp80011">Defining Client Access with Interfaces</a>. (Please note that these interfaces are not used by message-driven beans.)</li></div>
+<a name="wp80095"> </a><div class="pSmartList1"><li><span style="font-weight: normal">Helper classes</span>: Other classes needed by the enterprise bean class, such as exception and utility classes.</li></div>
+</ul></div>
+<a name="wp80097"> </a><p class="pBody">
+You package the files in the preceding list into an EJB JAR file, the module that stores the enterprise bean. An EJB JAR file is portable and can be used for different applications. To assemble a J2EE application, you package one or more modules--such as EJB JAR files--into an EAR file, the archive file that holds the application. When you deploy the EAR file that contains the bean's EJB JAR file, you also deploy the enterprise bean onto the Application Server. You can also deploy an EJB JAR that is not contained in an EAR file.
+</p>
+<a name="wp81564"> </a><p class="pBody">
+</p><div align="left"><img src="images/ejbcon-module.gif" height="287" width="389" alt="RosterApp J2EE Application" border="0" hspace="0" vspace="0"/>
+</div><p class="pBody">
+</p>
+
+<p>
+  <a name="wp81568"> </a><font >Figure 4-3    Structure of an Enterprise Bean JAR</font>
+</p>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="EJBConcepts6.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="EJBConcepts8.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>Other Enterprise Bean Features</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="Session3.html" />
+    <link rel="Next" href="Session5.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="Session3.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="Session5.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp82960"> </a><h2 class="pHeading1">
+Other Enterprise Bean Features
+</h2>
+<a name="wp82962"> </a><p class="pBody">
+The topics that follow apply to session beans and entity beans.
+</p>
+<a name="wp82965"> </a><h3 class="pHeading2">
+Accessing Environment Entries
+</h3>
+<a name="wp82966"> </a><p class="pBody">
+Stored in an enterprise bean's deployment descriptor, an<span style="font-style: italic"> environment entry</span> is a name-value pair that allows you to customize the bean's business logic without changing its source code. An enterprise bean that calculates discounts, for example, might have an environment entry named <code class="cCode">Discount</code> <code class="cCode">Percent</code>. Before deploying the bean's application, you could run a development tool to assign <code class="cCode">Discount</code> <code class="cCode">Percent</code> a value of 0.05 in the bean's deployment descriptor. When you run the application, the bean fetches the 0.05 value from its environment. 
+</p>
+<a name="wp82968"> </a><p class="pBody">
+In the following code example, the <code class="cCode">applyDiscount</code> method uses environment entries to calculate a discount based on the purchase amount. First, the method locates the environment naming context by invoking <code class="cCode">lookup</code> using the <code class="cCode">java:comp/env</code> parameter. Then it calls <code class="cCode">lookup</code> on the environment to get the values for the <code class="cCode">Discount</code> <code class="cCode">Level</code> and <code class="cCode">Discount</code> <code class="cCode">Percent</code> names. For example, if you assign a value of 0.05 to the <code class="cCode">Discount</code> <code class="cCode">Percent</code> entry, the code will assign 0.05 to the <code class="cCode">discountPercent</code> variable. The <code class="cCode">applyDiscount</code> method, which follows, is in the <code class="cCode">CheckerBean</code> class. The source code for this example is in <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/checker</code>.
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public double applyDiscount(double amount) {
+
+&nbsp;&nbsp;try {
+
+&nbsp;&nbsp;&nbsp;&nbsp;double discount;
+
+&nbsp;&nbsp;&nbsp;&nbsp;Context initial = new InitialContext();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Context environment = 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Context)initial.lookup(&quot;java:comp/env&quot;);
+
+&nbsp;&nbsp;&nbsp;&nbsp;Double discountLevel = 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Double)environment.lookup(&quot;Discount Level&quot;);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Double discountPercent = 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Double)environment.lookup(&quot;Discount Percent&quot;);
+
+&nbsp;&nbsp;&nbsp;&nbsp;if (amount &gt;= discountLevel.doubleValue()) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;discount = discountPercent.doubleValue() / 100;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;else {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;discount = 0.00;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+
+&nbsp;&nbsp;&nbsp;&nbsp;return amount * (1.00 - discount);
+
+&nbsp;&nbsp;} catch (NamingException ex) {
+&nbsp;&nbsp;&nbsp;&nbsp;throw new EJBException(&quot;NamingException: &quot;+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ex.getMessage());
+&nbsp;&nbsp;}
+}<a name="wp82969"> </a>
+</pre></div>
+<a name="wp82970"> </a><h3 class="pHeading2">
+Comparing Enterprise Beans
+</h3>
+<a name="wp82972"> </a><p class="pBody">
+A client can determine whether two stateful session beans are identical by invoking the <code class="cCode">isIdentical</code> method: 
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+bookCart = home.create(&quot;Bill Shakespeare&quot;); 
+videoCart = home.create(&quot;Lefty Lee&quot;);
+...
+if (bookCart.isIdentical(bookCart)) { 
+   // true ... }
+if (bookCart.isIdentical(videoCart)) { 
+   // false ... }<a name="wp82974"> </a>
+</pre></div>
+<a name="wp82975"> </a><p class="pBody">
+Because stateless session beans have the same object identity, the <code class="cCode">isIdentical</code> method always returns <code class="cCode">true</code> when used to compare them.
+</p>
+<a name="wp82977"> </a><p class="pBody">
+To determine whether two entity beans are identical, the client can invoke the <code class="cCode">isIdentical</code> method, or it can fetch and compare the beans's primary keys:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+String key1 = (String)accta.getPrimaryKey();
+String key2 = (String)acctb.getPrimaryKey();
+
+if (key1.compareTo(key2) == 0)
+   System.out.println(&quot;equal&quot;);<a name="wp82978"> </a>
+</pre></div>
+<a name="wp82980"> </a><h3 class="pHeading2">
+Passing an Enterprise Bean's Object Reference
+</h3>
+<a name="wp82981"> </a><p class="pBody">
+Suppose that your enterprise bean needs to pass a reference to itself to another bean. You might want to pass the reference, for example, so that the second bean can call the first bean's methods. You can't pass the <code class="cCode">this</code> reference because it points to the bean's instance, which is running in the EJB container. Only the container can directly invoke methods on the bean's instance. Clients access the instance indirectly by invoking methods on the object whose type is the bean's remote interface. It is the reference to this object (the bean's remote reference) that the first bean would pass to the second bean.
+</p>
+<a name="wp82983"> </a><p class="pBody">
+A session bean obtains its remote reference by calling the <code class="cCode">getEJBObject</code> method of the <code class="cCode">SessionContext</code> interface. An entity bean would call the <code class="cCode">getEJBObject</code> method of the <code class="cCode">EntityContext</code> interface. These interfaces provide beans with access to the instance contexts maintained by the EJB container. Typically, the bean saves the context in the <code class="cCode">setSessionContext</code> method. The following code fragment shows how a session bean might use these methods.
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public class WagonBean implements SessionBean {
+   
+&nbsp;&nbsp;SessionContext context;
+&nbsp;&nbsp;...
+&nbsp;&nbsp;public void setSessionContext(SessionContext aContext) { 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context = aContext; 
+&nbsp;&nbsp;}
+&nbsp;&nbsp;...
+&nbsp;&nbsp;public void passItOn(Basket basket) {
+&nbsp;&nbsp;...
+&nbsp;&nbsp;&nbsp;&nbsp;basket.copyItems(context.getEJBObject()); 
+   } <a name="wp82988"> </a>
+</pre></div>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="Session3.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="Session5.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

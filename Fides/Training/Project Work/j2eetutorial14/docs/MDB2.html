@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>Example Application Overview</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="MDB.html" />
+    <link rel="Next" href="MDB3.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="MDB.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="MDB3.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp82707"> </a><h2 class="pHeading1">
+Example Application Overview
+</h2>
+<a name="wp82708"> </a><p class="pBody">
+The <code class="cCode">SimpleMessage</code> application has the following components:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82709"> </a><div class="pSmartList1"><li><code class="cCode">SimpleMessageClient</code>: An application client that sends several messages to a queue</li></div>
+<a name="wp82710"> </a><div class="pSmartList1"><li><code class="cCode">SimpleMessageMDB</code>: A message-driven bean that asynchronously receives and processes the messages that are sent to the queue</li></div>
+</ul></div>
+<a name="wp82714"> </a><p class="pBody">
+<a  href="MDB2.html#wp82724">Figure 9-1</a> illustrates the structure of this application. The application client sends messages to the queue, and the JMS provider (in this case, the Application Server) delivers the messages to the instances of the message-driven bean, which then processes the messages.
+</p>
+<a name="wp82722"> </a><p class="pBody">
+</p><div align="left"><img src="images/mdb-simpleMessageApp.gif" height="159" width="379" alt="The SimpleMessageApp Application" border="0" hspace="0" vspace="0"/>
+</div><p class="pBody">
+</p>
+
+<p>
+  <a name="wp82724"> </a><font >Figure 9-1    The <code class="cCode">SimpleMessageClient</code> Application</font>
+</p>
+
+<a name="wp82725"> </a><p class="pBody">
+The source code for this application is in the <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/simplemessage/</code> directory.
+</p>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="MDB.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="MDB3.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

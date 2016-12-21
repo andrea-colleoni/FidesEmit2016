@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>Creating the RosterBean Session Bean</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="CMP4.html" />
+    <link rel="Next" href="CMP6.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="CMP4.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="CMP6.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp90594"> </a><h2 class="pHeading1">
+Creating the RosterBean Session Bean
+</h2>
+<a name="wp90595"> </a><p class="pBody">
+You should never directly access entity beans from a client. Instead, clients should access entity beans through the business methods of a a facade session bean. In our example, the <code class="cCode">RosterBean</code> session bean performs this purpose. The source code for the components is in the <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/cmproster</code> directory.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp90596"> </a><div class="pSmartList1"><li>In the Projects window, right-click the Roster node and choose New<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Session Bean. Enter <code class="cCode">Roster</code> for the EJB Name, <code class="cCode">roster</code> for the Package Name, and set the bean to generate both remote and local interfaces. Then click Finish.</li></div>
+<a name="wp90597"> </a><div class="pSmartList1"><li>Right-click in the body of the <code class="cCode">RosterBean</code> class and choose Enterprise Resources<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Call Enterprise Bean. Select LeagueEB and click OK. Repeat this step to generate lookup code for PlayerEB and TeamEB.</li></div>
+<a name="wp90598"> </a><div class="pSmartList1"><li>Add the following variable declarations to the class:</li></div>
+<a name="wp90599"> </a><p class="pBodyRelative">
+<code class="cCode">private PlayerLocalHome playerHome = null;<br />private TeamLocalHome teamHome = null;<br />private LeagueLocalHome leagueHome = null;</code>
+</p>
+<a name="wp90600"> </a><div class="pSmartList1"><li>Change the <code class="cCode">ejbCreate</code>, <code class="cCode">ejbActivate</code>, and<code class="cCode"> ejbPassivate</code> methods to get and release bean references. The <code class="cCode">ejbActivate</code> and <code class="cCode">ejbPassivate</code> methods are hidden in the <code class="cCode">EJB Infrastructure methods</code> code fold.</li></div>
+<a name="wp90601"> </a><p class="pBodyRelative">
+<code class="cCode">public void ejbCreate() {<br />&nbsp;&nbsp;Debug.print(&quot;RosterBean ejbCreate&quot;);<br />&nbsp;&nbsp;playerHome = lookupPlayerBean();<br />&nbsp;&nbsp;teamHome = lookupTeamBean();<br />&nbsp;&nbsp;leagueHome = lookupLeagueBean();<br />}<br /><br />public void ejbActivate() {<br />&nbsp;&nbsp;Debug.print(&quot;RosterBean ejbCreate&quot;);<br />&nbsp;&nbsp;playerHome = lookupPlayerBean();<br />&nbsp;&nbsp;teamHome = lookupTeamBean();<br />&nbsp;&nbsp;leagueHome = lookupLeagueBean();<br />}<br /><br />public void ejbPassivate() {<br />&nbsp;&nbsp;playerHome = null;<br />&nbsp;&nbsp;teamHome = null;<br />&nbsp;&nbsp;leagueHome = null;<br />}</code>
+</p>
+<a name="wp90602"> </a><div class="pSmartList1"><li>Create the business methods for accessing the entity beans. You can copy the business methods from the <code class="cCode">RosterBean</code> class in the <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/cmproster/Roster/src/java </code>directory. The business methods start with <code class="cCode">testFinder</code> on line 114 and end with <code class="cCode">copyPlayersToDetails</code> on line 535. You must also overwrite your project's <code class="cCode">RosterRemoteBusiness</code> interface with the contents of the <code class="cCode">RosterRemoteBusiness</code> in <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/cmproster/Roster/src/java</code>.</li></div>
+<a name="wp90603"> </a><div class="pSmartList1"><li>Select <code class="cCode">RosterBean.java</code> tab in the Source Editor and press Alt-Shift-F to generate the following import statements:</li></div>
+<a name="wp90604"> </a><p class="pBodyRelative">
+<code class="cCode">import java.util.ArrayList;<br />import java.util.Collection;<br />import java.util.Iterator;<br />import javax.ejb.*;<br />import team.LeagueLocal;<br />import team.LeagueLocalHome;<br />import team.PlayerLocal;<br />import team.PlayerLocalHome;<br />import team.TeamLocal;<br />import team.TeamLocalHome;<br />import util.Debug;<br />import util.LeagueDetails;<br />import util.PlayerDetails;<br />import util.TeamDetails;</code>
+</p>
+</ol></div>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="CMP4.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="CMP6.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

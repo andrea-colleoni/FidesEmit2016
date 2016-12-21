@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>What Is an Enterprise Bean?</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="EJBConcepts.html" />
+    <link rel="Next" href="EJBConcepts3.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="EJBConcepts.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="EJBConcepts3.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp79731"> </a><h2 class="pHeading1">
+What Is an Enterprise Bean?
+</h2>
+<a name="wp79733"> </a><p class="pBody">
+Written in the Java programming language, an <span style="font-style: italic">enterprise bean</span> is a server-side component that encapsulates the business logic of an application. The business logic is the code that fulfills the purpose of the application. In an inventory control application, for example, the enterprise beans might implement the business logic in methods called <code class="cCode">checkInventoryLevel</code> and <code class="cCode">orderProduct</code>. By invoking these methods, remote clients can access the inventory services provided by the application.
+</p>
+<a name="wp79734"> </a><h3 class="pHeading2">
+Benefits of Enterprise Beans
+</h3>
+<a name="wp79735"> </a><p class="pBody">
+For several reasons, enterprise beans simplify the development of large, distributed applications. First, because the EJB container provides system-level services to enterprise beans, the bean developer can concentrate on solving business problems. The EJB container--and not the bean developer--is responsible for system-level services such as transaction management and security authorization.
+</p>
+<a name="wp79738"> </a><p class="pBody">
+Second, because the beans--and not the clients--contain the application's business logic, the client developer can focus on the presentation of the client. The client developer does not have to code the routines that implement business rules or access databases. As a result, the clients are thinner, a benefit that is particularly important for clients that run on small devices.
+</p>
+<a name="wp79740"> </a><p class="pBody">
+Third, because enterprise beans are portable components, the application assembler can build new applications from existing beans. These applications can run on any compliant J2EE server provided that they use the standard APIs.
+</p>
+<a name="wp79741"> </a><h3 class="pHeading2">
+When to Use Enterprise Beans
+</h3>
+<a name="wp79742"> </a><p class="pBody">
+You should consider using enterprise beans if your application has any of the following requirements:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp79743"> </a><div class="pSmartList1"><li>The application must be scalable. To accommodate a growing number of users, you may need to distribute an application's components across multiple machines. Not only can the enterprise beans of an application run on different machines, but also their location will remain transparent to the clients.</li></div>
+<a name="wp79744"> </a><div class="pSmartList1"><li>Transactions must ensure data integrity. Enterprise beans support transactions, the mechanisms that manage the concurrent access of shared objects.</li></div>
+<a name="wp79745"> </a><div class="pSmartList1"><li>The application will have a variety of clients. With only a few lines of code, remote clients can easily locate enterprise beans. These clients can be thin, various, and numerous.</li></div>
+</ul></div>
+<a name="wp79746"> </a><h3 class="pHeading2">
+Types of Enterprise Beans
+</h3>
+<a name="wp79751"> </a><p class="pBody">
+<a  href="EJBConcepts2.html#wp79755">Table 4-1</a> summarizes the three types of enterprise beans. The following sections discuss each type in more detail.</p><div align="left">
+<table border="1" summary="Summary of Enterprise Bean Types" id="wp79755">
+  <caption><a name="wp79755"> </a><div class="pTableTitle">
+Table 4-1   Enterprise Bean Types
+</div>
+</caption>
+  <tr align="center">    <th><a name="wp79759"> </a><div class="pCellHeading">
+Enterprise Bean Type
+</div>
+</th>
+    <th><a name="wp79761"> </a><div class="pCellHeading">
+Purpose
+</div>
+</th>
+</tr>
+  <tr align="left">    <td><a name="wp79763"> </a><div class="pCellBody">
+Session 
+</div>
+</td>
+    <td><a name="wp79765"> </a><div class="pCellBody">
+Performs a task for a client; implements a web service
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp79767"> </a><div class="pCellBody">
+Entity
+</div>
+</td>
+    <td><a name="wp79769"> </a><div class="pCellBody">
+Represents a business entity object that exists in persistent storage
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp79771"> </a><div class="pCellBody">
+Message-Driven
+</div>
+</td>
+    <td><a name="wp79773"> </a><div class="pCellBody">
+Acts as a listener for the Java Message Service API, processing messages asynchronously
+</div>
+</td>
+</tr>
+</table>
+</div>
+<p class="pBody">
+</p>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="EJBConcepts.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="EJBConcepts3.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

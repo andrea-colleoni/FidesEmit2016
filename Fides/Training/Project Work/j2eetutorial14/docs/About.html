@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>The J2EE<img src="images/tm.gif" border="0" alt="Trademarked"> 1.4 Tutorial in NetBeans<img src="images/tm.gif" border="0" alt="Trademarked"> IDE is a guide to developing enterprise applications for the Java 2 Platform, Enterprise Edition (J2EE) version 1.4. This tutorial examines several aspects of J2EE technology and how to quickly and easily code enterprise applications using NetBeans IDE. Here we cover all the things you need to know to make the best use of this tutorial.</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="J2EETutorialFront2.html" />
+    <link rel="Next" href="Overview.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="J2EETutorialFront2.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="Overview.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp87414"> </a><p class="pBody">
+The J2EE<img src="images/tm.gif" border="0" alt="Trademarked"> 1.4 Tutorial in NetBeans<img src="images/tm.gif" border="0" alt="Trademarked"> IDE is a guide to developing enterprise applications for the Java 2 Platform, Enterprise Edition (J2EE) version 1.4. This tutorial examines several aspects of J2EE technology and how to quickly and easily code enterprise applications using NetBeans IDE. Here we cover all the things you need to know to make the best use of this tutorial.
+</p>
+<a name="wp87415"> </a><h2 class="pHeading1NoSplit">
+Who Should Use This Tutorial
+</h2>
+<a name="wp87416"> </a><p class="pBody">
+This tutorial is intended for programmers who are interested in developing and deploying J2EE 1.4 applications on the Sun Java System Application Server Platform Edition 8.1 2005Q1. 
+</p>
+<a name="wp87418"> </a><h2 class="pHeading1NoSplit">
+Prerequisites
+</h2>
+<a name="wp87419"> </a><p class="pBody">
+Before proceeding with this tutorial you should have a good knowledge of the Java programming language. A good way to get to that point is to work through all the basic and some of the specialized trails in <em class="cEmphasis">The Java<img src="images/tm.gif" border="0" alt="Trademarked"></em><em class="cEmphasis"> Tutorial</em>, Mary Campione et al., (Addison-Wesley, 2000).
+</p>
+<a name="wp87421"> </a><h2 class="pHeading1NoSplit">
+About the Examples
+</h2>
+<a name="wp87422"> </a><p class="pBody">
+Each of the examples is set up as a NetBeans project. You just have to open the projects, occasionally resolve the location of a missing JAR file on the classpath, and you can build and deploy the project to your Application Server without any additional configuration.
+</p>
+<a name="wp87757"> </a><p class="pBody">
+Each chapter contains instructions on creating an example application, then examines several finished applications. If you do not want to go through the steps for creating the sample applications, you can open the finished versions provided in the examples.
+</p>
+<a name="wp87424"> </a><h3 class="pHeading2">
+Required Software
+</h3>
+<a name="wp87425"> </a><h4 class="pHeading3">
+Tutorial Bundle
+</h4>
+<a name="wp87426"> </a><p class="pBody">
+The tutorial example source is contained in the tutorial bundle. If you are viewing this online, you need to download tutorial bundle from:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+<code class="cCode"><a  href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">http://www.netbeans.org/files/docu-
+ments/4/441/j2eetutorial14.zip</a></code><a name="wp87430"> </a>
+</pre></div>
+<a name="wp87432"> </a><p class="pBody">
+After you have installed the tutorial bundle, the example source code is in the <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/</code> directory.
+</p>
+<a name="wp87433"> </a><h4 class="pHeading3">
+NetBeans IDE 4.1
+</h4>
+<a name="wp87434"> </a><p class="pBody">
+The tutorial examples are developed and built using the 4.1 release of the NetBeans Integrated Development Environment (IDE). The IDE greatly simplifies the process of developing J2EE applications by providing project and file templates that automatically generate all of the needed code. The IDE also automatically updates your deployment descriptors and interfaces as you code your modules. 
+</p>
+<a name="wp87855"> </a><p class="pBody">
+You can download the NetBeans IDE at:
+</p>
+<a name="wp87858"> </a><p class="pBody">
+<code class="cCode"><a  href="http://www.netbeans.info/downloads/download.php" target="_blank">http://www.netbeans.info/downloads</a></code>
+</p>
+<a name="wp87859"> </a><h4 class="pHeading3">
+Application Server
+</h4>
+<a name="wp87440"> </a><p class="pBody">
+The Sun Java System Application Server Platform Edition 8.1 is targeted as the build and runtime environment for the tutorial examples. To build, deploy, and run the examples, you need a copy of the Application Server and the Java 2 Software Development Kit, Standard Edition (J2SE SDK) 1.4.2_06 or higher. 
+</p>
+<a name="wp87782"> </a><p class="pBody">
+You can download the Application Server from:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+<code class="cCode"><a  href="http://java.sun.com/j2ee/1.4/download.html#sdk" target="_blank">http://java.sun.com/j2ee/1.4/download.html#sdk</a></code><a name="wp87784"> </a>
+</pre></div>
+<a name="wp87783"> </a><p class="pBody">
+You can also download the Application Server bundled with the IDE from:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+<code class="cCode"><a  href="http://www.netbeans.info/downloads" target="_blank">http://www.netbeans.info/downloads </a></code><a name="wp87445"> </a>
+</pre></div>
+<a name="wp87446"> </a><h5 class="pHeading4">
+Application Server Installation Tips
+</h5>
+<a name="wp87447"> </a><p class="pBody">
+In the Admin configuration pane of the Application Server installer,
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp87448"> </a><div class="pSmartList1"><li>Select the Don't Prompt for Admin User Name radio button. This will save the user name and password so that you won't need to provide them when performing administrative operations with the IDE. You will still have to provide the user name and password to log in to the Admin Console.</li></div>
+<a name="wp87449"> </a><div class="pSmartList1"><li>Note the HTTP port at which the server is installed. This tutorial assumes that you are accepting the default port of 8080. If 8080 is in use during installation and the installer chooses another port or if you decide to change it yourself, you will need to update the configuration files for some of the tutorial examples to reflect the correct port.</li></div>
+</ul></div>
+<a name="wp87451"> </a><h3 class="pHeading2">
+Building the Examples
+</h3>
+<a name="wp87452"> </a><p class="pBody">
+The tutorial examples are distributed with IDE projects. Directions for building the examples are provided in each chapter. 
+</p>
+<a name="wp87464"> </a><h3 class="pHeading2">
+Tutorial Example Directory Structure
+</h3>
+<a name="wp87465"> </a><p class="pBody">
+To facilitate iterative development and keep application source separate from compiled files, the source code for the tutorial examples is stored in the following structure under each application directory:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp87467"> </a><div class="pSmartList1"><li><code class="cCode">build.xml</code>: build file</li></div>
+<a name="wp87468"> </a><div class="pSmartList1"><li><code class="cCode">src</code>: Java source of servlets and JavaBeans components; tag libraries</li></div>
+<a name="wp87469"> </a><div class="pSmartList1"><li><code class="cCode">web</code>: JSP pages and HTML pages, tag files, and images</li></div>
+<a name="wp87470"> </a><div class="pSmartList1"><li><code class="cCode">nbproject</code>: IDE project files</li></div>
+</ul></div>
+<a name="wp87471"> </a><p class="pBody">
+You can use the build files (<code class="cCode">build.xml</code>) distributed with the examples to build the applications outside of the IDE. In order to deploy the applications, however, you have to open the projects in the IDE and follow the deployment instructions.
+</p>
+<a name="wp87478"> </a><h2 class="pHeading1NoSplit">
+Further Information
+</h2>
+<a name="wp87479"> </a><p class="pBody">
+This tutorial includes the basic information that you need to deploy applications on and administer the Application Server. 
+</p>
+<a name="wp87480"> </a><p class="pBody">
+For reference information on the tools distributed with the Application Server, see the man pages at<code class="cCode"><a  href="http://docs.sun.com/db/doc/817-6092" target="_blank"> http://docs.sun.com/db/doc/817-6092</a></code>.
+</p>
+<a name="wp87482"> </a><p class="pBody">
+See the <em class="cEmphasis">Sun Java<img src="images/tm.gif" border="0" alt="Trademarked"> System Application Server Platform Edition 8 Developer's Guide</em> at <code class="cCode"><a  href="http://docs.sun.com/db/doc/817-6087" target="_blank">http://docs.sun.com/db/doc/817-6087</a></code> for information about developer features of the Application Server.
+</p>
+<a name="wp87484"> </a><p class="pBody">
+See the <em class="cEmphasis">Sun Java<img src="images/tm.gif" border="0" alt="Trademarked"> System Application Server Platform Edition 8 Administration Guide</em> at <code class="cCode"><a  href="http://docs.sun.com/db/doc/817-6088" target="_blank">http://docs.sun.com/db/doc/817-6088</a></code> for information about administering the Application Server.
+</p>
+<a name="wp87486"> </a><p class="pBody">
+For information about the PointBase database included with the Application Server see the PointBase web site at <code class="cCode"><a  href="http://www.pointbase.com" target="_blank">www.pointbase.com</a></code>.
+</p>
+<a name="wp87489"> </a><p class="pBody">
+For information about the IDE see the NetBeans site at <code class="cCode"><a  href="http://www.netbeans.org" target="_blank">www.netbeans.org</a></code>.
+</p>
+<a name="wp87490"> </a><h2 class="pHeading1NoSplit">
+How to Print This Tutorial
+</h2>
+<a name="wp87492"> </a><p class="pBody">
+To print this tutorial, follow these steps: 
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp87493"> </a><div class="pSmartList1"><li>Ensure that Adobe Acrobat Reader is installed on your system.</li></div>
+<a name="wp87494"> </a><div class="pSmartList1"><li>Open the<a  href="J2EETutorial.pdf" target="_blank"> PDF version</a> of this book.</li></div>
+<a name="wp87497"> </a><div class="pSmartList1"><li>Click the printer icon in Adobe Acrobat Reader.</li></div>
+</ol></div>
+<a name="wp87498"> </a><h2 class="pHeading1NoSplit">
+Typographical Conventions
+</h2>
+<a name="wp87529"> </a><p class="pBody">
+<a  href="About.html#wp87506">Table 1</a> lists the typographical conventions used in this tutorial.</p><div align="left">
+<table border="1" id="wp87506">
+  <caption><a name="wp87506"> </a><div class="pTableTitle">
+Table 1   Typographical Conventions
+</div>
+</caption>
+  <tr align="center">    <th><a name="wp87510"> </a><div class="pCellHeading">
+Font Style
+</div>
+</th>
+    <th><a name="wp87512"> </a><div class="pCellHeading">
+Uses
+</div>
+</th>
+</tr>
+  <tr align="left">    <td><a name="wp87514"> </a><div class="pCellBody">
+<em class="cEmphasis">italic</em>
+</div>
+</td>
+    <td><a name="wp87516"> </a><div class="pCellBody">
+Emphasis, titles, first occurrence of terms
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp87518"> </a><div class="pCellBody">
+<code class="cCode">monospace</code>
+</div>
+</td>
+    <td><a name="wp87520"> </a><div class="pCellBody">
+URLs, code examples, file names, path names, tool names, application names, programming language keywords, tag, interface, class, method, and field names, properties
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp87522"> </a><div class="pCellBody">
+<code class="cVariable">italic monospace</code>
+</div>
+</td>
+    <td><a name="wp87524"> </a><div class="pCellBody">
+Variables in code, file paths, and URLs
+</div>
+</td>
+</tr>
+  <tr align="left">    <td><a name="wp87526"> </a><div class="pCellBody">
+<code class="cCode">&lt;</code><code class="cVariable">italic monospace</code><code class="cCode">&gt;</code>
+</div>
+</td>
+    <td><a name="wp87528"> </a><div class="pCellBody">
+User-selected file path components
+</div>
+</td>
+</tr>
+</table>
+</div>
+<p class="pBody">
+</p>
+<a name="wp87530"> </a><p class="pBody">
+Menu selections indicated with the right-arrow character <span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>, for example, First<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Second, should be interpreted as: select the First menu, then choose Second from the First submenu. 
+</p>
+<a name="wp87531"> </a><h2 class="pHeading1NoSplit">
+Feedback
+</h2>
+<a name="wp87532"> </a><p class="pBody">
+To send comments, broken link reports, errors, suggestions, and questions about this tutorial, please write to <code class="cCode"><a  href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback: J2EE 1.4 Tutorial for NetBeans IDE" target="_blank">nbdocs_feedback@usersguide.netbeans.org</a></code>.
+</p>
+<a name="wp82185"> </a><p class="pBody">
+
+</p>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="J2EETutorialFront2.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="Overview.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

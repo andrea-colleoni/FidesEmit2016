@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>Advanced CMP Topics: The Order Example</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="CMP8.html" />
+    <link rel="Next" href="MDB.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="CMP8.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="MDB.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp90776"> </a><h2 class="pHeading1">
+Advanced CMP Topics: The Order Example
+</h2>
+<a name="wp90777"> </a><p class="pBody">
+The <code class="cCode">Order</code> application is an advanced CMP example. It contains entity beans that have self-referential relationships, one-to-one relationships, unidirectional relationships, unknown primary keys, primitive primary key types, and composite primary keys.
+</p>
+<a name="wp90778"> </a><p class="pBody">
+To open the project, choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Open Project (Ctrl-Shift-O). In the file chooser, go to &lt;<code class="cVariable">INSTALL</code>&gt;/j2eetutorial14/examples/ejb/cmporder/, select the Order directory, and choose Open Project.
+</p>
+<a name="wp90779"> </a><h3 class="pHeading2">
+Structure of Order
+</h3>
+<a name="wp90780"> </a><p class="pBody">
+<code class="cCode">Order</code> is a simple inventory and ordering application for maintaining a catalog of parts and placing an itemized order of those parts. It has entity beans that represent parts, vendors, orders, and line items. These entity beans are accessed using a stateful session bean that holds the business logic of the application. A simple command-line client adds data to the entity beans, manipulates the data, and displays data from the catalog.
+</p>
+<a name="wp90781"> </a><p class="pBody">
+The information contained in an order can be divided into different elements. What is the order number? What parts are included in the order? What parts make up that part? Who makes the part? What are the specifications for the part? Are there any schematics for the part? <code class="cCode">Order</code> is a simplified version of an ordering system that has all these elements.
+</p>
+<a name="wp90782"> </a><p class="pBody">
+<code class="cCode">Order</code> consists of two modules: <code class="cCode">Order</code>, an enterprise bean JAR file containing the entity beans, the stateful session bean that accesses the data in the entity beans, the support classes, and the database schema file; and <code class="cCode">OrderClient</code>, the application client that populates the entity beans with data and manipulates the data, displaying the results in a terminal.
+</p>
+<a name="wp90786"> </a><p class="pBody">
+<a  href="CMP9.html#wp90796">Figure 8-3</a> shows <code class="cCode">Order</code>'s database tables.
+</p>
+<a name="wp90794"> </a><p class="pBody">
+</p><div align="left"><img src="images/cmp-orderAppTables3.gif" height="352" width="440" alt="Database Tables in OrderApp" border="0" hspace="0" vspace="0"/>
+</div><p class="pBody">
+</p>
+
+<p>
+  <a name="wp90796"> </a><font >Figure 8-3    Database Tables in <code class="cCode">Order</code></font>
+</p>
+
+<a name="wp90798"> </a><h3 class="pHeading2">
+Bean Relationships in Order
+</h3>
+<a name="wp90799"> </a><p class="pBody">
+The <code class="cCode">Order</code> example application shows how to set up one-to-many and many-to-many relationships between entity beans. <code class="cCode">Order</code> demonstrates two additional types of entity bean relationships (see <a  href="CMP9.html#wp90812">Figure 8-4</a>): one-to-one and self-referential relationships.
+</p>
+<a name="wp90810"> </a><p class="pBody">
+</p><div align="left"><img src="images/cmp-orderAppRelationships4.gif" height="369" width="418" alt="Relationships between Entity Beans in OrderApp" border="0" hspace="0" vspace="0"/>
+</div><p class="pBody">
+</p>
+
+<p>
+  <a name="wp90812"> </a><font >Figure 8-4    Relationships between Entity Beans in <code class="cCode">Order</code></font>
+</p>
+
+<a name="wp90814"> </a><h4 class="pHeading3">
+Self-Referential Relationships
+</h4>
+<a name="wp90815"> </a><p class="pBody">
+A <em class="cEmphasis">self-referential</em> relationship is a relationship between container-managed relationship fields (CMR) in the same entity bean. <code class="cCode">PartBean</code> has a CMR field <code class="cCode">bomPart</code> that has a one-to-many relationship with the CMR field <code class="cCode">parts</code>, which is also in <code class="cCode">PartBean</code>. That is, a part can be made up of many parts, and each of those parts has exactly one bill-of-material part.
+</p>
+<a name="wp90816"> </a><p class="pBody">
+The primary key for <code class="cCode">PartBean</code> is a compound primary key, a combination of the <code class="cCode">partNumber</code> and <code class="cCode">revision</code> fields. It is mapped to the <code class="cCode">PART_NUMBER</code> and <code class="cCode">REVISION</code> columns in the <code class="cCode">PART</code> table.
+</p>
+<a name="wp90818"> </a><h4 class="pHeading3">
+One-to-One Relationships
+</h4>
+<a name="wp90819"> </a><p class="pBody">
+<code class="cCode">PartBean</code> has a CMR field, <code class="cCode">vendorPart</code>, that has a one-to-one relationship with <code class="cCode">VendorPartBean</code>'s CMR field <code class="cCode">part</code>. That is, each part has exactly one vendor part, and vice versa.
+</p>
+<a name="wp90821"> </a><h4 class="pHeading3">
+One-to-Many Relationship Mapped to Overlapping Primary and Foreign Keys
+</h4>
+<a name="wp90822"> </a><p class="pBody">
+<code class="cCode">OrderBean</code> has a CMR field, <code class="cCode">lineItems</code>, that has a one-to-many relationship with <code class="cCode">LineItemBean</code>'s CMR field <code class="cCode">order</code>. That is, each order has one or more line item.
+</p>
+<a name="wp90823"> </a><p class="pBody">
+<code class="cCode">LineItemBean</code> uses a compound primary key that is made up of the <code class="cCode">orderId</code> and <code class="cCode">itemId</code> fields. This compound primary key maps to the <code class="cCode">ORDER_ID</code> and <code class="cCode">ITEM_ID</code> columns in the <code class="cCode">LINEITEM</code> database table. <code class="cCode">ORDER_ID</code> is a foreign key to the <code class="cCode">ORDER_ID</code> column in the <code class="cCode">ORDERS</code> table. This means that the <code class="cCode">ORDER_ID</code> column is mapped twice: once as a primary key field, <code class="cCode">orderId</code>; and again as a relationship field, <code class="cCode">order</code>.
+</p>
+<a name="wp90825"> </a><h4 class="pHeading3">
+Unidirectional Relationships
+</h4>
+<a name="wp90826"> </a><p class="pBody">
+<code class="cCode">LineItemBean</code> has a CMR field, <code class="cCode">vendorPart</code>, that has a unidirectional many-to-one relationship with <code class="cCode">VendorPartBean</code>. That is, there is no CMR field in the target entity bean in this relationship.
+</p>
+<a name="wp90828"> </a><h3 class="pHeading2">
+Primary Keys in Order's Entity Beans
+</h3>
+<a name="wp90829"> </a><p class="pBody">
+The <code class="cCode">Order</code> example uses more complicated primary keys than does <code class="cCode">Roster</code>. 
+</p>
+<a name="wp90831"> </a><h4 class="pHeading3">
+Unknown Primary Keys
+</h4>
+<a name="wp90832"> </a><p class="pBody">
+In <code class="cCode">Order</code>, <code class="cCode">VendorPartBean</code> uses an unknown primary key. That is, the enterprise bean does not specify a primary key field, and uses <code class="cCode">java.lang.Object</code> as the primary key class. 
+</p>
+<a name="wp90833"> </a><p class="pBody">
+The <code class="cCode">LocalVendorPartHome</code> interface's <code class="cCode">findByPrimaryKey</code> method is defined as follows:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public LocalVendorPart findByPrimaryKey(Object aKey)
+&nbsp;&nbsp;throws FinderException;<a name="wp90834"> </a>
+</pre></div>
+<a name="wp90838"> </a><p class="pBody">
+See <a  href="CMP8.html#wp90768">Generating Primary Key Values</a> for more information on unkown primary keys.
+</p>
+<a name="wp90840"> </a><h4 class="pHeading3">
+Primitive Type Primary Keys
+</h4>
+<a name="wp90841"> </a><p class="pBody">
+<code class="cCode">VendorBean</code> uses a primary key that is a Java programming language primitive type, an <code class="cCode">int</code>. To use a primitive type as the primary key, you must create a wrapper class. <code class="cCode">VendorKey</code> is the wrapper class for <code class="cCode">VendorBean</code>.
+</p>
+<a name="wp90844"> </a><p class="pBody">
+The wrapper primary key class has the same requirements as described in <a  href="CMP8.html#wp90747">The Primary Key Class</a>. This is the <code class="cCode">VendorKey</code> wrapper class:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+package dataregistry;
+public final class VendorKey implements java.io.Serializable {
+
+&nbsp;&nbsp;public int vendorId;
+
+&nbsp;&nbsp;public boolean equals(Object otherOb) {
+
+&nbsp;&nbsp;&nbsp;&nbsp;if (this == otherOb) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return true;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;if (!(otherOb instanceof VendorKey)) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;VendorKey other = (VendorKey) otherOb;
+&nbsp;&nbsp;&nbsp;&nbsp;return (vendorId == other.vendorId);
+&nbsp;&nbsp;}
+&nbsp;&nbsp;public int hashCode() {
+&nbsp;&nbsp;&nbsp;&nbsp;return vendorId;
+&nbsp;&nbsp;}
+&nbsp;&nbsp;public String toString() {
+&nbsp;&nbsp;&nbsp;&nbsp;return &quot;&quot; + vendorId;
+&nbsp;&nbsp;}
+}<a name="wp90846"> </a>
+</pre></div>
+<a name="wp90848"> </a><h4 class="pHeading3">
+Compound Primary Keys
+</h4>
+<a name="wp90849"> </a><p class="pBody">
+A compound primary key is made up of multiple fields and follows the requirements described in <a  href="CMP8.html#wp90747">The Primary Key Class</a>. To use a compound primary key, you must create a wrapper class.
+</p>
+<a name="wp90853"> </a><p class="pBody">
+In <code class="cCode">Order</code>, two entity beans use compound primary keys: <code class="cCode">PartBean</code> and <code class="cCode">LineItemBean</code>.
+</p>
+<a name="wp90854"> </a><p class="pBody">
+<code class="cCode">PartBean</code> uses the <code class="cCode">PartKey</code> wrapper class. <code class="cCode">PartBean</code>'s primary key is a combination of the part number and the revision number. <code class="cCode">PartKey</code> encapsulates this primary key. 
+</p>
+<a name="wp90855"> </a><p class="pBody">
+<code class="cCode">LineItemBean</code> uses the <code class="cCode">LineItemKey</code> class. <code class="cCode">LineItemBean</code>'s primary key is a combination of the order number and the item number. <code class="cCode">LineItemKey</code> encapsulates this primary key. This is the <code class="cCode">LineItemKey</code> compound primary key wrapper class:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+package dataregistry;
+
+public final class LineItemKey implements 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java.io.Serializable {
+
+&nbsp;&nbsp;public Integer orderId;
+&nbsp;&nbsp;public int itemId;
+
+&nbsp;&nbsp;public boolean equals(Object otherOb) {
+&nbsp;&nbsp;&nbsp;&nbsp;if (this == otherOb) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return true;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;if (!(otherOb instanceof LineItemKey)) {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false;
+&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;LineItemKey other = (LineItemKey) otherOb;
+&nbsp;&nbsp;&nbsp;&nbsp;return ((orderId==null?other.orderId==null:orderId.equals
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(other.orderId)) &amp;&amp; (itemId == other.itemId));
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;public int hashCode() {
+&nbsp;&nbsp;&nbsp;&nbsp;return ((orderId==null?0:orderId.hashCode()) 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^ ((int) itemId));
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;public String toString() {
+&nbsp;&nbsp;&nbsp;&nbsp;return &quot;&quot; + orderId + &quot;-&quot; + itemId;
+&nbsp;&nbsp;}
+}<a name="wp90856"> </a>
+</pre></div>
+<a name="wp90858"> </a><h3 class="pHeading2">
+Entity Bean Mapped to More Than One Database Table
+</h3>
+<a name="wp90859"> </a><p class="pBody">
+<code class="cCode">PartBean</code>'s fields map to more than one database table: <code class="cCode">PART</code> and <code class="cCode">PART_DETAIL</code>. The <code class="cCode">PART_DETAIL</code> table holds the specification and schematics for the part. 
+</p>
+<a name="wp90861"> </a><h3 class="pHeading2">
+Finder and Selector Methods
+</h3>
+<a name="wp90862"> </a><p class="pBody">
+<code class="cCode">VendorBean</code> has two finder methods: <code class="cCode">findByPartialName</code> and <code class="cCode">findByOrder</code>. The <code class="cCode">findByPartialName</code> method searches through the vendor list for matches to a partial name. <code class="cCode">findByOrder</code> finds all vendors for a particular order.
+</p>
+<a name="wp90863"> </a><p class="pBody">
+<code class="cCode">LineItemBean</code> has one finder method, <code class="cCode">findAll</code>, which finds all line items.
+</p>
+<a name="wp90864"> </a><p class="pBody">
+<code class="cCode">OrderBean</code> has one selector method, <code class="cCode">ejbSelectAll</code>, which returns all orders.
+</p>
+<a name="wp90865"> </a><p class="pBody">
+<code class="cCode">VendorPartBean</code> has two selector methods. <code class="cCode">ejbSelectAvgPrice</code> returns the average price of all parts from a vendor. <code class="cCode">ejbSelectTotalPricePerVendor</code> returns the price of all the parts from a particular vendor.
+</p>
+<a name="wp90866"> </a><p class="pBody">
+Selector methods cannot be accessed outside a bean instance because the selector methods are not defined in the bean interface. If you are using a selector method to return data to a caller, the selector method must be called from a home or business method. In <code class="cCode">Order</code>, the <code class="cCode">LocalVendorPartHome.getAvgPrice</code> method returns the result of the <code class="cCode">ejbSelectAvgPrice</code> method in <code class="cCode">VendorPartBean</code>.
+</p>
+<a name="wp90867"> </a><p class="pBody">
+The return type of a selector query is usually defined by the return type of the <code class="cCode">ejbSelect</code> methods. You must specify the return type as <code class="cCode">Remote</code> if the method returns a remote interface or a <code class="cCode">java.util.Collection</code> of remote interfaces. If the return type is a local interface or a <code class="cCode">java.util.Collection</code> of local interfaces, set the return type to <code class="cCode">Local</code>. If the return type is neither a local nor a remote interface, nor a collection of local or remote interfaces, do not set the return type. The <code class="cCode">OrderBean.ejbSelectAll</code> method returns a collection of local interfaces. <code class="cCode">VendorPartBean.ejbSelectAvgPrice</code> and <code class="cCode">VendorPartBean.ejbSelectTotalPricePerVendor</code> return a <code class="cCode">Double</code>, so the return type is set to <code class="cCode">None</code>.
+</p>
+<a name="wp90869"> </a><h3 class="pHeading2">
+Using Home Methods
+</h3>
+<a name="wp90870"> </a><p class="pBody">
+Home methods are defined in the home interface of a bean and correspond to methods named <code class="cCode">ejbHome&lt;</code><code class="cVariable">METHOD</code><code class="cCode">&gt;</code> in the bean class. For example, a method <code class="cCode">getValue</code>, defined in the <code class="cCode">LocalExampleHome</code> interface, corresponds to the <code class="cCode">ejbHomeGetValue</code> method implemented in <code class="cCode">ExampleBean</code>. The <code class="cCode">ejbHome&lt;</code><code class="cVariable">METHOD</code><code class="cCode">&gt;</code> methods are implemented by the bean developer.
+</p>
+<a name="wp90871"> </a><p class="pBody">
+<code class="cCode">Order</code> uses three home methods: <code class="cCode">OrderLocalHome.adjustDiscount</code>, <code class="cCode">VendorPartLocalHome.getAvgPrice</code>, and <code class="cCode">VendorPartLocalHome.getTotalPricePerVendor</code>. Home methods operate on all instances of a bean rather than on any particular bean instance. That is, home methods cannot access the container-managed fields and relationships of a bean instance on which the method is called.
+</p>
+<a name="wp90872"> </a><p class="pBody">
+For example, <code class="cCode">OrderLocalHome.adjustDiscount</code> is used to increase or decrease the discount on all orders.
+</p>
+<a name="wp90874"> </a><h3 class="pHeading2">
+Cascade Deletes in Order
+</h3>
+<a name="wp90875"> </a><p class="pBody">
+Entity beans that use container-managed relationships often have dependencies on the existence of the other bean in the relationship. For example, a line item is part of an order, and if the order is deleted, then the line item should also be deleted. This is called a cascade delete relationship.
+</p>
+<a name="wp90876"> </a><p class="pBody">
+In <code class="cCode">Order</code>, there are two cascade delete dependencies in the bean relationships. If the <code class="cCode">OrderBean</code> to which a <code class="cCode">LineItemBean</code> is related is deleted, then the <code class="cCode">LineItemBean</code> should also be deleted. If the <code class="cCode">VendorBean</code> to which a <code class="cCode">VendorPartBean</code> is related is deleted, then the <code class="cCode">VendorPartBean</code> should also be deleted.
+</p>
+<a name="wp90878"> </a><h3 class="pHeading2">
+BLOB and CLOB Database Types in Order
+</h3>
+<a name="wp90879"> </a><p class="pBody">
+The <code class="cCode">PART_DETAIL</code> table in the database has a column, <code class="cCode">DRAWING</code>, of type <code class="cCode">BLOB</code>. <code class="cCode">BLOB</code> stands for binary large objects, which are used for storing binary data such as an image. The <code class="cCode">DRAWING</code> column is mapped to the container-managed field <code class="cCode">PartBean</code>. <code class="cCode">drawing</code> of type <code class="cCode">java.io.Serializable</code>.
+</p>
+<a name="wp90880"> </a><p class="pBody">
+<code class="cCode">PART_DETAIL</code> also has a column, <code class="cCode">SPECIFICATION</code>, of type <code class="cCode">CLOB</code>. <code class="cCode">CLOB</code> stands for character large objects, which are used to store string data too large to be stored in a <code class="cCode">VARCHAR</code> column. <code class="cCode">SPECIFICATION</code> is mapped to the container-managed field <code class="cCode">PartBean.specification</code> of type <code class="cCode">java.lang.String</code>.
+</p>
+<hr>
+<a name="wp90881"> </a><p class="pNote">
+Note: You cannot use a <code class="cCode">BLOB</code> or <code class="cCode">CLOB</code> column in the <code class="cCode">WHERE</code> clause of a finder or selector EJB QL query.
+</p>
+<hr><a name="wp90882"> </a><h3 class="pHeading2">
+Building and Running the Order Example
+</h3>
+<a name="wp90883"> </a><p class="pBody">
+In order to run the <code class="cCode">OrderClient</code> example, you have to build and deploy the <code class="cCode">Order</code> EJB module and create the database tables.
+</p>
+<a name="wp90884"> </a><h4 class="pHeading3">
+Building and Deploying the EJB Module
+</h4>
+<a name="wp90885"> </a><p class="pBody">
+You can build and deploy the module in one action.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp90886"> </a><div class="pSmartList1"><li>In the Runtime window, expand the Servers node, right-click the node for the Sun Java System Application Server, and choose Start/Stop Server. If the server is stopped, click Start Server in the dialog box.</li></div>
+<a name="wp90887"> </a><div class="pSmartList1"><li>In the Projects window, right-click the Order project and choose Deploy Project. </li></div>
+</ol></div>
+<a name="wp90888"> </a><p class="pBody">
+The IDE does all of the following:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp90889"> </a><div class="pSmartList1"><li>Compiles the EJB module's sources and builds the EJB JAR file. You can view the build output in the project's <code class="cCode">build</code> and <code class="cCode">dist</code> directories in the Files window. </li></div>
+<a name="wp90890"> </a><div class="pSmartList1"><li>Registers the JDBC connection pool and datasource on the server.</li></div>
+<a name="wp90891"> </a><div class="pSmartList1"><li>Undeploys the module if it is already deployed to the server. </li></div>
+<a name="wp90892"> </a><div class="pSmartList1"><li>Deploys the module to the server.</li></div>
+</ol></div>
+<a name="wp90893"> </a><h4 class="pHeading3">
+Running the OrderClient Example
+</h4>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp90894"> </a><div class="pSmartList1"><li>In the IDE, choose Tools<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>PointBase Database<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Start Local PointBase Database.</li></div>
+<a name="wp90895"> </a><div class="pSmartList1"><li>Create the database tables by running the <code class="cCode">create.sql</code> script.</li></div>
+<div class="pSmartList2"><ol type="a" class="pSmartList2">
+<a name="wp90896"> </a><div class="pSmartList2"><li>Make sure that the <code class="cCode">appsrv.root</code> property in your <code style="font-style: oblique" class="cCode">&lt;INSTALL&gt;</code><code class="cCode">/j2eetutorial14/examples/</code> file points to the location of your local Application Server installation.</li></div>
+<a name="wp90897"> </a><div class="pSmartList2"><li>In a terminal window, go to this directory:</li></div>
+<a name="wp90898"> </a><p class="pBodyRelative">
+<code style="font-style: oblique" class="cCode">&nbsp;&nbsp;&lt;INSTALL&gt;</code><code class="cCode">/j2eetutorial14/examples/ejb/order/</code>
+</p>
+<a name="wp90899"> </a><div class="pSmartList2"><li>Type the following command, which runs the <code class="cCode">create.sql</code> script:</li></div>
+<a name="wp90900"> </a><p class="pBodyRelative">
+<code class="cCode">&nbsp;&nbsp;asant -buildfile create-db.xml</code>
+</p>
+</ol></div>
+<a name="wp90901"> </a><div class="pSmartList1"><li>Choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Open Project (Ctrl-Shift-O). In the file chooser, go to <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/order/</code>, select the <code class="cCode">OrderClient </code>directory, and choose Open Project.</li></div>
+<a name="wp90902"> </a><div class="pSmartList1"><li>The project needs to know the location of some JAR files on its classpath and the Order project. Right-click the OrderClient project and choose Resolve Reference Problems. Select the <code class="cCode">&quot;Order&quot; project could not be found message</code> and click Resolve. In the file chooser, select either the completed Order project in <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/cmporder/</code> or the project you created and click OK.</li></div>
+<a name="wp90903"> </a><div class="pSmartList1"><li>Select the <code class="cCode">&quot;appserv-rt.jar&quot; file/folder could not be found</code> message and click Resolve. Navigate to the <code class="cCode">lib</code> directory in your application server installation, select <code class="cCode">appserv-rt.jar</code>, and click OK. The IDE automatically resolves the location of <code class="cCode">j2ee.jar</code>. Click Close.</li></div>
+<a name="wp90904"> </a><div class="pSmartList1"><li>Right-click the OrderClient project and choose Run Project. The client should display the following:</li></div>
+<a name="wp90905"> </a><p class="pBodyRelative">
+<code class="cCode">Cost of Bill of Material for PN SDFG-ERTY-BN Rev: 7: $241.86<br />Cost of Order 1111: $664.68<br />Cost of Order 4312: $2,011.44<br /><br />Adding 5% discount<br />Cost of Order 1111: $627.75<br />Cost of Order 4312: $1,910.87<br /><br />Removing 7% discount<br />Cost of Order 1111: $679.45<br />Cost of Order 4312: $2,011.44<br /><br />Average price of all parts: $117.55<br /><br />Total price of parts for Vendor 100: $501.06<br /><br />Ordered list of vendors for order 1111<br />200 Gadget, Inc. Mrs. Smith<br />100 WidgetCorp Mr. Jones<br /><br />Found 6 line items<br /><br />Removing Order<br />Found 3 line items<br /><br />Found 1 out of 2 vendors with &#39;I&#39; in the name:<br />Gadget, Inc.</code>
+</p>
+</ol></div>
+<a name="wp84091"> </a><p class="pBody">
+
+</p>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="CMP8.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="MDB.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>The J2EE(TM) 1.4 Tutorial</title>
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <base target="wpmain" />
+  </head>
+
+  <body>
+    <a name="wp341933"> </a><h2 class="pTOC1">
+<a href="About.html#wp87413">About This Tutorial</a>
+</h2>
+<a name="wp341935"> </a><p class="pTOC2">
+<a href="About.html#wp87415">Who Should Use This Tutorial</a>
+</p>
+<a name="wp341937"> </a><p class="pTOC2">
+<a href="About.html#wp87418">Prerequisites</a>
+</p>
+<a name="wp341939"> </a><p class="pTOC2">
+<a href="About.html#wp87421">About the Examples</a>
+</p>
+<a name="wp341941"> </a><p class="pTOC2">
+<a href="About.html#wp87478">Further Information</a>
+</p>
+<a name="wp341943"> </a><p class="pTOC2">
+<a href="About.html#wp87490">How to Print This Tutorial</a>
+</p>
+<a name="wp341945"> </a><p class="pTOC2">
+<a href="About.html#wp87498">Typographical Conventions</a>
+</p>
+<a name="wp341947"> </a><p class="pTOC2">
+<a href="About.html#wp87531">Feedback</a>
+</p>
+<a name="wp341949"> </a><h2 class="pTOC1">
+<a href="Overview.html#wp87662">Chapter 1:&nbsp;&nbsp; Overview</a>
+</h2>
+<a name="wp341951"> </a><p class="pTOC2">
+<a href="Overview2.html#wp87673">Distributed Multitiered Applications</a>
+</p>
+<a name="wp341953"> </a><p class="pTOC3">
+<a href="Overview2.html#wp87707">J2EE Components</a>
+</p>
+<a name="wp341955"> </a><p class="pTOC3">
+<a href="Overview2.html#wp87715">J2EE Clients</a>
+</p>
+<a name="wp341957"> </a><p class="pTOC3">
+<a href="Overview2.html#wp87752">Web Components</a>
+</p>
+<a name="wp341959"> </a><p class="pTOC3">
+<a href="Overview2.html#wp87764">Business Components</a>
+</p>
+<a name="wp341961"> </a><p class="pTOC3">
+<a href="Overview2.html#wp87796">Enterprise Information System Tier</a>
+</p>
+<a name="wp341963"> </a><p class="pTOC2">
+<a href="Overview3.html#wp87799">J2EE Containers</a>
+</p>
+<a name="wp341965"> </a><p class="pTOC3">
+<a href="Overview3.html#wp87801">Container Services</a>
+</p>
+<a name="wp341967"> </a><p class="pTOC3">
+<a href="Overview3.html#wp87819">Container Types</a>
+</p>
+<a name="wp341969"> </a><p class="pTOC2">
+<a href="Overview4.html#wp87849">Web Services Support</a>
+</p>
+<a name="wp341971"> </a><p class="pTOC3">
+<a href="Overview4.html#wp87855">XML</a>
+</p>
+<a name="wp341973"> </a><p class="pTOC3">
+<a href="Overview4.html#wp87862">SOAP Transport Protocol</a>
+</p>
+<a name="wp341975"> </a><p class="pTOC3">
+<a href="Overview4.html#wp87869">WSDL Standard Format</a>
+</p>
+<a name="wp341977"> </a><p class="pTOC3">
+<a href="Overview4.html#wp87872">UDDI and ebXML Standard Formats</a>
+</p>
+<a name="wp341979"> </a><p class="pTOC2">
+<a href="Overview5.html#wp87876">Packaging Applications</a>
+</p>
+<a name="wp341981"> </a><p class="pTOC2">
+<a href="Overview6.html#wp87912">J2EE 1.4 APIs</a>
+</p>
+<a name="wp341983"> </a><p class="pTOC3">
+<a href="Overview6.html#wp87928">Enterprise JavaBeans Technology</a>
+</p>
+<a name="wp341985"> </a><p class="pTOC3">
+<a href="Overview6.html#wp87939">Java Servlet Technology</a>
+</p>
+<a name="wp341987"> </a><p class="pTOC3">
+<a href="Overview6.html#wp87942">JavaServer Pages Technology</a>
+</p>
+<a name="wp341989"> </a><p class="pTOC3">
+<a href="Overview6.html#wp87945">Java Message Service API</a>
+</p>
+<a name="wp341991"> </a><p class="pTOC3">
+<a href="Overview6.html#wp87948">Java Transaction API</a>
+</p>
+<a name="wp341993"> </a><p class="pTOC3">
+<a href="Overview6.html#wp87951">JavaMail API</a>
+</p>
+<a name="wp341995"> </a><p class="pTOC3">
+<a href="Overview6.html#wp87954">JavaBeans Activation Framework</a>
+</p>
+<a name="wp341997"> </a><p class="pTOC3">
+<a href="Overview6.html#wp87957">Java API for XML Processing</a>
+</p>
+<a name="wp341999"> </a><p class="pTOC3">
+<a href="Overview6.html#wp87962">Java API for XML-Based RPC</a>
+</p>
+<a name="wp342001"> </a><p class="pTOC3">
+<a href="Overview6.html#wp87967">SOAP with Attachments API for Java</a>
+</p>
+<a name="wp342003"> </a><p class="pTOC3">
+<a href="Overview6.html#wp87970">Java API for XML Registries</a>
+</p>
+<a name="wp342005"> </a><p class="pTOC3">
+<a href="Overview6.html#wp87976">J2EE Connector Architecture</a>
+</p>
+<a name="wp342007"> </a><p class="pTOC3">
+<a href="Overview6.html#wp87982">JDBC API</a>
+</p>
+<a name="wp342009"> </a><p class="pTOC3">
+<a href="Overview6.html#wp87987">Java Naming and Directory Interface</a>
+</p>
+<a name="wp342011"> </a><p class="pTOC3">
+<a href="Overview6.html#wp88008">Java Authentication and Authorization Service</a>
+</p>
+<a name="wp342013"> </a><p class="pTOC3">
+<a href="Overview6.html#wp88012">Simplified Systems Integration</a>
+</p>
+<a name="wp342015"> </a><p class="pTOC2">
+<a href="Overview7.html#wp88025">Sun Java System Application Server Platform Edition 8</a>
+</p>
+<a name="wp342017"> </a><p class="pTOC3">
+<a href="Overview7.html#wp88029">Technologies</a>
+</p>
+<a name="wp342019"> </a><p class="pTOC3">
+<a href="Overview7.html#wp88049">Tools</a>
+</p>
+<a name="wp342021"> </a><p class="pTOC3">
+<a href="Overview7.html#wp88094">Registering the Application Server</a>
+</p>
+<a name="wp342023"> </a><p class="pTOC3">
+<a href="Overview7.html#wp88103">Starting and Stopping the Application Server</a>
+</p>
+<a name="wp342025"> </a><p class="pTOC3">
+<a href="Overview7.html#wp88120">Starting the Admin Console</a>
+</p>
+<a name="wp342027"> </a><p class="pTOC3">
+<a href="Overview7.html#wp88124">Starting and Stopping the PointBase Database Server</a>
+</p>
+<a name="wp342029"> </a><p class="pTOC3">
+<a href="Overview7.html#wp88130">Debugging J2EE Applications</a>
+</p>
+<a name="wp342031"> </a><h2 class="pTOC1">
+<a href="JAXRPC.html#wp72279">Chapter 2:&nbsp;&nbsp; Building Web Services with JAX-RPC</a>
+</h2>
+<a name="wp342033"> </a><p class="pTOC2">
+<a href="JAXRPC2.html#wp138459">Setting the Port</a>
+</p>
+<a name="wp342035"> </a><p class="pTOC2">
+<a href="JAXRPC3.html#wp138473">Creating a Simple Web Service and Client with JAX-RPC</a>
+</p>
+<a name="wp342037"> </a><p class="pTOC3">
+<a href="JAXRPC3.html#wp138528">Generating and Coding the Service Endpoint Interface and Implementation Class</a>
+</p>
+<a name="wp342039"> </a><p class="pTOC3">
+<a href="JAXRPC3.html#wp138555">Building the Service</a>
+</p>
+<a name="wp342041"> </a><p class="pTOC3">
+<a href="JAXRPC3.html#wp138591">Deploying the Service</a>
+</p>
+<a name="wp342043"> </a><p class="pTOC3">
+<a href="JAXRPC3.html#wp138598">Static Stub Clients</a>
+</p>
+<a name="wp342045"> </a><p class="pTOC3">
+<a href="JAXRPC3.html#wp138651">Running the Static Stub Client</a>
+</p>
+<a name="wp342047"> </a><p class="pTOC2">
+<a href="JAXRPC4.html#wp138658">Types Supported by JAX-RPC</a>
+</p>
+<a name="wp342049"> </a><p class="pTOC3">
+<a href="JAXRPC4.html#wp138665">J2SE SDK Classes</a>
+</p>
+<a name="wp342051"> </a><p class="pTOC3">
+<a href="JAXRPC4.html#wp138703">Primitives</a>
+</p>
+<a name="wp342053"> </a><p class="pTOC3">
+<a href="JAXRPC4.html#wp138707">Arrays</a>
+</p>
+<a name="wp342055"> </a><p class="pTOC3">
+<a href="JAXRPC4.html#wp138709">Value Types</a>
+</p>
+<a name="wp342057"> </a><p class="pTOC3">
+<a href="JAXRPC.html#wp138719">JavaBeans Components</a>
+</p>
+<a name="wp342059"> </a><p class="pTOC2">
+<a href="JAXRPC5.html#wp138725">Web Service Clients</a>
+</p>
+<a name="wp342061"> </a><p class="pTOC3">
+<a href="JAXRPC5.html#wp138761">Dynamic Proxy Client</a>
+</p>
+<a name="wp342063"> </a><p class="pTOC3">
+<a href="JAXRPC5.html#wp138794">Dynamic Invocation Interface Client</a>
+</p>
+<a name="wp342065"> </a><p class="pTOC2">
+<a href="JAXRPC6.html#wp138868">Web Services Interoperability and JAX-RPC</a>
+</p>
+<a name="wp342067"> </a><p class="pTOC2">
+<a href="JAXRPC7.html#wp139426">Further Information</a>
+</p>
+<a name="wp342069"> </a><h2 class="pTOC1">
+<a href="SAAJ.html#wp69380">Chapter 3:&nbsp;&nbsp; SOAP with Attachments API for Java</a>
+</h2>
+<a name="wp342071"> </a><p class="pTOC2">
+<a href="SAAJ2.html#wp98525">Overview of SAAJ</a>
+</p>
+<a name="wp342073"> </a><p class="pTOC3">
+<a href="SAAJ2.html#wp98530">Messages</a>
+</p>
+<a name="wp342075"> </a><p class="pTOC3">
+<a href="SAAJ2.html#wp98619">Connections</a>
+</p>
+<a name="wp342077"> </a><p class="pTOC2">
+<a href="SAAJ3.html#wp98636">Tutorial</a>
+</p>
+<a name="wp342079"> </a><p class="pTOC3">
+<a href="SAAJ3.html#wp98684">Creating and Sending a Simple Message</a>
+</p>
+<a name="wp342081"> </a><p class="pTOC3">
+<a href="SAAJ3.html#wp98863">Adding Content to the Header</a>
+</p>
+<a name="wp342083"> </a><p class="pTOC3">
+<a href="SAAJ3.html#wp98879">Adding Content to the SOAPPart Object</a>
+</p>
+<a name="wp342085"> </a><p class="pTOC3">
+<a href="SAAJ3.html#wp98898">Adding a Document to the SOAP Body</a>
+</p>
+<a name="wp342087"> </a><p class="pTOC3">
+<a href="SAAJ3.html#wp98902">Manipulating Message Content Using SAAJ or DOM APIs</a>
+</p>
+<a name="wp342089"> </a><p class="pTOC3">
+<a href="SAAJ3.html#wp98914">Adding Attachments</a>
+</p>
+<a name="wp342091"> </a><p class="pTOC3">
+<a href="SAAJ3.html#wp98946">Adding Attributes</a>
+</p>
+<a name="wp342093"> </a><p class="pTOC3">
+<a href="SAAJ3.html#wp99001">Using SOAP Faults</a>
+</p>
+<a name="wp342095"> </a><p class="pTOC2">
+<a href="SAAJ4.html#wp99064">Code Examples</a>
+</p>
+<a name="wp342097"> </a><p class="pTOC3">
+<a href="SAAJ4.html#wp99067">Request.java</a>
+</p>
+<a name="wp342099"> </a><p class="pTOC3">
+<a href="SAAJ4.html#wp99076">MyUddiPing.java</a>
+</p>
+<a name="wp342101"> </a><p class="pTOC3">
+<a href="SAAJ4.html#wp99149">HeaderExample.java</a>
+</p>
+<a name="wp342103"> </a><p class="pTOC3">
+<a href="SAAJ4.html#wp99164">DOMExample.java and DOMSrcExample.java</a>
+</p>
+<a name="wp342105"> </a><p class="pTOC3">
+<a href="SAAJ4.html#wp99207">Attachments.java</a>
+</p>
+<a name="wp342107"> </a><p class="pTOC3">
+<a href="SAAJ4.html#wp99237">SOAPFaultTest.java</a>
+</p>
+<a name="wp342109"> </a><p class="pTOC2">
+<a href="SAAJ5.html#wp99255">Further Information</a>
+</p>
+<a name="wp342111"> </a><h2 class="pTOC1">
+<a href="EJBConcepts.html#wp80377">Chapter 4:&nbsp;&nbsp; Enterprise Beans</a>
+</h2>
+<a name="wp342113"> </a><p class="pTOC2">
+<a href="EJBConcepts2.html#wp79731">What Is an Enterprise Bean?</a>
+</p>
+<a name="wp342115"> </a><p class="pTOC3">
+<a href="EJBConcepts2.html#wp79734">Benefits of Enterprise Beans</a>
+</p>
+<a name="wp342117"> </a><p class="pTOC3">
+<a href="EJBConcepts2.html#wp79741">When to Use Enterprise Beans</a>
+</p>
+<a name="wp342119"> </a><p class="pTOC3">
+<a href="EJBConcepts2.html#wp79746">Types of Enterprise Beans</a>
+</p>
+<a name="wp342121"> </a><p class="pTOC2">
+<a href="EJBConcepts3.html#wp79775">What Is a Session Bean?</a>
+</p>
+<a name="wp342123"> </a><p class="pTOC3">
+<a href="EJBConcepts3.html#wp79790">State Management Modes</a>
+</p>
+<a name="wp342125"> </a><p class="pTOC3">
+<a href="EJBConcepts3.html#wp79801">When to Use Session Beans</a>
+</p>
+<a name="wp342127"> </a><p class="pTOC2">
+<a href="EJBConcepts4.html#wp79826">What Is an Entity Bean?</a>
+</p>
+<a name="wp342129"> </a><p class="pTOC3">
+<a href="EJBConcepts4.html#wp79844">What Makes Entity Beans Different from Session Beans?</a>
+</p>
+<a name="wp342131"> </a><p class="pTOC3">
+<a href="EJBConcepts4.html#wp79885">Container-Managed Persistence</a>
+</p>
+<a name="wp342133"> </a><p class="pTOC3">
+<a href="EJBConcepts4.html#wp79959">When to Use Entity Beans</a>
+</p>
+<a name="wp342135"> </a><p class="pTOC2">
+<a href="EJBConcepts5.html#wp79967">What Is a Message-Driven Bean?</a>
+</p>
+<a name="wp342137"> </a><p class="pTOC3">
+<a href="EJBConcepts5.html#wp79983">What Makes Message-Driven Beans Different from Session and Entity Beans?</a>
+</p>
+<a name="wp342139"> </a><p class="pTOC3">
+<a href="EJBConcepts5.html#wp80007">When to Use Message-Driven Beans</a>
+</p>
+<a name="wp342141"> </a><p class="pTOC2">
+<a href="EJBConcepts6.html#wp80011">Defining Client Access with Interfaces</a>
+</p>
+<a name="wp342143"> </a><p class="pTOC3">
+<a href="EJBConcepts6.html#wp80020">Remote Clients</a>
+</p>
+<a name="wp342145"> </a><p class="pTOC3">
+<a href="EJBConcepts6.html#wp80040">Local Clients</a>
+</p>
+<a name="wp342147"> </a><p class="pTOC3">
+<a href="EJBConcepts6.html#wp80051">Local Interfaces and Container-Managed Relationships</a>
+</p>
+<a name="wp342149"> </a><p class="pTOC3">
+<a href="EJBConcepts6.html#wp80060">Deciding on Remote or Local Access</a>
+</p>
+<a name="wp342151"> </a><p class="pTOC3">
+<a href="EJBConcepts6.html#wp80648">Web Service Clients</a>
+</p>
+<a name="wp342153"> </a><p class="pTOC3">
+<a href="EJBConcepts6.html#wp80743">Method Parameters and Access</a>
+</p>
+<a name="wp342155"> </a><p class="pTOC2">
+<a href="EJBConcepts7.html#wp80083">The Contents of an Enterprise Bean</a>
+</p>
+<a name="wp342157"> </a><p class="pTOC2">
+<a href="EJBConcepts8.html#wp80101">Naming Conventions for Enterprise Beans</a>
+</p>
+<a name="wp342159"> </a><p class="pTOC2">
+<a href="EJBConcepts9.html#wp80176">The Life Cycles of Enterprise Beans</a>
+</p>
+<a name="wp342161"> </a><p class="pTOC3">
+<a href="EJBConcepts9.html#wp80180">The Life Cycle of a Stateful Session Bean</a>
+</p>
+<a name="wp342163"> </a><p class="pTOC3">
+<a href="EJBConcepts9.html#wp80214">The Life Cycle of a Stateless Session Bean</a>
+</p>
+<a name="wp342165"> </a><p class="pTOC3">
+<a href="EJBConcepts9.html#wp80226">The Life Cycle of an Entity Bean</a>
+</p>
+<a name="wp342167"> </a><p class="pTOC3">
+<a href="EJBConcepts9.html#wp80261">The Life Cycle of a Message-Driven Bean</a>
+</p>
+<a name="wp342169"> </a><p class="pTOC2">
+<a href="EJBConcepts10.html#wp82143">Further Information</a>
+</p>
+<a name="wp342171"> </a><h2 class="pTOC1">
+<a href="EJB.html#wp80471">Chapter 5:&nbsp;&nbsp; Getting Started with Enterprise Beans</a>
+</h2>
+<a name="wp342173"> </a><p class="pTOC2">
+<a href="EJB2.html#wp82778">Creating the J2EE Application</a>
+</p>
+<a name="wp342175"> </a><p class="pTOC2">
+<a href="EJB3.html#wp82785">Creating the Enterprise Bean</a>
+</p>
+<a name="wp342177"> </a><p class="pTOC3">
+<a href="EJB3.html#wp82790">Creating the ConverterBean Enterprise Bean</a>
+</p>
+<a name="wp342179"> </a><p class="pTOC2">
+<a href="EJB4.html#wp82813">Creating the Web Client</a>
+</p>
+<a name="wp342181"> </a><p class="pTOC3">
+<a href="EJB4.html#wp82816">Coding the Web Client</a>
+</p>
+<a name="wp342183"> </a><p class="pTOC2">
+<a href="EJB5.html#wp82846">Specifying the Enterprise Application's Default URL</a>
+</p>
+<a name="wp342185"> </a><p class="pTOC2">
+<a href="EJB6.html#wp82852">Deploying the J2EE Application</a>
+</p>
+<a name="wp342187"> </a><p class="pTOC2">
+<a href="EJB7.html#wp82862">Running the Web Client</a>
+</p>
+<a name="wp342189"> </a><p class="pTOC2">
+<a href="EJB8.html#wp82887">Modifying the J2EE Application</a>
+</p>
+<a name="wp342191"> </a><p class="pTOC3">
+<a href="EJB8.html#wp82894">Modifying a Deployment Setting</a>
+</p>
+<a name="wp342193"> </a><h2 class="pTOC1">
+<a href="Session.html#wp79662">Chapter 6:&nbsp;&nbsp; Session Bean Examples</a>
+</h2>
+<a name="wp342195"> </a><p class="pTOC2">
+<a href="Session2.html#wp82727">The CartBean Example Application</a>
+</p>
+<a name="wp342197"> </a><p class="pTOC3">
+<a href="Session2.html#wp82739">Creating the Cart EJB Project</a>
+</p>
+<a name="wp342199"> </a><p class="pTOC3">
+<a href="Session2.html#wp82842">Session Bean Interfaces</a>
+</p>
+<a name="wp342201"> </a><p class="pTOC3">
+<a href="Session2.html#wp82885">Building and Deploying the Application</a>
+</p>
+<a name="wp342203"> </a><p class="pTOC3">
+<a href="Session2.html#wp82891">The CartClient Application</a>
+</p>
+<a name="wp342205"> </a><p class="pTOC2">
+<a href="Session3.html#wp82922">The HelloService Web Service Example</a>
+</p>
+<a name="wp342207"> </a><p class="pTOC3">
+<a href="Session3.html#wp82930">Web Service Endpoint Interface</a>
+</p>
+<a name="wp342209"> </a><p class="pTOC3">
+<a href="Session3.html#wp82937">Stateless Session Bean Implementation Class</a>
+</p>
+<a name="wp342211"> </a><p class="pTOC3">
+<a href="Session3.html#wp82953">Running the HelloWebClient Application</a>
+</p>
+<a name="wp342213"> </a><p class="pTOC2">
+<a href="Session4.html#wp82960">Other Enterprise Bean Features</a>
+</p>
+<a name="wp342215"> </a><p class="pTOC3">
+<a href="Session4.html#wp82965">Accessing Environment Entries</a>
+</p>
+<a name="wp342217"> </a><p class="pTOC3">
+<a href="Session4.html#wp82970">Comparing Enterprise Beans</a>
+</p>
+<a name="wp342219"> </a><p class="pTOC3">
+<a href="Session4.html#wp82980">Passing an Enterprise Bean's Object Reference</a>
+</p>
+<a name="wp342221"> </a><p class="pTOC2">
+<a href="Session5.html#wp82990">Using the Timer Service</a>
+</p>
+<a name="wp342223"> </a><p class="pTOC3">
+<a href="Session5.html#wp83004">Creating Timers</a>
+</p>
+<a name="wp342225"> </a><p class="pTOC3">
+<a href="Session5.html#wp83017">Canceling and Saving Timers</a>
+</p>
+<a name="wp342227"> </a><p class="pTOC3">
+<a href="Session5.html#wp83027">Getting Timer Information</a>
+</p>
+<a name="wp342229"> </a><p class="pTOC3">
+<a href="Session5.html#wp83036">Transactions and Timers</a>
+</p>
+<a name="wp342231"> </a><p class="pTOC3">
+<a href="Session5.html#wp83041">The TimerSessionBean Example</a>
+</p>
+<a name="wp342233"> </a><p class="pTOC2">
+<a href="Session6.html#wp83064">Handling Exceptions</a>
+</p>
+<a name="wp342235"> </a><h2 class="pTOC1">
+<a href="BMP.html#wp80422">Chapter 7:&nbsp;&nbsp; Bean-Managed Persistence Examples</a>
+</h2>
+<a name="wp342237"> </a><p class="pTOC2">
+<a href="BMP2.html#wp82464">The SavingsAccountBean Example</a>
+</p>
+<a name="wp342239"> </a><p class="pTOC3">
+<a href="BMP2.html#wp82481">Creating the SavingsAccount Project</a>
+</p>
+<a name="wp342241"> </a><p class="pTOC3">
+<a href="BMP2.html#wp82490">Entity Bean Class</a>
+</p>
+<a name="wp342243"> </a><p class="pTOC3">
+<a href="BMP2.html#wp82682">Home Interface</a>
+</p>
+<a name="wp342245"> </a><p class="pTOC3">
+<a href="BMP2.html#wp82709">Remote Interface</a>
+</p>
+<a name="wp342247"> </a><p class="pTOC3">
+<a href="BMP2.html#wp82726">Running the SavingsAccount Example</a>
+</p>
+<a name="wp342249"> </a><p class="pTOC3">
+<a href="BMP2.html#wp82728">Creating the Sample Database</a>
+</p>
+<a name="wp342251"> </a><p class="pTOC2">
+<a href="BMP3.html#wp82760">Mapping Table Relationships for Bean-Managed Persistence</a>
+</p>
+<a name="wp342253"> </a><p class="pTOC3">
+<a href="BMP3.html#wp82767">One-to-One Relationships</a>
+</p>
+<a name="wp342255"> </a><p class="pTOC3">
+<a href="BMP3.html#wp82816">One-to-Many Relationships</a>
+</p>
+<a name="wp342257"> </a><p class="pTOC3">
+<a href="BMP3.html#wp82923">Many-to-Many Relationships</a>
+</p>
+<a name="wp342259"> </a><p class="pTOC2">
+<a href="BMP4.html#wp82973">Primary Keys for Bean-Managed Persistence</a>
+</p>
+<a name="wp342261"> </a><p class="pTOC3">
+<a href="BMP4.html#wp82977">The Primary Key Class</a>
+</p>
+<a name="wp342263"> </a><p class="pTOC3">
+<a href="BMP4.html#wp82987">Primary Keys in the Entity Bean Class</a>
+</p>
+<a name="wp342265"> </a><p class="pTOC3">
+<a href="BMP4.html#wp82994">Getting the Primary Key</a>
+</p>
+<a name="wp342267"> </a><h2 class="pTOC1">
+<a href="CMP.html#wp80501">Chapter 8:&nbsp;&nbsp; Container-Managed Persistence Examples</a>
+</h2>
+<a name="wp342269"> </a><p class="pTOC2">
+<a href="CMP2.html#wp90149">Overview of the Roster Module</a>
+</p>
+<a name="wp342271"> </a><p class="pTOC2">
+<a href="CMP3.html#wp90169">Creating the Roster EJB Module</a>
+</p>
+<a name="wp342273"> </a><p class="pTOC3">
+<a href="CMP3.html#wp90172">Creating the Project</a>
+</p>
+<a name="wp342275"> </a><p class="pTOC3">
+<a href="CMP3.html#wp90177">Creating the Database Tables</a>
+</p>
+<a name="wp342277"> </a><p class="pTOC3">
+<a href="CMP3.html#wp90207">Generating the CMP Entity Beans</a>
+</p>
+<a name="wp342279"> </a><p class="pTOC2">
+<a href="CMP4.html#wp90211">The PlayerBean Code</a>
+</p>
+<a name="wp342281"> </a><p class="pTOC3">
+<a href="CMP4.html#wp90218">Entity Bean Class</a>
+</p>
+<a name="wp342283"> </a><p class="pTOC3">
+<a href="CMP4.html#wp90556">Refactoring Entity Bean Methods</a>
+</p>
+<a name="wp342285"> </a><p class="pTOC3">
+<a href="CMP4.html#wp90565">Local Home Interface</a>
+</p>
+<a name="wp342287"> </a><p class="pTOC3">
+<a href="CMP4.html#wp90585">Local Interface</a>
+</p>
+<a name="wp342289"> </a><p class="pTOC2">
+<a href="CMP5.html#wp90594">Creating the RosterBean Session Bean</a>
+</p>
+<a name="wp342291"> </a><p class="pTOC2">
+<a href="CMP6.html#wp90605">Method Invocations in the Roster Module</a>
+</p>
+<a name="wp342293"> </a><p class="pTOC3">
+<a href="CMP6.html#wp90611">Creating a Player</a>
+</p>
+<a name="wp342295"> </a><p class="pTOC3">
+<a href="CMP6.html#wp90622">Adding a Player to a Team</a>
+</p>
+<a name="wp342297"> </a><p class="pTOC3">
+<a href="CMP6.html#wp90637">Removing a Player</a>
+</p>
+<a name="wp342299"> </a><p class="pTOC3">
+<a href="CMP6.html#wp90644">Dropping a Player from a Team</a>
+</p>
+<a name="wp342301"> </a><p class="pTOC3">
+<a href="CMP6.html#wp90654">Getting the Players of a Team</a>
+</p>
+<a name="wp342303"> </a><p class="pTOC3">
+<a href="CMP6.html#wp90673">Getting a Copy of a Team's Players</a>
+</p>
+<a name="wp342305"> </a><p class="pTOC3">
+<a href="CMP6.html#wp90686">Finding the Players by Position</a>
+</p>
+<a name="wp342307"> </a><p class="pTOC3">
+<a href="CMP6.html#wp90702">Getting the Sports of a Player</a>
+</p>
+<a name="wp342309"> </a><p class="pTOC2">
+<a href="CMP7.html#wp90720">Building and Running the Roster Example</a>
+</p>
+<a name="wp342311"> </a><p class="pTOC3">
+<a href="CMP7.html#wp90723">Building and Deploying the EJB Module</a>
+</p>
+<a name="wp342313"> </a><p class="pTOC3">
+<a href="CMP7.html#wp90732">Running the Client Application</a>
+</p>
+<a name="wp342315"> </a><p class="pTOC2">
+<a href="CMP8.html#wp90743">Primary Keys for Container-Managed Persistence</a>
+</p>
+<a name="wp342317"> </a><p class="pTOC3">
+<a href="CMP8.html#wp90747">The Primary Key Class</a>
+</p>
+<a name="wp342319"> </a><p class="pTOC2">
+<a href="CMP9.html#wp90776">Advanced CMP Topics: The Order Example</a>
+</p>
+<a name="wp342321"> </a><p class="pTOC3">
+<a href="CMP9.html#wp90779">Structure of Order</a>
+</p>
+<a name="wp342323"> </a><p class="pTOC3">
+<a href="CMP9.html#wp90798">Bean Relationships in Order</a>
+</p>
+<a name="wp342325"> </a><p class="pTOC3">
+<a href="CMP9.html#wp90828">Primary Keys in Order's Entity Beans</a>
+</p>
+<a name="wp342327"> </a><p class="pTOC3">
+<a href="CMP9.html#wp90858">Entity Bean Mapped to More Than One Database Table</a>
+</p>
+<a name="wp342329"> </a><p class="pTOC3">
+<a href="CMP9.html#wp90861">Finder and Selector Methods</a>
+</p>
+<a name="wp342331"> </a><p class="pTOC3">
+<a href="CMP9.html#wp90869">Using Home Methods</a>
+</p>
+<a name="wp342333"> </a><p class="pTOC3">
+<a href="CMP9.html#wp90874">Cascade Deletes in Order</a>
+</p>
+<a name="wp342335"> </a><p class="pTOC3">
+<a href="CMP9.html#wp90878">BLOB and CLOB Database Types in Order</a>
+</p>
+<a name="wp342337"> </a><p class="pTOC3">
+<a href="CMP9.html#wp90882">Building and Running the Order Example</a>
+</p>
+<a name="wp342339"> </a><h2 class="pTOC1">
+<a href="MDB.html#wp82308">Chapter 9:&nbsp;&nbsp; A Message-Driven Bean Example</a>
+</h2>
+<a name="wp342341"> </a><p class="pTOC2">
+<a href="MDB2.html#wp82707">Example Application Overview</a>
+</p>
+<a name="wp342343"> </a><p class="pTOC2">
+<a href="MDB3.html#wp82727">The SimpleMessageClient Application</a>
+</p>
+<a name="wp342345"> </a><p class="pTOC3">
+<a href="MDB3.html#wp82729">Creating the SimpleMessageClient application</a>
+</p>
+<a name="wp342347"> </a><p class="pTOC2">
+<a href="MDB4.html#wp82762">The Message-Driven Bean</a>
+</p>
+<a name="wp342349"> </a><p class="pTOC3">
+<a href="MDB4.html#wp82769">Creating the SimpleMessage EJB Module</a>
+</p>
+<a name="wp342351"> </a><p class="pTOC3">
+<a href="MDB4.html#wp82778">Creating the SimpleMessageMDB</a>
+</p>
+<a name="wp342353"> </a><p class="pTOC3">
+<a href="MDB4.html#wp82804">The ejbCreate and ejbRemove Methods</a>
+</p>
+<a name="wp342355"> </a><p class="pTOC3">
+<a href="MDB4.html#wp82814">The onMessage Method</a>
+</p>
+<a name="wp342357"> </a><p class="pTOC2">
+<a href="MDB5.html#wp82834">Building and Deploying SimpleMessage Module</a>
+</p>
+<a name="wp342359"> </a><p class="pTOC3">
+<a href="MDB5.html#wp82836">Building and Deploying the Application</a>
+</p>
+<a name="wp342361"> </a><p class="pTOC3">
+<a href="MDB5.html#wp82843">Running the Client</a>
+</p>
+<a name="wp342363"> </a><p class="pTOC3">
+<a href="MDB5.html#wp82851">Removing the Administered Objects</a>
+</p>
+<a name="wp342365"> </a><h2 class="pTOC1">
+<a href="Glossary.html#wp88477">Glossary</a>
+</h2>
+<a name="wp342367"> </a><h2 class="pTOC1">
+<a href="J2EETutorialIX.html#wp2199026">Index</a>
+</h2>
+  </body>
+
+</html>

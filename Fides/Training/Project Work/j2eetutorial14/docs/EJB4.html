@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>Creating the Web Client</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="EJB3.html" />
+    <link rel="Next" href="EJB5.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="EJB3.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="EJB5.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp82813"> </a><h2 class="pHeading1">
+Creating the Web Client
+</h2>
+<a name="wp82815"> </a><p class="pBody">
+The web client is contained in the <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/converter/ConverterApp/ConverterApp-war/</code> directory. The web client is implemented in a servlet, <code class="cCode">ConverterServlet.java</code>.
+</p>
+<a name="wp82816"> </a><h3 class="pHeading2">
+Coding the Web Client
+</h3>
+<a name="wp82817"> </a><p class="pBody">
+When you access an enterprise bean from a servlet, the IDE provides tools that do much of the work for you. For instance, the IDE automatically generates lookup code for the bean and adds the bean reference to the web module's deployment descriptors.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82818"> </a><div class="pSmartList1"><li>In the Projects window, right-click the ConverterApp-WebModule node and choose New<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Servlet. </li></div>
+<a name="wp82819"> </a><div class="pSmartList1"><li>Name the servlet <code class="cCode">ConverterServlet</code> and place it in a package called <code class="cCode">converter</code>. Click Next.</li></div>
+<a name="wp82820"> </a><div class="pSmartList1"><li>Leave the default settings for all of the information in the last page of the wizard and click Finish.</li></div>
+</ol></div>
+<a name="wp82821"> </a><h4 class="pHeading3">
+Locating the Home Interface
+</h4>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82822"> </a><div class="pSmartList1"><li>In the Source Editor, right-click anywhere in the body of the <code class="cCode">ConverterServlet</code> class and choose Enterprise Resources<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Call Enterprise Bean.</li></div>
+<a name="wp82823"> </a><div class="pSmartList1"><li>In the dialog box, select ConverterSB and click OK. The IDE generates the <code class="cCode">lookupConverterBean</code> method at the bottom of the file.</li></div>
+</ol></div>
+<a name="wp82824"> </a><p class="pBody">
+The IDE adds the <code class="cCode">lookupConverterBean</code> method to the servlet and registers the bean reference in the web module's deployment descriptors. The lookup code does the following:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82825"> </a><div class="pSmartList1"><li>Create an initial naming context.</li></div>
+<a name="wp82826"> </a><p class="pBodyRelative">
+<code class="cCode">javax.naming.Context c = new javax.naming.InitialContext();</code>
+</p>
+<a name="wp82829"> </a><p class="pBodyRelative">
+The <code class="cCode">Context</code> interface is part of the Java Naming and Directory Interface (JNDI). A <span style="font-style: italic">naming contex</span>t is a set of name-to-object bindings. A name that is bound within a context is the <span style="font-style: italic">JNDI name</span> of the object.
+</p>
+<a name="wp82830"> </a><p class="pBodyRelative">
+An <code class="cCode">InitialContext</code> object, which implements the <code class="cCode">Context</code> interface, provides the starting point for the resolution of names. All naming operations are relative to a context.
+</p>
+<a name="wp82832"> </a><div class="pSmartList1"><li>Obtain the environment naming context of the web client and retrieves the object bound to the name <code class="cCode">ejb/ConverterBean</code>.</li></div>
+<a name="wp82833"> </a><p class="pBodyRelative">
+<code class="cCode">Object remote = c.lookup(&quot;java:comp/env/ejb/ConverterBean&quot;);</code> 
+</p>
+<a name="wp82834"> </a><p class="pBodyRelative">
+The <code class="cCode">java:comp/env</code> name is bound to the environment naming context of the <code class="cCode">ConverterApp-WebModule</code> component.
+</p>
+<a name="wp82836"> </a><p class="pBodyRelative">
+The <code class="cCode">ejb/ConverterBean</code> name is bound to an <span style="font-style: italic">enterprise bean reference</span>, a logical name for the home of an enterprise bean. In this case, the <code class="cCode">ejb/ConverterBean</code> name refers to the <code class="cCode">ConverterRemoteHome</code> object. The names of enterprise beans should reside in the <code class="cCode">java:comp/env/ejb</code> subcontext.
+</p>
+<a name="wp82837"> </a><div class="pSmartList1"><li>Narrow the reference to a <code class="cCode">ConverterRemoteHome</code> object.</li></div>
+<a name="wp82839"> </a><p class="pBodyRelative">
+<code class="cCode">converter.ConverterRemoteHome rv = <br />&nbsp;&nbsp;&nbsp;&nbsp;(converter.ConverterRemoteHome)<br />&nbsp;&nbsp;&nbsp;&nbsp;javax.rmi.PortableRemoteObject.narrow(remote,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;converter.ConverterRemoteHome.class);</code> 
+</p>
+<a name="wp82840"> </a><div class="pSmartList1"><li>Creates an instance of the <code class="cCode">ConverterBean</code> enterprise bean:</li></div>
+<a name="wp82841"> </a><p class="pBodyRelative">
+<code class="cCode">return rv.create();</code>
+</p>
+</ol></div>
+<a name="wp82842"> </a><h4 class="pHeading3">
+Invoking Business Methods
+</h4>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82843"> </a><div class="pSmartList1"><li>In the Source Editor, go to the <code class="cCode">processRequest</code> method and remove the comment symbols that comment out the text between <code class="cCode">PrintWriter out = response.getWriter();</code> and <code class="cCode">out.close();</code>. (You can put the insertion point on each line and press Ctrl-E to delete the entire line.)</li></div>
+<a name="wp82844"> </a><div class="pSmartList1"><li>Add the following code in the body of the servlet, between <code class="cCode">out.println(&quot;&lt;body&gt;&quot;);</code> and <code class="cCode">out.println(&quot;&lt;/body&gt;&quot;);</code>:</li></div>
+<a name="wp82845"> </a><p class="pBodyRelative">
+<code class="cCode">out.println(&quot;&lt;h1&gt;&lt;b&gt;&lt;center&gt;Converter&lt;/center&gt;&lt;/b&gt;&lt;/h1&gt;&quot;);<br />out.println(&quot;&lt;hr&gt;&quot;);<br />out.println(&quot;&lt;p&gt;Enter an amount to convert:&lt;/p&gt;&quot;);<br />out.println(&quot;&lt;form method=\&quot;get\&quot;&gt;&quot;);<br />out.println(&quot;&lt;input type=\&quot;text\&quot; <br />&nbsp;&nbsp;&nbsp;&nbsp;name=\&quot;amount\&quot; size=\&quot;25\&quot;&gt;&quot;);<br />out.println(&quot;&lt;br&gt;&quot;);<br />out.println(&quot;&lt;p&gt;&quot;);<br />out.println(&quot;&lt;input type=\&quot;submit\&quot; value=\&quot;Submit\&quot;&gt;&quot;);<br />out.println(&quot;&lt;input type=\&quot;reset\&quot; value=\&quot;Reset\&quot;&gt;&quot;);<br />out.println(&quot;&lt;/form&gt;&quot;);<br />String amount = request.getParameter(&quot;amount&quot;);<br />if ( amount != null &amp;&amp; amount.length() &gt; 0 ) {<br />&nbsp;&nbsp;try {<br />&nbsp;&nbsp;&nbsp;&nbsp;converter.ConverterRemote converter;<br />&nbsp;&nbsp;&nbsp;&nbsp;converter = lookupConverterBean();<br />&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;java.math.BigDecimal d = <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new java.math.BigDecimal(amount);<br />&nbsp;&nbsp;&nbsp;&nbsp;out.println(&quot;&lt;p&gt;&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;out.println(&quot;&lt;p&gt;&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;out.println(amount + &quot; Dollars are  &quot; <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ converter.dollarToYen(d) + &quot; Yen.&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;out.println(&quot;&lt;p&gt;&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;out.println(amount + &quot; Yen are &quot; <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ converter.yenToEuro(d) + &quot; Euro.&quot;);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;converter.remove();<br />&nbsp;&nbsp;} catch (Exception e){<br />&nbsp;&nbsp;&nbsp;&nbsp;out.println(&quot;Cannot lookup or execute EJB!&quot;);<br />&nbsp;&nbsp;}<br /><br />}</code>
+</p>
+</ol></div>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="EJB3.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="EJB5.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

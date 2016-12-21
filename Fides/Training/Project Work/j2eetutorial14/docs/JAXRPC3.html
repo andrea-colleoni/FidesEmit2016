@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>Creating a Simple Web Service and Client with JAX-RPC</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="JAXRPC2.html" />
+    <link rel="Next" href="JAXRPC4.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="JAXRPC2.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="JAXRPC4.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp138473"> </a><h2 class="pHeading1">
+Creating a Simple Web Service and Client with JAX-RPC
+</h2>
+<a name="wp138474"> </a><p class="pBody">
+This section shows how to build, deploy, and consume a simple web service. You will learn about two types of web service clients in this section. Both are static-stub clients, which means that they call the web service through a <em class="cEmphasis">stub</em>, a local object that acts as a proxy for the remote service. The difference between the two clients in this section is that one is portable, because it adheres to the J2EE 1.4 specification, while the other is not. A later section, <a  href="JAXRPC5.html#wp138725">Web Service Clients</a>, provides examples of additional JAX-RPC clients that access the service. The code for the service is in <code class="cVariable">&lt;INSTALL&gt;</code><code class="cCode">/j2eetutorial14/examples/jaxrpc/helloservice.</code> The portable client is in <code class="cVariable">&lt;INSTALL&gt;</code><code class="cCode">/j2eetutorial14/examples/jaxrpc/webclient </code>and the client that is implementation-specific is in<code class="cCode"> </code><code class="cVariable">&lt;INSTALL&gt;</code><code class="cCode">/j2eetutorial14/examples/jaxrpc/staticstub</code>.
+</p>
+<a name="wp138483"> </a><p class="pBody">
+<a  href="JAXRPC3.html#wp138493">Figure 2-1</a> illustrates how JAX-RPC technology manages communication between a web service and client. 
+</p>
+<a name="wp138491"> </a><p class="pBody">
+</p><div align="left"><img src="images/jaxrpc-myHelloServiceApp.gif" height="163" width="374" alt="Communication between a JAX-RPC web service and a client" border="0" hspace="0" vspace="0"/>
+</div><p class="pBody">
+</p>
+
+<p>
+  <a name="wp138493"> </a><font >Figure 2-1    Communication Between a JAX-RPC Web Service and a Client</font>
+</p>
+
+<a name="wp138494"> </a><p class="pBody">
+The starting point for developing a JAX-RPC web service is the service endpoint interface. A <em class="cEmphasis">service endpoint interface</em> (SEI)<em class="cEmphasis"> </em>is a Java interface that declares the methods that a client can invoke on the service. 
+</p>
+<a name="wp138496"> </a><p class="pBody">
+You run the <code class="cCode">wscompile</code> tool which is bundled with the Application Server from the IDE. The <code class="cCode">wscompile</code> tool processes the SEI and two configuration files to generate the WSDL specification of the web service and the stubs that connect a web service client to the JAX-RPC runtime. For reference documentation on <code class="cCode">wscompile</code>, see the Application Server man pages at <code class="cCode"><a  href="http://docs.sun.com/db/doc/817-6092" target="_blank">http://docs.sun.com/db/doc/817-6092</a></code>. 
+</p>
+<a name="wp138505"> </a><p class="pBody">
+Together, the <code class="cCode">wscompile</code> tool, the IDE, and the Application Server provide the Application Server's implementation of JAX-RPC. 
+</p>
+<a name="wp138509"> </a><p class="pBody">
+These are the basic steps for creating the web service and client in the IDE:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp138510"> </a><div class="pSmartList1"><li>Generate the SEI, the implementation class, and the interface configuration file. Code the implementation class.</li></div>
+<a name="wp138511"> </a><div class="pSmartList1"><li>Compile the SEI and implementation class. During this step, the <code class="cCode">wscompile</code> tool is called from the IDE to generate the files required to deploy the service.</li></div>
+<a name="wp138512"> </a><div class="pSmartList1"><li>Package and deploy the WAR file. The tie classes (which are used to communicate with clients) are generated by the Application Server during deployment.</li></div>
+<a name="wp138516"> </a><div class="pSmartList1"><li>Generate and code the client class and WSDL configuration file.</li></div>
+<a name="wp138517"> </a><div class="pSmartList1"><li>Compile the client class. During this step, the<code class="cCode"> wscompile</code> tool is called from the IDE to generate and compile the stub files.</li></div>
+<a name="wp138518"> </a><div class="pSmartList1"><li>Package and run the client class.</li></div>
+</ol></div>
+<a name="wp138519"> </a><p class="pBody">
+The sections that follow cover these steps in greater detail. 
+</p>
+<a name="wp138528"> </a><h3 class="pHeading2">
+Generating and Coding the Service Endpoint Interface and Implementation Class
+</h3>
+<a name="wp138529"> </a><p class="pBody">
+In this example, the service endpoint interface declares a single method named <code class="cCode">sayHello</code>. This method returns a string that is the concatenation of the string <code class="cCode">Hello</code> with the method parameter.
+</p>
+<a name="wp138531"> </a><p class="pBody">
+A service endpoint interface must conform to a few rules:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp138532"> </a><div class="pSmartList1"><li>It extends the <code class="cCode">java.rmi.Remote</code> interface.</li></div>
+<a name="wp138533"> </a><div class="pSmartList1"><li>It must not have constant declarations, such as <code class="cCode">public final static</code>.</li></div>
+<a name="wp138534"> </a><div class="pSmartList1"><li>The methods must throw the <code class="cCode">java.rmi.RemoteException</code> or one of its subclasses. (The methods may also throw service-specific exceptions.)</li></div>
+<a name="wp138535"> </a><div class="pSmartList1"><li>Method parameters and return types must be supported JAX-RPC types (see <a  href="JAXRPC4.html#wp138658">Types Supported by JAX-RPC</a>).</li></div>
+</ul></div>
+<a name="wp138539"> </a><p class="pBody">
+To generate the SEI, the implementation class, and the interface configuration file, use the IDE as follows:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp138540"> </a><div class="pSmartList1"><li>Choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>New Project. In the Categories tree, choose Web. Under Projects, choose Web Application. Click Next.</li></div>
+<a name="wp138541"> </a><div class="pSmartList1"><li>In the Project Name field, type <code class="cCode">helloservice</code>. In the Project Location field, browse to the location where all your projects are stored. In the Server field, make sure that the Sun Java System Application Server Platform Edition is selected. (If the Sun Java System Application Server is not available in the Server field, you need to register it in the IDE. Choose Tools<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Server Manager to do so.) Click Finish.</li></div>
+<a name="wp138545"> </a><div class="pSmartList1"><li>Right-click <code class="cCode">helloservice </code>in the Projects window. Choose New<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Web Service. In the Web Service Name field, type <code class="cCode">Hello</code>. In the Package field, type <code class="cCode">helloservice</code>. Click Finish.</li></div>
+<a name="wp138546"> </a><div class="pSmartList1"><li>Expand the Web Services node in the Projects window, right-click the <code class="cCode">Hello</code> node, and choose Add Operation. In the Name field, type <code class="cCode">sayHello. </code>In the Return Type field, choose<code class="cCode"> String. </code></li></div>
+<a name="wp138547"> </a><div class="pSmartList1"><li>Click Add. Leave the Type as <code class="cCode">String.</code> In the Name field, type <code class="cCode">s</code>. Click OK and then click OK again.</li></div>
+<a name="wp138548"> </a><div class="pSmartList1"><li>Add <code class="cCode">public String message = &quot;Hello &quot;; </code>below the <code class="cCode">HelloImpl </code>class declaration.</li></div>
+<a name="wp138549"> </a><div class="pSmartList1"><li>Implement the <code class="cCode">sayHello </code>operation by replacing the default <code class="cCode">return null </code>with <code class="cCode">return message + s.</code></li></div>
+<a name="wp140517"> </a><div class="pSmartList1"><li>Right-click the project node, choose Properties, click Web Services in the Project Properties dialog box, and unselect the options <code class="cCode">documentliteral</code>,<code class="cCode"> strict</code>, and <code class="cCode">useonewayoperations</code>.</li></div>
+</ol></div>
+<a name="wp140518"> </a><p class="pBody">
+Expand the Source Packages node in the Projects window. Then expand the <code class="cCode">helloservice</code> package node. In this example, the service endpoint interface that the IDE generates for you is named <code class="cCode">HelloSEI</code>. Double-click it in the Projects window to view it in the Source Editor:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+package helloservice;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+public interface HelloSEI extends Remote {
+    public String sayHello(String s) throws RemoteException;
+}<a name="wp138551"> </a>
+</pre></div>
+<a name="wp138552"> </a><p class="pBody">
+In addition to the interface, you'll need the class that implements the interface. In this example, the implementation class is called <code class="cCode">HelloImpl</code>. Double-click it in the Projects window to view it in the Source Editor:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+package helloservice;
+
+public class HelloImpl implements HelloSEI {
+
+    public String message =&quot;Hello&quot;;
+
+    public String sayHello(String s) {
+        return message + s;
+    }
+}<a name="wp138553"> </a>
+</pre></div>
+<a name="wp138555"> </a><h3 class="pHeading2">
+Building the Service
+</h3>
+<a name="wp138556"> </a><p class="pBody">
+To build the <code class="cCode">helloservice</code>, right-click the node in the Projects window and choose Build Project. The Build Project command executes several subtasks in your Ant build script, the most important of which are the following: 
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp138557"> </a><div class="pSmartList1"><li><code class="cCode">compile</code></li></div>
+<a name="wp138558"> </a><div class="pSmartList1"><li><code class="cCode">Hello_wscompile</code></li></div>
+<a name="wp138559"> </a><div class="pSmartList1"><li><code class="cCode">dist</code></li></div>
+</ul></div>
+<a name="wp138563"> </a><h4 class="pHeading3">
+The compile Task
+</h4>
+<a name="wp138564"> </a><p class="pBody">
+This task compiles <code class="cCode">HelloSEI.java </code>and <code class="cCode">HelloImpl.java</code>, writing the class files to the <code class="cCode">build/web/WEB-INF/classes</code> subdirectory, which you can view in the Files window (Ctrl-2).
+</p>
+<a name="wp138565"> </a><h4 class="pHeading3">
+The Hello_wscompile Task
+</h4>
+<a name="wp138566"> </a><p class="pBody">
+The <code class="cCode">Hello_wscompile</code> task runs <code class="cCode">wscompile</code>, which creates the WSDL and mapping files. You can view them by going to the <code class="cCode">build/web/WEB-INF </code>subdirectory and the <code class="cCode">build/web/WEB-INF/wsdl </code>subdirectory in the Files window. The WSDL file describes the web service and is used to generate the client stubs for Static Stub Clients. The mapping file contains information that correlates the mapping between the Java interfaces and the WSDL definition. It is meant to be portable so that any J2EE-compliant deployment tool can use this information, along with the WSDL file and the Java interfaces, to generate stubs and ties for the deployed web services. 
+</p>
+<a name="wp138569"> </a><p class="pBody">
+The files created in this example are <code class="cCode">Hello.wsdl</code> and <code class="cCode">Hello-mapping.xml</code>. The <code class="cCode">Hello_wscompile</code> task runs <code class="cCode">wscompile</code> with the following main arguments:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+wscompile 
+&nbsp;&nbsp;define=&quot;true&quot; 
+&nbsp;&nbsp;nonClassDir=&quot;${build.web.dir.real}/WEB-INF/wsdl&quot;
+&nbsp;&nbsp;mapping=&quot;${build.web.dir.real}/WEB-INF/${Hello.mapping}&quot; 
+&nbsp;&nbsp;config=&quot;${src.dir}/${Hello.config.name}&quot;
+&nbsp;&nbsp;features=&quot;${wscompile.service.Hello.features}&quot;
+&nbsp;&nbsp;sourceBase=&quot;${build.generated.dir}/wsservice&quot;<a name="wp138570"> </a>
+</pre></div>
+<a name="wp138571"> </a><p class="pBody">
+The <code class="cCode">define</code> option instructs <code class="cCode">wscompile</code> to create WSDL and mapping files. The <code class="cCode">mapping</code> option specifies the mapping file name. The other options specify various properties that are set in the <code class="cCode">nbproject/project.properties </code>file. The <code class="cCode">wscompile</code> tool reads an interface configuration file that specifies information about the SEI. In this example, the configuration file is named <code class="cCode">Hello-config.xml </code>and contains the following:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;configuration 
+  &nbsp;&nbsp;&nbsp;&nbsp;xmlns=&quot;http://java.sun.com/xml/ns/jax-rpc/ri/config&quot;&gt;
+&lt;service 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name=&quot;Hello&quot; targetNamespace=&quot;urn:Hello/wsdl&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;typeNamespace=&quot;urn:Hello/types&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packageName=&quot;helloservice&quot;&gt;
+&nbsp;&nbsp;&lt;interface 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name=&quot;helloservice.HelloSEI&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;servantName=&#39;helloservice.HelloImpl&#39;
+&nbsp;&nbsp;&lt;/interface&gt;
+&lt;/service&gt;
+&lt;/configuration&gt;<a name="wp138573"> </a>
+</pre></div>
+<a name="wp138574"> </a><p class="pBody">
+This configuration file tells <code class="cCode">wscompile</code> to create a WSDL file named <code class="cCode">Hello.wsdl</code> with the following information:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp138575"> </a><div class="pSmartList1"><li>The service name is <code class="cCode">Hello</code>.</li></div>
+<a name="wp138576"> </a><div class="pSmartList1"><li>The WSDL target is <code class="cCode">urn:Hello/wsdl </code>and the type namespace is urn:Hello/types. The choice for what to use for the namespaces is up to you. The role of the namespaces is similar to the use of Java package names--to distinguish names that might otherwise conflict. For example, a company can decide that all its Java code should be in the package <code class="cCode">com.wombat.*</code>. Similarly, it can also decide to use the namespace <code class="cCode">http://wombat.com</code>. </li></div>
+<a name="wp138577"> </a><div class="pSmartList1"><li>The SEI is <code class="cCode">helloservice.HelloSEI</code>.</li></div>
+</ul></div>
+<a name="wp138578"> </a><p class="pBody">
+The <code class="cCode">packageName</code> attribute instructs <code class="cCode">wscompile</code> to put the service classes into the <code class="cCode">helloservice</code> package.
+</p>
+<a name="wp138582"> </a><h4 class="pHeading3">
+The dist Task
+</h4>
+<a name="wp138583"> </a><p class="pBody">
+This task packages the service and the deployment descriptor into a WAR file in the <code class="cCode">dist </code>folder, which you can view in the Files window.
+</p>
+<a name="wp138585"> </a><h4 class="pHeading3">
+Specifying the Endpoint Address
+</h4>
+<a name="wp138586"> </a><p class="pBody">
+To access <code class="cCode">helloservice</code>, the tutorial clients will specify this service endpoint address URI:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+http://localhost:8080/<code class="cCode">helloservice</code>/Hello<a name="wp138587"> </a>
+</pre></div>
+<a name="wp138588"> </a><p class="pBody">
+The <code class="cCode">/helloservice</code> string is the context root of the servlet that implements the service. The <code class="cCode">/Hello</code> string is the servlet alias. You already set the context root when you created the web application above. To specify the endpoint address, set the alias as follows:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp138589"> </a><div class="pSmartList1"><li>Right-click the project node, choose Properties, and then click Run in the Project Properties dialog box.</li></div>
+<a name="wp138590"> </a><div class="pSmartList1"><li>In the Relative URL field, type <code class="cCode">/Hello</code>.</li></div>
+</ol></div>
+<a name="wp138591"> </a><h3 class="pHeading2">
+Deploying the Service
+</h3>
+<a name="wp140473"> </a><p class="pBody">
+In the IDE, perform these steps:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp140474"> </a><div class="pSmartList1"><li>In the main menu, choose Tools<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Setup Wizard. Select your favorite browser in the Web Browser drop-down and click Finish.</li></div>
+<a name="wp138594"> </a><div class="pSmartList1"><li>In the Projects window, right-click <code class="cCode">helloservice</code> and choose Run Project.</li></div>
+</ol></div>
+<a name="wp138595"> </a><p class="pBody">
+You can view the WSDL file of the deployed service by requesting the URL <code class="cCode">http://localhost:8080/helloservice/Hello?WSDL</code> in a web browser. Now you are ready to create a client that accesses this service. 
+</p>
+<a name="wp138596"> </a><h4 class="pHeading3">
+Undeploying the Service
+</h4>
+<a name="wp138597"> </a><p class="pBody">
+At this point in the tutorial, do not undeploy the service. When you are finished with this example, you can undeploy the service by expanding the Servers node in the Runtime window, then the node for the server, then right-click the node for the service, and choose Undeploy.
+</p>
+<a name="wp138598"> </a><h3 class="pHeading2">
+Static Stub Clients
+</h3>
+<a name="wp138599"> </a><p class="pBody">
+You will create a stand-alone program that calls the <code class="cCode">sayHello</code> method of the <code class="cCode">helloservice</code>. It makes this call through a <em class="cEmphasis">stub</em>, a local object that acts as a proxy for the remote service. Because the stub is created by <code class="cCode">wscompile </code>at development time (as opposed to runtime), it is usually called a <em class="cEmphasis">static stub</em>. You can run <code class="cCode">wscompile </code>from the IDE to generate the stub in one of two ways:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp138603"> </a><div class="pSmartList1"><li>J2EE Container-Generated<br />This stub is created by the server, using information gleaned from deployment descriptors generated in the IDE.</li></div>
+<a name="wp138604"> </a><div class="pSmartList1"><li>IDE-Generated<br />This stub is created manually in the IDE. As a result, it is implementation-specific, as discussed later in this chapter.</li></div>
+</ul></div>
+<a name="wp138605"> </a><h4 class="pHeading3">
+J2EE Container-Generated Static Stub Client
+</h4>
+<a name="wp138606"> </a><p class="pBody">
+To generate the static stub client, use the IDE as follows:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp138607"> </a><div class="pSmartList1"><li>Choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>New Project. Under Categories, choose Web. Under Projects, choose Web Application. Click Next.</li></div>
+<a name="wp138608"> </a><div class="pSmartList1"><li>In the Project Name field, type <code class="cCode">HelloClientProject</code>. In the Project Location field, browse to the location where all your projects are stored. In the Server field, make sure that the Sun Java System Application Server Platform Edition 8.1 is selected. Click Finish.</li></div>
+<a name="wp138612"> </a><div class="pSmartList1"><li>Right-click <code class="cCode">HelloClientProject </code>in the Projects window. Choose New<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Web Service Client. In the WSDL URL field, specify the URL to the web service:</li></div>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+http://localhost:8080/helloservice/Hello?WSDL<a name="wp138613"> </a>
+</pre></div>
+<a name="wp138614"> </a><div class="pSmartList1"><li>Click Retrieve WSDL to test the location. If the WSDL name is returned, the test has succeeded. In the Package field, type <code class="cCode">helloclientservice</code>. In the Web Service Client Type list, choose J2EE Container- Generated Static Stub.</li></div>
+<a name="wp138615"> </a><div class="pSmartList1"><li>Right-click the <code class="cCode">HelloClientProject</code> node and choose New<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Servlet. In the Name field, type <code class="cCode">HelloServlet. </code>In the Package field, type<code class="cCode"> webclient. </code>Click Next and click Finish.</li></div>
+<a name="wp138616"> </a><div class="pSmartList1"><li>Right-click within the<code class="cCode"> processRequest </code>method and choose Web Service Client Resources<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Call Web Service Operation. Choose the <code class="cCode">sayHello </code>operation and click OK. Now fill out the skeleton code so that the content of its <code class="cCode">&lt;body&gt; </code>tags looks as follows:</li></div>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+<code class="cCode">out.println(&quot;&lt;body&gt;&quot;);
+String username = request.getParameter(&quot;username&quot;); 
+if (username != null &amp;&amp; username.length() &gt; 0) {
+&nbsp;&nbsp;try {
+&nbsp;&nbsp;&nbsp;&nbsp;out.println(&quot;&lt;img src=\&quot;duke.waving.gif\&quot;&gt;&quot;);
+&nbsp;&nbsp;&nbsp;&nbsp;out.println(&quot;&lt;h2&gt;&lt;font color=\&quot;black\&quot;&gt;&quot;);
+&nbsp;&nbsp;&nbsp;&nbsp;out.println(getHelloSEIPort().sayHello(username));
+&nbsp;&nbsp;&nbsp;&nbsp;out.println(&quot;&lt;/font&gt;&lt;/h2&gt;&quot;);
+&nbsp;&nbsp;} catch(java.rmi.RemoteException ex) {
+&nbsp;&nbsp;ex.printStackTrace(out);
+&nbsp;&nbsp;}
+} else {
+&nbsp;&nbsp;out.println(&quot;You didn&#39;t specify your name.&lt;br/&gt;&quot;);
+}
+out.println(&quot;&lt;a href=\&quot;index.jsp\&quot;&gt;back&lt;/a&gt;&quot;);
+out.println(&quot;&lt;/body&gt;&quot;);</code><a name="wp138617"> </a>
+</pre></div>
+<a name="wp138618"> </a><div class="pSmartList1"><li>Expand the project's Web Pages node, double-click the default index.jsp file, and replace the &lt;body&gt; tags with the following code:</li></div>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+&nbsp;&nbsp;&nbsp;&nbsp; &lt;body bgcolor=&quot;white&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src=&quot;duke.waving.gif&quot;&gt; 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Hello, my name is Duke. What&#39;s yours?&lt;/h2&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;form method=&quot;get&quot; action=&quot;HelloServlet&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type=&quot;text&quot; name=&quot;username&quot; size=&quot;25&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;br/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type=&quot;reset&quot; value=&quot;Reset&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/form&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/body&gt;<a name="wp138619"> </a>
+</pre></div>
+<a name="wp138620"> </a><div class="pSmartList1"><li>Go to <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/jaxrpc/webclient/web<br /></code>and copy the <code class="cCode">duke.waving.gif</code> file into your project's <code class="cCode">web</code> directory.</li></div>
+</ol></div>
+<a name="wp138621"> </a><h5 class="pHeading4">
+Building and Deploying the Static Stub Client
+</h5>
+<a name="wp140459"> </a><p class="pBody">
+In the IDE, perform these steps:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp140460"> </a><div class="pSmartList1"><li>In the Projects window, right-click the project node.</li></div>
+<a name="wp140461"> </a><div class="pSmartList1"><li>Choose Run Project.</li></div>
+</ol></div>
+<a name="wp140462"> </a><p class="pBody">
+This task invokes the web service client. When you run this task, the browser opens, the application is displayed, and you can submit a name, and a greeting is returned.
+</p>
+<a name="wp138626"> </a><h4 class="pHeading3">
+IDE-Generated Static Stub Client
+</h4>
+<a name="wp138627"> </a><p class="pBody">
+To build, package, and run the client, follow these steps:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp138628"> </a><div class="pSmartList1"><li>Choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Open Project (Ctrl-Shift-O). In the file chooser, go to <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/jaxrpc/staticstub/</code>, select the project, and choose Open Project.</li></div>
+<a name="wp138629"> </a><div class="pSmartList1"><li>The project prompts you to set up a library named &quot;jax-rpc&quot;. The library should contain JAR files that are needed by the project. Right-click the project and choose Resolve Reference Problems. Click Resolve. Click New Library and name the library <code class="cCode">jax-rpc.</code> Click Add JAR/Folder and navigate to the <code class="cCode">lib</code> directory in your application server installation. Select <code class="cCode">activation.jar, dom.jar, j2ee.jar, jaxrpc-api.jar, jaxrpc-impl.jar, jhall.jar, mail.jar, saaj-impl.jar, xercesImpl.jar </code>and click OK. </li></div>
+<a name="wp138630"> </a><div class="pSmartList1"><li>In the Projects window, right-click the project and choose Run Project. The IDE builds, packages, and runs the project.</li></div>
+<a name="wp138631"> </a><div class="pSmartList1"><li>In the Output window, the client displays the following output:</li></div>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+Hello Duke!<a name="wp138632"> </a>
+</pre></div>
+</ol></div>
+<a name="wp138634"> </a><p class="pBody">
+Before it can invoke the remote methods on the stub, the client performs these steps:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp138635"> </a><div class="pSmartList1"><li>Creates a <code class="cCode">Stub</code> object:</li></div>
+<a name="wp138636"> </a><p class="pBodyRelative">
+<code class="cCode">(Stub)(new Hello_Impl().getHelloSEIport())</code>
+</p>
+<a name="wp138637"> </a><p class="pBodyRelative">
+The code in this method is implementation-specific because it relies on a <code class="cCode">Hello_Impl</code> object, which is not defined in the specifications. The <code class="cCode">Hello_Impl</code> class will be generated by <code class="cCode">wscompile</code> in the following section.
+</p>
+<a name="wp138638"> </a><div class="pSmartList1"><li>Sets the endpoint address that the stub uses to access the service:</li></div>
+<a name="wp138639"> </a><p class="pBodyRelative">
+<code class="cCode">stub._setProperty<br />(javax.xml.rpc.Stub.ENDPOINT_ADDRESS_PROPERTY, args[0]);</code>
+</p>
+<a name="wp138640"> </a><p class="pBodyRelative">
+At runtime, the endpoint address is passed to <code class="cCode">HelloClient</code> in <code class="cCode">args[0]</code> as a command-line parameter, which the IDE gets from the <code class="cCode">endpoint.address</code> property in the <code class="cCode">build.properties</code> file. This address must match the one you set for the service in <a  href="JAXRPC3.html#wp138585">Specifying the Endpoint Address</a>.
+</p>
+<a name="wp138644"> </a><div class="pSmartList1"><li>Casts <code class="cCode">stub</code> to the service endpoint interface, <code class="cCode">HelloSEI</code>:</li></div>
+<a name="wp138645"> </a><p class="pBodyRelative">
+<code class="cCode">HelloSEI hello = (HelloSEI)stub;</code>
+</p>
+</ol></div>
+<a name="wp138646"> </a><p class="pBody">
+Here is the full source code listing for the <code class="cCode">HelloClient.java</code> file, which is located in the directory <code class="cVariable">&lt;INSTALL&gt;</code><code class="cCode">/j2eetutorial14/examples/jaxrpc/staticstub/src/</code>:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+package staticstub;
+
+import javax.xml.rpc.Stub;
+
+public class HelloClient {
+
+    private String endpointAddress;
+
+    public static void main(String[] args) {
+
+        System.out.println(&quot;Endpoint address = &quot; + args[0]);
+        try {
+            Stub stub = createProxy();
+            stub._setProperty
+              (javax.xml.rpc.Stub.ENDPOINT_ADDRESS_PROPERTY,
+               args[0]); 
+            HelloSEI hello = (HelloSEI)stub;
+            System.out.println(hello.sayHello(&quot;Duke!&quot;));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }    
+
+    private static Stub createProxy() {
+        // Note: Hello_Impl is implementation-specific.
+        return 
+        (Stub) (new Hello_Impl().getHelloSEIPort());
+    }
+}<a name="wp138647"> </a>
+</pre></div>
+<a name="wp138649"> </a><h4 class="pHeading3">
+Building the Static Stub Client
+</h4>
+<a name="wp138650"> </a><p class="pBody">
+To build the client, right-click its node in the Projects window and choose Build Project. The Build Project command executes several subtasks in your Ant build script, the most important of which are the following: 
+</p>
+<a name="wp138651"> </a><h3 class="pHeading2">
+Running the Static Stub Client
+</h3>
+<a name="wp138652"> </a><p class="pBody">
+In the IDE, perform these steps:
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp138653"> </a><div class="pSmartList1"><li>In the Projects window, right-click the project.</li></div>
+<a name="wp138654"> </a><div class="pSmartList1"><li>Choose Run Project.</li></div>
+</ol></div>
+<a name="wp138655"> </a><p class="pBody">
+This task invokes the web service client. When you run this task, you should get the following output:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+Hello Duke!<a name="wp138656"> </a>
+</pre></div>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="JAXRPC2.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="JAXRPC4.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

@@ -1,0 +1,1 @@
+utilizzate la versione di spring 4.3.2 perché quella nel libro da problemi sulla nuova piattaforma STS

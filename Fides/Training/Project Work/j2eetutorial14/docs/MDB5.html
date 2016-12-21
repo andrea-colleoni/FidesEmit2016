@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>Building and Deploying SimpleMessage Module</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="MDB4.html" />
+    <link rel="Next" href="Glossary.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="MDB4.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="Glossary.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp82834"> </a><h2 class="pHeading1">
+Building and Deploying SimpleMessage Module
+</h2>
+<a name="wp82835"> </a><p class="pBody">
+Now that you have finished creating the EJB module, the next step is to build and deploy the application to the SJS Application Server from within the IDE. The source files for the SimpleMessage example are available in the <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/simplemessage</code> directory.
+</p>
+<a name="wp82836"> </a><h3 class="pHeading2">
+Building and Deploying the Application
+</h3>
+<a name="wp82837"> </a><p class="pBody">
+After assembling and adding the message-driven bean to the EJB module, you can build and deploy the application.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82838"> </a><div class="pSmartList1"><li>In the Projects window, right-click the SimpleMessage node and select Build Main Project (F11) from the contextual menu.</li></div>
+<a name="wp82839"> </a><div class="pSmartList1"><li>Look at the Output window to ensure the application was built successfully.</li></div>
+<a name="wp82840"> </a><div class="pSmartList1"><li>In the Projects window, right-click the SimpleMessage node and select Deploy Project from the contextual menu.</li></div>
+</ol></div>
+<a name="wp82841"> </a><p class="pBody">
+When you deploy the SimpleMessage example, the IDE registers the JMS resources with the SJS Application Server. To see the registered resources, expand the Servers node in the Runtime window of the IDE and expand the JMS Resources node under the SJS Application Server instance. The IDE also registers the related connector resources. The connector resources are visible in the Connectors node in the Runtime window.
+</p>
+<a name="wp82842"> </a><p class="pBody">
+The deployed SimpleMessage application is visible in the Runtime window of the IDE. To see the deployed application, expand the EJB Modules node in the Applications node of the server instance. You can undeploy and disable the application in the Runtime window.
+</p>
+<a name="wp82843"> </a><h3 class="pHeading2">
+Running the Client
+</h3>
+<a name="wp82844"> </a><p class="pBody">
+After deploying the SimpleMessage application, run the SimpleMessageClient to send a message to the SimpleMessage application. 
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82845"> </a><div class="pSmartList1"><li>In the Projects window, right-click the SimpleMessageClient node and select Run Project from the contextual menu.</li></div>
+</ol></div>
+<a name="wp82846"> </a><p class="pBody">
+The following lines are displayed in the Output window of the IDE:
+</p>
+<a name="wp82847"> </a><p class="pBodyRelative">
+<code class="cCode">Sending message: This is message 1<br />Sending message: This is message 2<br />Sending message: This is message 3<br />To see if the bean received the messages,<br /> check &lt;install_dir&gt;/domains/domain1/logs/server.log.</code>
+</p>
+<a name="wp82848"> </a><p class="pBody">
+In the server log file, the following lines should be displayed, wrapped in logging information:
+</p>
+<a name="wp82849"> </a><p class="pBodyRelative">
+<code class="cCode">MESSAGE BEAN: Message received: This is message 1<br />MESSAGE BEAN: Message received: This is message 2<br />MESSAGE BEAN: Message received: This is message 3</code>
+</p>
+<a name="wp82850"> </a><p class="pBody">
+Undeploy the application after you finish running the client.
+</p>
+<a name="wp82851"> </a><h3 class="pHeading2">
+Removing the Administered Objects
+</h3>
+<a name="wp82852"> </a><p class="pBody">
+After you run the example, you can delete the connection factory and queue in the Runtime window of the IDE.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82853"> </a><div class="pSmartList1"><li>Expand the SJS Application Server instance node under Servers in the Runtime window.</li></div>
+<a name="wp82854"> </a><div class="pSmartList1"><li>Expand the JMS Resources node and the Connection Factories and Destination Resources nodes.</li></div>
+<a name="wp82855"> </a><div class="pSmartList1"><li>Right-click the resources and select Delete Resource from the contextual menu.</li></div>
+</ol></div>
+<a name="wp82311"> </a><p class="pBody">
+When you delete the JMS resources, the related connector resources are also deleted. The resources are registered again when you redeploy the SimpleMessage application.
+</p>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="MDB4.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="Glossary.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>

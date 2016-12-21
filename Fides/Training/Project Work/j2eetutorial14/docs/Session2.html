@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <title>The CartBean Example Application</title>
+    <link rel="StyleSheet" href="document.css" type="text/css" media="all" />
+    <link rel="StyleSheet" href="catalog.css" type="text/css" media="all" />
+    <link rel="Table of Contents" href="J2EETutorialTOC.html" />
+    <link rel="Previous" href="Session.html" />
+    <link rel="Next" href="Session3.html" />
+    <link rel="Index" href="J2EETutorialIX.html" />
+  </head>
+
+  <body>
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+	<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font></td>
+        <td align="center" valign="center">
+<a accesskey="p" href="Session.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="Session3.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br> 
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+    <blockquote>
+<a name="wp82727"> </a><h2 class="pHeading1">
+The CartBean Example Application
+</h2>
+<a name="wp82728"> </a><p class="pBody">
+The <code class="cCode">CartBean</code> session bean represents a shopping cart in an online bookstore. The bean's client can add a book to the cart, remove a book, or retrieve the cart's contents. To construct the CartBean example, you need to create the following components:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82729"> </a><div class="pSmartList1"><li><code class="cCode">Cart</code> EJB module</li></div>
+<a name="wp82730"> </a><div class="pSmartList1"><li><code class="cCode">CartClient</code> application</li></div>
+</ul></div>
+<a name="wp82731"> </a><p class="pBody">
+The <code class="cCode">Cart</code> EJB module contains the session bean and the interfaces. When creating the session bean, the IDE creates the following components:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82732"> </a><div class="pSmartList1"><li>Session bean class (<code class="cCode">CartBean</code>)</li></div>
+<a name="wp82733"> </a><div class="pSmartList1"><li>Remote interface (<code class="cCode">CartRemote</code>)</li></div>
+<a name="wp82734"> </a><div class="pSmartList1"><li>Home interface (<code class="cCode">CartRemoteHome</code>)</li></div>
+<a name="wp82735"> </a><div class="pSmartList1"><li>Business interface (<code class="cCode">CartRemoteBusiness</code>)</li></div>
+</ul></div>
+<a name="wp82736"> </a><p class="pBody">
+All session beans require a session bean class. All enterprise beans that permit remote access must have a home and a remote interface.
+</p>
+<a name="wp82737"> </a><p class="pBody">
+To meet the needs of a specific application, an enterprise bean may also need some helper classes. The <code class="cCode">CartBean</code> session bean uses two helper classes (<code class="cCode">BookException</code> and <code class="cCode">IdVerifier</code>) which are discussed in the section Helper Classes.
+</p>
+<a name="wp82738"> </a><p class="pBody">
+The source code for this example is located in the<br /><code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/cart/</code> directory. 
+</p>
+<a name="wp82739"> </a><h3 class="pHeading2">
+Creating the Cart EJB Project
+</h3>
+<a name="wp82740"> </a><p class="pBody">
+In the IDE, you first need to create a project for the EJB module for the session bean.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82741"> </a><div class="pSmartList1"><li>Choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>New Project (Ctrl-Shift-N).</li></div>
+<a name="wp82742"> </a><div class="pSmartList1"><li>In the New Project wizard, choose the Enterprise template category, select EJB Module in the Projects pane and click Next.</li></div>
+<a name="wp82743"> </a><div class="pSmartList1"><li>Type <code class="cCode">Cart</code> as the Project Name, specify a Project Location and click Finish.</li></div>
+</ol></div>
+<a name="wp82744"> </a><p class="pBody">
+The Cart module appears in the Projects window of the IDE. The next step is to add a session bean to the module. 
+</p>
+<a name="wp82746"> </a><h4 class="pHeading3">
+Creating the Session Bean
+</h4>
+<a name="wp82747"> </a><p class="pBody">
+For this example, you create a session bean class called <code class="cCode">CartBean</code>. Like any session bean, the <code class="cCode">CartBean</code> class must meet these requirements:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82749"> </a><div class="pSmartList1"><li>It implements the <code class="cCode">SessionBean</code> interface.</li></div>
+<a name="wp82750"> </a><div class="pSmartList1"><li>The class is defined as <code class="cCode">public</code>.</li></div>
+<a name="wp82751"> </a><div class="pSmartList1"><li>The class cannot be defined as <code class="cCode">abstract</code> or <code class="cCode">final</code>.</li></div>
+<a name="wp82752"> </a><div class="pSmartList1"><li>It implements one or more <code class="cCode">ejbCreate</code> methods.</li></div>
+<a name="wp82753"> </a><div class="pSmartList1"><li>It implements the business methods.</li></div>
+<a name="wp82754"> </a><div class="pSmartList1"><li>It contains a <code class="cCode">public</code> constructor with no parameters.</li></div>
+<a name="wp82755"> </a><div class="pSmartList1"><li>It must not define the <code class="cCode">finalize</code> method.</li></div>
+</ul></div>
+<a name="wp82756"> </a><p class="pBody">
+When you create the session bean in the IDE, the required infrastructure methods and session bean interfaces are generated automatically. 
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82757"> </a><div class="pSmartList1"><li>Right-click the Cart node in the Projects window and choose New<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Session Bean.</li></div>
+<a name="wp82758"> </a><div class="pSmartList1"><li>Type <code class="cCode">Cart</code> as the EJB Name, <code class="cCode">cart </code>as the Package name, and select Stateful and Remote as the session and interface types (deselect the Local interface type). Then click Finish.</li></div>
+</ol></div>
+<a name="wp82759"> </a><p class="pBody">
+The IDE creates the Cart<code class="cCode"> </code>session bean under the Enterprise Beans node and opens the <code class="cCode">CartBean </code>class in the Source Editor. You can see that the <code class="cCode">CartBean</code> class automatically implements the remote interfaces and also creates the required session bean infrastructure methods. 
+</p>
+<a name="wp82760"> </a><p class="pBody">
+The Cart session bean interface declares the <code class="cCode">ejbRemove</code>, <code class="cCode">ejbActivate</code>, <code class="cCode">ejbPassivate</code>, and <code class="cCode">setSessionContext</code> methods. The <code class="cCode">CartBean</code> class doesn't use these methods, but it must implement them because they are declared in the <code class="cCode">SessionBean</code> interface. Consequently, these methods are empty in the <code class="cCode">CartBean</code> class. These required methods are hidden in the code fold in the Source Editor. Click the + sign to the left of the code fold to inspect these methods.
+</p>
+<a name="wp82761"> </a><p class="pBody">
+You now need to add some private fields to the class declaration. Add the following to the class, after the <code class="cCode">private javax.ejb.SessionContext context;</code> statement:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+private String customerName;
+private String customerId;
+private Vector contents;<a name="wp82762"> </a>
+</pre></div>
+<a name="wp82763"> </a><p class="pBody">
+When you add the <code class="cCode">private Vector contents</code> field, the IDE will indicate an error because you have not yet imported the <code class="cCode">java.util.vector</code> library. To add the necessary import statements, place the insertion point anywhere in the class and press Alt-Shift-F to generate the following import statements:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+<code class="cCode">import java.util.Vector;
+import javax.ejb.CreateException;</code><a name="wp82764"> </a>
+</pre></div>
+<a name="wp82765"> </a><p class="pBody">
+You can now start adding the create methods and business methods to the class, but for this example you should first create the two helper classes used by the application. 
+</p>
+<a name="wp82767"> </a><h4 class="pHeading3">
+Helper Classes
+</h4>
+<a name="wp82769"> </a><p class="pBody">
+The <code class="cCode">CartBean</code> session bean has two helper classes: <code class="cCode">BookException</code> and <code class="cCode">IdVerifier</code>. The <code class="cCode">BookException</code> is thrown by the <code class="cCode">removeBook</code> method, and the <code class="cCode">IdVerifier</code> validates the <code class="cCode">customerId</code> in one of the <code class="cCode">ejbCreate</code> methods. Helper classes must reside in the EJB JAR file that contains the enterprise bean class. You will use the IDE's Java Exception wizard to create the <code class="cCode">BookException</code> class, then you will create a new Java class and add the code for the <code class="cCode">IdVerifier</code> helper class
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82770"> </a><div class="pSmartList1"><li>Right-click the Source Packages node and choose New<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Java Exception.</li></div>
+<a name="wp82771"> </a><div class="pSmartList1"><li>Type <code class="cCode">BookException</code> as the Class Name and <code class="cCode">exception</code> as the Package name, ensuring that Source Packages is selected as the Location, and click Finish.</li></div>
+</ol></div>
+<a name="wp82772"> </a><p class="pBody">
+The IDE generates the <code class="cCode">BookException</code> class and opens the class in the Source Editor. The class has the following code:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+package exception;
+
+public class BookException extends java.lang.Exception{
+
+&nbsp;&nbsp;public BookException() {
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;public BookException(String msg) {
+&nbsp;&nbsp;&nbsp;&nbsp;super(msg);
+&nbsp;&nbsp;}
+}<a name="wp82773"> </a>
+</pre></div>
+<a name="wp82775"> </a><p class="pBody">
+Now you create the second helper class called <code class="cCode">IdVerifier</code>.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82776"> </a><div class="pSmartList1"><li>Right-click the Source Packages node and choose New<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Java Class.</li></div>
+<a name="wp82777"> </a><div class="pSmartList1"><li>Type <code class="cCode">IdVerifier</code> as the Class Name and <code class="cCode">util</code> as the Package name, ensuring that Source Packages is selected as the Location, and click Finish.</li></div>
+<a name="wp82778"> </a><div class="pSmartList1"><li>In the Source Editor, add the following method to the method in the <code class="cCode">IdVerifier</code> class:</li></div>
+<a name="wp82779"> </a><p class="pBodyRelative">
+&nbsp;&nbsp;<code class="cCode">public boolean validate(String id) {<br />&nbsp;&nbsp;&nbsp;&nbsp;boolean result = true;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;for(int i = 0; i &lt; id.length(); i++) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(Character.isDigit(id.charAt(i)) == false)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result = false;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;return result;<br />&nbsp;&nbsp;}</code>
+</p>
+</ol></div>
+<a name="wp82780"> </a><p class="pBody">
+Now that you have created the helper classes, you can add the create methods and business methods to the <code class="cCode">CartBean</code> class. When you add the methods, the IDE adds the appropriate code to the interfaces.
+</p>
+<a name="wp82782"> </a><h4 class="pHeading3">
+The ejbCreate Methods
+</h4>
+<a name="wp82783"> </a><p class="pBody">
+You will now add two create methods to the <code class="cCode">CartBean</code> class. To add the create methods in the IDE, use the Add Create Method contextual menu to generate the methods and add the appropriate code to the interfaces.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82784"> </a><div class="pSmartList1"><li>In the Source Editor, right-click in the body of the <code class="cCode">CartBean</code> class and select EJB Methods <span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Add Create Method from the contextual menu.</li></div>
+<a name="wp82785"> </a><div class="pSmartList1"><li>Type <code class="cCode">create</code> in the Name field, ensure that the Remote box is selected so that the method is called in the remote interfaces and click Add in the parameter tab.</li></div>
+<a name="wp82786"> </a><div class="pSmartList1"><li>For the new parameter, select <code class="cCode">java.lang.String</code> for the Type, type <code class="cCode">person</code> in the Name field, and then click OK to close each dialog box.</li></div>
+<a name="wp82787"> </a><div class="pSmartList1"><li>The IDE adds the <code class="cCode">ejbCreate</code> method to the <code class="cCode">CartBean</code> class.</li></div>
+<a name="wp82788"> </a><div class="pSmartList1"><li>Now add the following code to the create method:</li></div>
+<a name="wp82789"> </a><p class="pBodyRelative">
+<code class="cCode">&nbsp;&nbsp;&nbsp;&nbsp;if (person == null) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new CreateException(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;Null person not allowed.&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;customerName = person;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;customerId = &quot;0&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;contents = new Vector();</code>
+</p>
+<a name="wp82790"> </a><div class="pSmartList1"><li>You will now add a second create method to the <code class="cCode">CartBean</code> class. Follow steps 1-5 above for generating a create method, this time adding the following two parameters, and in this order:</li></div>
+<div class="pSmartList2"><ul class="pSmartList2">
+<a name="wp82791"> </a><div class="pSmartList2"><li><code class="cCode">java.lang.String person</code></li></div>
+<a name="wp82792"> </a><div class="pSmartList2"><li><code class="cCode">java.lang.String id</code></li></div>
+</ul></div>
+<a name="wp82793"> </a><div class="pSmartList1"><li>Add the following code to the method you created in step 6:</li></div>
+<a name="wp82794"> </a><p class="pBodyRelative">
+<code class="cCode">&nbsp;&nbsp;&nbsp;&nbsp;if (person == null) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new CreateException(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;Null person not allowed.&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;customerName = person;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;customerId = &quot;0&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;contents = new Vector();&nbsp;&nbsp;&nbsp;&nbsp;</code>
+</p>
+<a name="wp82795"> </a><p class="pBodyRelative">
+<code class="cCode">&nbsp;&nbsp;IdVerifier idChecker = new IdVerifier();<br />&nbsp;&nbsp;&nbsp;&nbsp;if (idChecker.validate(id)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;customerId = id;<br />&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw new CreateException(&quot;Invalid id: &quot;+ id);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;contents = new Vector();</code>
+</p>
+</ol></div>
+<a name="wp82797"> </a><p class="pBody">
+Because an enterprise bean runs inside an EJB container, a client cannot directly instantiate the bean. Only the EJB container can instantiate an enterprise bean. During instantiation, the example program performs the following steps.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82799"> </a><div class="pSmartList1"><li>The client invokes a create method on the home object:</li></div>
+<a name="wp82800"> </a><p class="pBodyRelative">
+<code class="cCode">Cart shoppingCart = home.create(&quot;Duke DeEarl&quot;,&quot;123&quot;);</code>
+</p>
+<a name="wp82801"> </a><div class="pSmartList1"><li>The EJB container instantiates the enterprise bean.</li></div>
+<a name="wp82802"> </a><div class="pSmartList1"><li>The EJB container invokes the appropriate <code class="cCode">ejbCreate</code> method in <code class="cCode">CartBean</code>. </li></div>
+<a name="wp82803"> </a><p class="pBodyRelative">
+<code class="cCode">public void ejbCreate(String person, String id)&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;throws CreateException {<br /></code>
+</p>
+</ol></div>
+<a name="wp82804"> </a><p class="pBody">
+Typically, an <code class="cCode">ejbCreate</code> method initializes the state of the enterprise bean. The preceding <code class="cCode">ejbCreate</code> method, for example, initializes the <code class="cCode">customerName</code> and <code class="cCode">customerId</code> variables by using the arguments passed by the <code class="cCode">ejbCreate</code> method. 
+</p>
+<a name="wp82805"> </a><p class="pBody">
+An enterprise bean must have one or more <code class="cCode">ejbCreate</code> methods. The signatures of the methods must meet the following requirements:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82807"> </a><div class="pSmartList1"><li>The access control modifier must be <code class="cCode">public</code>.</li></div>
+<a name="wp82808"> </a><div class="pSmartList1"><li>The return type must be <code class="cCode">void</code>.</li></div>
+<a name="wp82809"> </a><div class="pSmartList1"><li>If the bean allows remote access, the arguments must be legal types for the Java Remote Method Invocation (Java RMI) API.</li></div>
+<a name="wp82810"> </a><div class="pSmartList1"><li>The modifier cannot be <code class="cCode">static</code> or <code class="cCode">final</code>.</li></div>
+</ul></div>
+<a name="wp82811"> </a><p class="pBody">
+The <code class="cCode">throws</code> clause can include the <code class="cCode">javax.ejb.CreateException</code> and other exceptions that are specific to your application. The <code class="cCode">ejbCreate</code> method usually throws a <code class="cCode">CreateException</code> if an input parameter is invalid.
+</p>
+<a name="wp82813"> </a><h4 class="pHeading3">
+Business Methods
+</h4>
+<a name="wp82814"> </a><p class="pBody">
+The primary purpose of a session bean is to run business tasks for the client. The client invokes business methods on the remote object reference that is returned by the <code class="cCode">ejbCreate</code> method. From the client's perspective, the business methods appear to run locally, but they actually run remotely in the session bean. The business methods that a client can invoke are declared in the business interface. The following code snippet shows how the <code class="cCode">CartClient</code> program invokes the business methods:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+Cart shoppingCart = home.create(&quot;Duke DeEarl&quot;, &quot;123&quot;);
+...
+shoppingCart.addBook(&quot;The Martian Chronicles&quot;); 
+shoppingCart.removeBook(&quot;Alice In Wonderland&quot;);
+bookList = shoppingCart.getContents();<a name="wp82816"> </a>
+</pre></div>
+<a name="wp82818"> </a><p class="pBody">
+The signature of a business method must conform to these rules:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82819"> </a><div class="pSmartList1"><li>The method name must not conflict with one defined by the EJB architecture. For example, you cannot call a business method <code class="cCode">ejbCreate</code> or <code class="cCode">ejbActivate</code>. </li></div>
+<a name="wp82820"> </a><div class="pSmartList1"><li>The access control modifier must be <code class="cCode">public</code>.</li></div>
+<a name="wp82821"> </a><div class="pSmartList1"><li>If the bean allows remote access, the arguments and return types must be legal types for the Java RMI API.</li></div>
+<a name="wp82822"> </a><div class="pSmartList1"><li>The modifier must not be <code class="cCode">static</code> or <code class="cCode">final</code>.</li></div>
+</ul></div>
+<a name="wp82823"> </a><p class="pBody">
+When you add business methods in the IDE, you can use the Add Business Method contextual menu to generate the methods. When you do this, the IDE adds the appropriate code to the interfaces. In this example, the business methods are added to the <code class="cCode">CartBean</code> class and the <code class="cCode">CartRemoteBusiness</code> interface.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82824"> </a><div class="pSmartList1"><li>In the Source Editor, right-click in the body of the <code class="cCode">CartBean</code> class and select EJB Methods <span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>Add Business Method from the contextual menu to open the Add Business Method dialog box.</li></div>
+<a name="wp82825"> </a><div class="pSmartList1"><li>Enter <code class="cCode">addBook</code> in the Name field, select <code class="cCode">void</code> as the Return type, and ensure that the Remote box is selected so that the method is called in the remote interfaces. Add a parameter and select <code class="cCode">java.lang.String</code> for the Type, enter <code class="cCode">title</code> in the Name field, and click OK in each dialog box to generate the method.</li></div>
+<a name="wp82826"> </a><div class="pSmartList1"><li>In the Source Editor, edit the <code class="cCode">addBook</code> business method in the <code class="cCode">CartBean</code> class so that the method looks like this:</li></div>
+<a name="wp82827"> </a><p class="pBodyRelative">
+<code class="cCode">public void addBook(java.lang.String title) {<br />&nbsp;&nbsp;contents.add(title);<br />}</code>
+</p>
+</ol></div>
+<a name="wp82828"> </a><p class="pBody">
+Now follow the steps above to create the <code class="cCode">removeBook</code> and <code class="cCode">getContents</code> business methods with the following code:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public void removeBook(java.lang.String title) throws
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BookException {
+  &nbsp;&nbsp;boolean result = contents.remove(title);
+&nbsp;&nbsp;if (result == false) {
+&nbsp;&nbsp;&nbsp;&nbsp;throw new BookException(title + &quot;not in cart.&quot;);
+&nbsp;&nbsp;}
+}
+
+public Vector getContents() {
+&nbsp;&nbsp;return contents;
+}<a name="wp82829"> </a>
+</pre></div>
+<a name="wp82830"> </a><p class="pBody">
+The <code class="cCode">throws</code> clause can include exceptions that you define for your application. The <code class="cCode">removeBook</code> method, for example, throws the <code class="cCode">BookException</code> if the book is not in the cart. To add the exception in the IDE using the Add Business Method dialog box, click Add in the Exceptions tab and type <code class="cCode">BookException</code>.
+</p>
+<a name="wp82831"> </a><p class="pBody">
+When creating the <code class="cCode">getContents</code> business method in the IDE, you can type <code class="cCode">Vector</code> in the Return field in the Add Business Method dialog box.
+</p>
+<a name="wp82833"> </a><p class="pBody">
+To indicate a system-level problem, such as the inability to connect to a database, a business method should throw the <code class="cCode">javax.ejb.EJBException</code>. When a business method throws an <code class="cCode">EJBException</code>, the container wraps it in a <code class="cCode">RemoteException</code>, which is caught by the client. The container will not wrap application exceptions such as <code class="cCode">BookException</code>. Because <code class="cCode">EJBException</code> is a subclass of <code class="cCode">RuntimeException</code>, you do not need to include it in the <code class="cCode">throws</code> clause of the business method.
+</p>
+<a name="wp82836"> </a><h4 class="pHeading3">
+Managing Your Import Statements
+</h4>
+<a name="wp82837"> </a><p class="pBody">
+After you have added your create methods and business methods, you need to fix your import statements. Import statements can be added manually, or the IDE can check and fix any import statements in the class. Place the insertion point anywhere in the body of the class in the Source Editor and press Alt-Shift-F to generate the necessary import statements. The IDE removes any unused import statements and adds any missing important statements.
+</p>
+<a name="wp82838"> </a><p class="pBody">
+Your import statements for the <code class="cCode">CartBean</code> class should contain the following:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+import exception.BookException;
+import java.util.Vector;
+import javax.ejb.CreateException;
+import util.IdVerifier;<a name="wp82839"> </a>
+</pre></div>
+<a name="wp82840"> </a><p class="pBody">
+Notice that the IDE adds the import statements for our two helper classes. 
+</p>
+<a name="wp82841"> </a><p class="pBody">
+You may need to fix or add import statements in the business interfaces. In the CartBean example, you need to fix the imports for the remote business interface (<code class="cCode">CartRemoteBusiness</code>).
+</p>
+<a name="wp82842"> </a><h3 class="pHeading2">
+Session Bean Interfaces
+</h3>
+<a name="wp82843"> </a><p class="pBody">
+When you create a session bean in the IDE, the IDE generates the bean structure according to the best practice EJB design patterns. This includes the creation of the bean interfaces. Because the CartBean example uses a remote interface and does not need a local interface, the IDE creates the following interfaces: 
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82844"> </a><div class="pSmartList1"><li>Home interface (<code class="cCode">CartRemoteHome</code>)</li></div>
+<a name="wp82845"> </a><div class="pSmartList1"><li>Business interface (<code class="cCode">CartRemoteBusiness</code>)</li></div>
+<a name="wp82846"> </a><div class="pSmartList1"><li>Remote interface (<code class="cCode">CartRemote</code>)</li></div>
+</ul></div>
+<a name="wp82847"> </a><p class="pBody">
+A session bean may have a local interface instead of, or in addition to, a remote interface. Generally, a local interface is used when the bean is to be used in the same JVM and a remote interface is used when the bean is to be used in a distributed environment. 
+</p>
+<a name="wp82849"> </a><h4 class="pHeading3">
+Home Interface
+</h4>
+<a name="wp82851"> </a><p class="pBody">
+A home interface extends the <code class="cCode">javax.ejb.EJBHome</code> interface. For a session bean, the purpose of the home interface is to define the <code class="cCode">create</code> methods that a remote client can invoke. The <code class="cCode">CartClient</code> program, for example, invokes this <code class="cCode">create</code> method:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+Cart shoppingCart = home.create(&quot;Duke DeEarl&quot;, &quot;123&quot;);<a name="wp82852"> </a>
+</pre></div>
+<a name="wp82855"> </a><p class="pBody">
+Every <code class="cCode">create</code> method in the home interface corresponds to an <code class="cCode">ejbCreate</code> method in the bean class. When you add <code class="cCode">create</code> methods to your session bean using Add Create Method, the corresponding methods are automatically added to the home interface. The signatures of the <code class="cCode">ejbCreate</code> methods in the <code class="cCode">CartBean</code> class follow:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public void ejbCreate()
+...
+public void ejbCreate(String person) throws CreateException   
+... 
+public void ejbCreate(String person, String id) 
+&nbsp;&nbsp;&nbsp;&nbsp;throws CreateException <a name="wp82857"> </a>
+</pre></div>
+<a name="wp82858"> </a><p class="pBody">
+Compare the <code class="cCode">ejbCreate</code> signatures with those of the <code class="cCode">create</code> methods in the <code class="cCode">CartRemoteHome</code> home interface:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public interface CartRemoteHome extends javax.ejb.EJBHome {
+&nbsp;&nbsp;cart.CartRemote create() throws 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java.rmi.RemoteException, javax.ejb.CreateException;&nbsp;&nbsp;
+&nbsp;&nbsp;cart.CartRemote create(String person) throws 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java.rmi.RemoteException, javax.ejb.CreateException;
+&nbsp;&nbsp;cart.CartRemote create(String person, String id) throws 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java.rmi.RemoteException, javax.ejb.CreateException;
+}<a name="wp82860"> </a>
+</pre></div>
+<a name="wp82861"> </a><p class="pBody">
+The signatures of the <code class="cCode">ejbCreate</code> and <code class="cCode">create</code> methods are similar, but they differ in important ways. Defining the signatures of the <code class="cCode">create</code> methods of a home interface follow certain rules.
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82863"> </a><div class="pSmartList1"><li>The number and types of arguments in a <code class="cCode">create</code> method must match those of its corresponding <code class="cCode">ejbCreate</code> method.</li></div>
+<a name="wp82864"> </a><div class="pSmartList1"><li>The arguments and return type of the <code class="cCode">create</code> method must be valid RMI types.</li></div>
+<a name="wp82865"> </a><div class="pSmartList1"><li>A <code class="cCode">create</code> method returns the remote interface type of the enterprise bean. (But an <code class="cCode">ejbCreate</code> method returns <code class="cCode">void</code>.)</li></div>
+<a name="wp82867"> </a><div class="pSmartList1"><li>The <code class="cCode">throws</code> clause of the <code class="cCode">create</code> method must include the j<code class="cCode">ava.rmi.RemoteException</code> and the <code class="cCode">javax.ejb.CreateException</code>.</li></div>
+</ul></div>
+<a name="wp82868"> </a><h4 class="pHeading3">
+Remote Interface
+</h4>
+<a name="wp82869"> </a><p class="pBody">
+The remote interface is used when the bean is to be used in a distributed environment. The remote interface extends <code class="cCode">javax.ejb.EJBObject</code> and identifies the business interface whose methods may be invoked from a non-local virtual machine. The remote interface extends the remote business interface, and the bean class only implements the business interface.
+</p>
+<a name="wp82872"> </a><p class="pBody">
+Here is the source code for the <code class="cCode">CartRemote</code> remote interface:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+public interface CartRemote extends javax.ejb.EJBObject,
+&nbsp;&nbsp;&nbsp;&nbsp;cart.CartRemoteBusiness{
+
+}<a name="wp82873"> </a>
+</pre></div>
+<a name="wp82874"> </a><p class="pBody">
+The remote interface is empty because you do not need to define your methods in the remote interface. The business methods are defined in the business interface. 
+</p>
+<a name="wp82875"> </a><h4 class="pHeading3">
+Business Interface
+</h4>
+<a name="wp82876"> </a><p class="pBody">
+The business interface defines the business methods that a remote client can invoke. Here is the source code for the <code class="cCode">CartRemoteBusiness</code> business interface:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+import java.util.*;
+import java.exception.BookException;
+
+public interface CartRemoteBusiness {
+
+&nbsp;&nbsp;void addBook(String title) throws java.rmi.RemoteException;
+&nbsp;&nbsp;void removeBook(String title) throws 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BookException, java.rmi.RemoteException;
+&nbsp;&nbsp;Vector getContents() throws java.rmi.RemoteException;
+}<a name="wp82877"> </a>
+</pre></div>
+<a name="wp82879"> </a><p class="pBody">
+The method definitions in a business interface must follow these rules:
+</p>
+<div class="pSmartList1"><ul class="pSmartList1">
+<a name="wp82880"> </a><div class="pSmartList1"><li>Each method in the business interface must match a method implemented in the enterprise bean class.</li></div>
+<a name="wp82881"> </a><div class="pSmartList1"><li>The signatures of the methods in the business interface must be identical to the signatures of the corresponding methods in the enterprise bean class.</li></div>
+<a name="wp82882"> </a><div class="pSmartList1"><li>The arguments and return values must be valid RMI types.</li></div>
+</ul></div>
+<a name="wp82883"> </a><p class="pBody">
+The <code class="cCode">throws</code> clause must include the <code class="cCode">java.rmi.RemoteException</code>.
+</p>
+<a name="wp82884"> </a><p class="pBody">
+In this example, the methods in the business interface require you to import libraries. Press Alt-Shift-F to generate the necessary import statments.
+</p>
+<a name="wp82885"> </a><h3 class="pHeading2">
+Building and Deploying the Application
+</h3>
+<a name="wp82886"> </a><p class="pBody">
+Now that you have finished creating the Cart EJB module, the next step is to build and deploy the application. You then run the client application to start the session bean. The source files for the example are available in the <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/cart</code> directory.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82887"> </a><div class="pSmartList1"><li>In the Projects window, right-click the Cart node and select Build Project from the contextual menu.</li></div>
+<a name="wp82888"> </a><div class="pSmartList1"><li>Look at the Output window to ensure the application was built successfully.</li></div>
+<a name="wp82889"> </a><div class="pSmartList1"><li>In the Projects window, right-click the Cart node and select Deploy Project from the contextual menu.</li></div>
+</ol></div>
+<a name="wp82890"> </a><p class="pBody">
+The deployed application is visible in the Runtime window of the IDE. To see the deployed application, expand the EJB Modules node in the Applications node of the server instance. You can undeploy and disable the application in the Runtime window.
+</p>
+<a name="wp82891"> </a><h3 class="pHeading2">
+The CartClient Application
+</h3>
+<a name="wp82892"> </a><p class="pBody">
+Now that you have created the session bean, you are ready to run the client application. You have the option of either creating the CartClient application or <a  href="Session2.html#wp82913">Opening the CartClient Project</a> located in the <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/cart/</code> directory, in which case you need to resolve the references to libraries on the project's classpath.
+</p>
+<a name="wp82896"> </a><h4 class="pHeading3">
+Creating the CartClient Application
+</h4>
+<a name="wp82897"> </a><p class="pBody">
+You can create the J2EE application named <code class="cCode">CartClient </code>in the IDE.
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82898"> </a><div class="pSmartList1"><li>Choose File<span style="font-family: Symbol"><img src="images/arrwrite.gif" border="0" alt="Right Arrow"></span>New Project (Ctrl-Shift-N) from the main menu.</li></div>
+<a name="wp82899"> </a><div class="pSmartList1"><li>Choose General from the Categories pane and Java Application in the Projects pane and click Next. </li></div>
+<a name="wp82900"> </a><div class="pSmartList1"><li>Enter <code class="cCode">CartClient</code> as the Project Name, specify a Location for the project and click Finish to create the project. </li></div>
+<a name="wp82901"> </a><div class="pSmartList1"><li>Right-click the CartClient node and choose Properties from the contextual menu. </li></div>
+<a name="wp82902"> </a><div class="pSmartList1"><li>In the Properties dialog box, choose Libraries in the Categories pane and click Add JAR/Folder and add the <code class="cCode">j2ee.jar</code> and <code class="cCode">appserv-rt.jar</code> to the project classpath. Now click Add Project and add the Cart EJB module to the project classpath. Click OK to close the Properties dialog box.</li></div>
+<a name="wp82903"> </a><div class="pSmartList1"><li>Add the following code to the main method:</li></div>
+<a name="wp82904"> </a><p class="pBodyRelative">
+<code class="cCode">try{<br />&nbsp;&nbsp;Context ctx = new InitialContext();<br />&nbsp;&nbsp;Object objRef = ctx.lookup(&quot;ejb/CartBean&quot;);<br />&nbsp;&nbsp;CartRemoteHome home =<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(CartRemoteHome)PortableRemoteObject.narrow(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;objRef, CartRemoteHome.class); <br /><br />&nbsp;&nbsp;CartRemote shoppingCart = home.create(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;Duke DeEarl&quot;, &quot;123&quot;);</code>
+</p>
+<a name="wp82905"> </a><p class="pBodyRelative">
+<code class="cCode">&nbsp;&nbsp;shoppingCart.addBook(&quot;The Martian Chronicles&quot;);<br />&nbsp;&nbsp;shoppingCart.addBook(&quot;2001 A Space Odyssey&quot;);<br />&nbsp;&nbsp;shoppingCart.addBook(&quot;The Left Hand of Darkness&quot;);<br />&nbsp;&nbsp;Vector bookList = new Vector(); <br /><br />&nbsp;&nbsp;bookList = shoppingCart.getContents();<br /><br />&nbsp;&nbsp;Enumeration enumer = bookList.elements();<br />&nbsp;&nbsp;while (enumer.hasMoreElements()) {<br />&nbsp;&nbsp;&nbsp;&nbsp;String title = (String) enumer.nextElement(); <br />&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(title);<br />&nbsp;&nbsp;}</code>
+</p>
+<a name="wp82908"> </a><p class="pBodyRelative">
+<code class="cCode">&nbsp;&nbsp;shoppingCart.removeBook(&quot;Alice in Wonderland&quot;);<br />&nbsp;&nbsp;shoppingCart.remove(); <br /><br />&nbsp;&nbsp;System.exit(0);</code>
+</p>
+<a name="wp82909"> </a><p class="pBodyRelative">
+<code class="cCode">} catch (BookException ex){<br />&nbsp;&nbsp;System.err.println(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;Caught a BookException &quot; + ex.getMessage());<br />&nbsp;&nbsp;System.exit(0);<br />} catch (Exception ex){<br />&nbsp;&nbsp;System.err.println(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;Caught an unexpected exception: &quot; + <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ex.getMessage());<br />&nbsp;&nbsp;System.exit(1);<br />}</code>
+</p>
+<a name="wp82910"> </a><div class="pSmartList1"><li>Press Alt-Shift-F to generate the following import statements:</li></div>
+<a name="wp82911"> </a><p class="pBodyRelative">
+<code class="cCode">import cart.CartRemote;<br />import cart.CartRemoteHome;<br />import exception.BookException;<br />import java.util.Enumeration;<br />import java.util.Vector;<br />import javax.naming.Context;<br />import javax.naming.InitialContext;<br />import javax.rmi.PortableRemoteObject;</code>
+</p>
+</ol></div>
+<a name="wp82913"> </a><h4 class="pHeading3">
+Opening the CartClient Project
+</h4>
+<a name="wp82914"> </a><p class="pBody">
+If you open the source code of the CartClient application, you are prompted to resolve library references and add the Cart EJB module and the <code class="cCode">j2ee.jar</code> and <code class="cCode">appserv-rt.jar</code> files to the project classpath. 
+</p>
+<div class="pSmartList1"><ol type="1" class="pSmartList1">
+<a name="wp82915"> </a><div class="pSmartList1"><li>Right-click the CartClient node in the Projects window and choose Resolve Reference Problems. Select the &quot;<code class="cCode">Cart&quot; project could not be found</code> message and click Resolve. In the file chooser, select either the completed Cart project in <code class="cCode">&lt;</code><code class="cVariable">INSTALL</code><code class="cCode">&gt;/j2eetutorial14/examples/ejb/cart/ </code>or the project you created and click OK. </li></div>
+<a name="wp82916"> </a><div class="pSmartList1"><li>Select the <code class="cCode">&quot;appserv-rt.jar&quot; file/folder could not be found</code> message and click Resolve. Navigate to the <code class="cCode">lib</code> directory in your application server installation, select <code class="cCode">appserv-rt.jar</code>, and click OK. The IDE automatically resolves the location of <code class="cCode">j2ee.jar</code>. Click Close.</li></div>
+</ol></div>
+<a name="wp82917"> </a><h4 class="pHeading3">
+Running the CartClient Application
+</h4>
+<a name="wp82918"> </a><p class="pBody">
+Right-click the CartClient node and select Run Project from the contextual menu. Lines similar to the following are displayed in the Output window of the IDE:
+</p>
+<div class="pPreformattedRelative"><pre class="pPreformattedRelative">
+run:
+... com.sun.corba.ee.spi.logging.LogWrapperBase doLog
+INFO: &quot;IOP00710299: (INTERNAL) Successfully created IIOP 
+listener on the specified host/port: all interfaces/&lt;port&gt;&quot;
+The Martian Chronicles
+2001 A Space Odyssey
+The Left Hand of Darkness
+Caught a BookException Alice in Wonderland not in cart.
+BUILD SUCCESSFUL (total time: 3 seconds)<a name="wp82919"> </a>
+</pre></div>
+    </blockquote>
+
+   <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+
+    <table width="550" summary="layout" id="SummaryNotReq1">
+      <tr>
+	<td align="left" valign="center">
+	<font size="-1">
+	<a href="http://www.netbeans.org/files/documents/4/441/j2eetutorial14.zip" target="_blank">Download</a>
+	<br>
+	<a href="http://www.netbeans.org/files/documents/4/442/J2EE-NBTutorial.pdf" target="_blank">PDF</a>
+		<br>
+	<a href="http://www.netbeans.org" target="_blank">www.netbeans.org</a>
+
+      </font> </td>
+        <td align="center" valign="center">
+<a accesskey="p" href="Session.html"><img id="LongDescNotReq1" src="images/PrevArrow.gif" width="26" height="26" border="0" alt="Prev" /></a><a accesskey="c" href="J2EETutorialFront.html"><img id="LongDescNotReq1" src="images/UpArrow.gif" width="26" height="26" border="0" alt="Beginning" /></a><a accesskey="n" href="Session3.html"><img id="LongDescNotReq3" src="images/NextArrow.gif" width="26" height="26" border="0" alt="Next" /></a><a accesskey="i" href="J2EETutorialIX.html"></a>
+        </td>
+	<td align="right" valign="center"> <font size="-1"> <a href="http://java.sun.com/j2ee/1.4/docs/api/index.html" target="_blank">API</a> 
+      <br>
+	<a href="mailto:nbdocs_feedback@usersguide.netbeans.org?subject=Feedback:%20NetBeans%20-%20J2EE%20Tutorial">Feedback</a>
+	<br>
+	<a href="http://java.sun.com" target="_blank">java.sun.com</a><br>
+     
+	</font>
+	</td>
+      </tr>
+    </table>
+
+    <img src="images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3" ALT="Divider">
+
+<p><font size="-1">All of the material in <em>The J2EE(TM) 1.4 Tutorial</em> is 
+<a href="J2EETutorialFront2.html">copyright</a>-protected and may not be published in other works
+without express written permission from Sun Microsystems.</font>
+
+  </body>
+</html>
