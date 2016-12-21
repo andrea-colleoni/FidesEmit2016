@@ -1,0 +1,109 @@
+HTML5 Tutorial
+**************
+
+La prima riga di un documento HTML identifica il tipo di documento.
+
+In HTML5 è la seguente:
+
+	<!DOCTYPE html>
+
+Nell'intestazione del documento, ossia tra i tag <head></head>, possono essere definiti i metadati (un dato che a sua volta descrive un altro dato)
+del documento stesso.
+
+In HTML5 il tag è il seguente:
+
+<meta>
+
+Un esempio pratico è quello della codifica dei caratteri, definita in questo modo:
+
+<meta charset="UTF-8">
+
+
+Elemento <header>
+*****************
+
+L'elemento <header> contrassegna l'intestazione di una sezione del documento.
+Di norma contiene elementi di carattere introduttivo o di supporto alla navigazione.
+Poiché ogni sezione può essere dotata di una propria intestazione, nello stesso documento possono esistere più intestazioni.
+
+Esempio:
+
+    <header>
+        <h1>HTML5 Tutorial</h1>
+	<p>Copyright (c) Gianluca Cannata</p>
+	<p><time pubdate datetime="2016-12-21T17:00+01:00">21-12-2016</time></p>
+    </header>
+
+
+Elemento <nav>
+**************
+
+L'elemento <nav> racchiude elementi utili alla navigazione, che siano aree diverse della stessa pagina, pagine diverse dello stesso sito o esterne a esso.
+
+    <nav>
+        <ul>
+	    <li><a href="www.google.it">GoogleIT</a></li>
+	    <li><a href="www.google.es">GoogleES</a></li>
+	    <li><a href="www.google.fr">GoogleFR</a></li>
+	</ul>
+    </nav>
+
+
+Elemento <footer>
+*****************
+
+L'elemento <footer> definsce un pié di pagina (https://it.wikipedia.org/wiki/Pi%C3%A8_di_pagina).
+
+
+    <footer>
+        <nav>
+	    <ul>
+	        <li><a href="www.google.it">GoogleIT</a></li>
+		<li><a href="www.google.es">GoogleES</a></li>
+	        <li><a href="www.google.fr">GoogleFR</a></li>
+	    </ul>
+        </nav>
+    </footer>
+
+
+Elemento <section>
+******************
+
+L'elemento <section> demarca un insieme di contenuti tra loro logicamente correlati come un capitolo di un libro, le sezioni da cui è composta una tesi, le sezioni di una homepage (contatti, news, ecc)
+
+Per soli motivi di stile o di scripting l'elemento <div> è la scelta migliore.
+
+
+Elemento <article>
+******************
+
+Si usa l'elemento <article> per marcare un contenuto che sia, almeno in linea di principio, utilizzabile o distribuibile in modo indipendente dal resto del documento o anche solo della sezione in cui è racchiuso.
+
+Esempi tipici di questi contenuti possono essere l'articolo di un quotidiano online, la pubblicazione di un messaggio in un forum o presso un blog o, ancora, il commento pubblicato da un utente.
+
+Gli elementi <article> possono essere annidati l'uno nell'altro: si pensi per esempio all'elemento più esterno come quello usato per contrassegnare l'articolo di un blog all'interno del quale sono inseriti i commenti degli utenti, ciascuno demarcato a sua volta da un tag <article>.
+
+    <article>
+        <header>
+            <h1>HTML5 Tutorial</h1>
+	    <p>Copyright (c) Gianluca Cannata</p>
+	    <p><time datetime="2016-12-21T17:00+01:00">21-12-2016</time></p>
+        </header>
+        <nav>
+        <ul>
+	    <li><a href="www.google.it">GoogleIT</a></li>
+	    <li><a href="www.google.es">GoogleES</a></li>
+	    <li><a href="www.google.fr">GoogleFR</a></li>
+	</ul>
+       </nav>
+
+           <footer>
+	       <nav>
+	           <ul>
+		       <li><a href="www.google.it">GoogleIT</a></li>
+		       <li><a href="www.google.es">GoogleES</a></li>
+	               <li><a href="www.google.fr">GoogleFR</a></li>
+	           </ul>
+               </nav>
+	   </footer> 
+    </article>
