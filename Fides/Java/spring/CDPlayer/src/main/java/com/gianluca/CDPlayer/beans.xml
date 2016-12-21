@@ -630,40 +630,40 @@
 		 </beans>
 
 
-		 Anche in questo caso, seppure i bean sono tutti definiti in un unico file XML,
-		 verranno creati solo i bean il cui profilo corrisponde a quello attualmente attivo.
+	     Anche in questo caso, seppure i bean sono tutti definiti in un unico file XML,
+	     verranno creati solo i bean il cui profilo corrisponde a quello attualmente attivo.
 
-		 A questo punto bisogna capire pero' come attivare i profili...
+             A questo punto bisogna capire pero' come attivare i profili...
 
 
-		 Attivazione dei profili
-		 ***********************
+	     Attivazione dei profili
+	     ***********************
 
-		 Spring si affida a due proprieta' separate per determinare quali profili sono attivi:
+             Spring si affida a due proprieta' separate per determinare quali profili sono attivi:
 
-		 spring.profiles.active e spring.profiles.default
+	         spring.profiles.active e spring.profiles.default
 
-                 Se e' impostato spring.profiles.active, allora il suo valore determina quali profili sono attivi.
-                 Se non lo e', allora Spring guarda in spring.profiles.default.
+             Se e' impostato spring.profiles.active, allora il suo valore determina quali profili sono attivi.
+             Se non lo e', allora Spring guarda in spring.profiles.default.
 
-		 Infine, se nessuno dei delle due proprieta' e' impostata, allora non ci sono profili attivi,
-		 e solo i bean che non sono definiti per essere contenuti in un profilo, sono creati.
+             Infine, se nessuno dei delle due proprieta' e' impostata, allora non ci sono profili attivi,
+	     e solo i bean che non sono definiti per essere contenuti in un profilo, sono creati.
 
-		 Ci sono diversi modi per impostare queste due proprieta':
+	     Ci sono diversi modi per impostare queste due proprieta':
 
-		     - Come parametro iniziale di DispatcherServlet
-		     - Come parametro del contesto di una web application
-		     - Come JNDI entry
-		     - Come variabile d'ambiente (environment variable)
-		     - Come proprieta' di sistema della JVM
-		     - Usando l'annotazione @ActiveProfiles in una classe di test
+		 - Come parametro iniziale di DispatcherServlet
+		 - Come parametro del contesto di una web application
+		 - Come JNDI entry
+		 - Come variabile d'ambiente (environment variable)
+		 - Come proprieta' di sistema della JVM
+		 - Usando l'annotazione @ActiveProfiles in una classe di test
 
-		 La scelta di quale usare dipende dallo sviluppatore.
+	     La scelta di quale usare dipende dallo sviluppatore.
 
-		 A titolo di esempio, si potrebbe impostare spring.profiles.default col profilo development
-		 usando parametri in DispatcherServlet e nel contesto della servlet (per il bene di ContextLoaderListener).
+	     A titolo di esempio, si potrebbe impostare spring.profiles.default col profilo development
+             usando parametri in DispatcherServlet e nel contesto della servlet (per il bene di ContextLoaderListener).
 
-		 Il file XML risultante per una web application con impostato spring.profiles.default e' il seguente:
+	     Il file XML risultante per una web application con impostato spring.profiles.default e' il seguente:
 
 		     <?xml version="1.0" encoding="UTF-8"?>
 		     <web-app version="2.5"
@@ -708,18 +708,131 @@
 		     </web-app>
 
 
-		     Con spring.profiles.default impostato in questo modo, ogni sviluppatore puo' recuperare
-		     il codice dell'applicazione dal controllo sorgente e avviarlo usando le opzioni di development
-		     (come se fosse un embedded database) senza nessuna configurazione addizionale.
+	     Con spring.profiles.default impostato in questo modo, ogni sviluppatore puo' recuperare
+	     il codice dell'applicazione dal controllo sorgente e avviarlo usando le opzioni di development
+	     (come se fosse un embedded database) senza nessuna configurazione addizionale.
 
-		     In seguito, quando l'applicazione e' sviluppata in un ambiente QA, production, o altro,
-		     la persona responsabile per il rilascio del prodotto puo' impostare spring.profiles.active
-		     usando proprieta' di sistema, variabili d'ambiente, o JNDI.
+	     In seguito, quando l'applicazione e' sviluppata in un ambiente QA, production, o altro,
+	     la persona responsabile per il rilascio del prodotto puo' impostare spring.profiles.active
+	     usando proprieta' di sistema, variabili d'ambiente, o JNDI.
 
-		     Quando spring.profiles.active e' impostato, non importa se lo e' anche spring.profiles.default;
-		     i profili impostati in spring.profiles.active hanno la precedenza.
+	     Quando spring.profiles.active e' impostato, non importa se lo e' anche spring.profiles.default;
+	     i profili impostati in spring.profiles.active hanno la precedenza.
 
-		     NOTA: E' possibile attivare piu' profili simultaneamente per ogni environment.
+	     NOTA: E' possibile attivare piu' profili simultaneamente per ogni environment.
+
+
+             Testing con profili
+	     *******************
+	     Spring offre l'annotazione @ActiveProfiles per specificare quali profili attivare durante l'esecuzione di un test.
+
+	     L'esempio che segue mostra una classe di test che usa @ActiveProfiles per attivare il profilo dev:
+
+	         @RunWith(SpringJUnit4ClassRunner.class)
+		 @ContextConfiguration(classes={PersistenceTestConfig.class})
+		 @ActiveProfiles("dev")
+		 public class PersistenceTest {
+		    ...
+		 }
+
+             
+	     Conditional beans (Bean condizionali)
+	     *************************************
+
+	     Spring 4 ha introdotto una nuova annotazione chiamata @Conditional
+	     che puo' essere applicata ai metodi annotati con @Bean.
+
+	     Se la condizione e' vera (true), allora il bean sara' creato, altrimenti sara' ignorato.
+
+	     Per esempio, supponiamo di avere una classe MagicBean e vuoi che Spring la instanzi solo se
+	     una proprieta' dell'environment e' impostata su magic.
+
+	     Se l'environment non ha tale proprieta', allora MagicBean sara' ignorato.
+
+	     Di seguito il codice d'esempio:
+
+	         @Bean
+		 @Conditional(MagicExistsCondition.class)
+		 public MagicBean magicBean() {
+		     return new MagicBean();
+		 }
+
+	     Come si puo' notare, ad @Conditional e' stata fornita una classe che specifica la condizione, in questo caso, MagicExistsCondition.
+
+	     A @Conditional e' affiancata una interfaccia Condition:
+
+	         public interface Condition {
+		     boolean matches(ConditionContext ctx, AnnotatedTypeMetadata metadata);
+		 }
+
+             La classe fornita a @Conditional puo' essere di ogni tipo che implementi la interfaccia Condition.
+
+	     Basta implementare il metodo matches() che se ritorna true, allora il bean annotato con @Conditional viene creato.
+
+	     Viceversa, se matches() ritorna false, il bean non viene creato.
+
+	     Per questo esempio, devi creare una implementazione di Condition che dipenda la sua decisione
+	     sulla presenza di una proprieta' magic dell'environment.
+
+	     Di seguito MagickExistsCondition, un'implementazione di Condition:
+
+	         package com.gianluca.ConditionalBeans
+
+		 import org.springframework.context.annotation.Condition;
+		 import org.springframework.context.annotation.ConditionContext;
+		 import org.springframework.core.type.AnnotatedTypeMetadata;
+		 import org.springframework.util.ClassUtils;
+
+		 public class MagicExistsCondition implements Condition {
+
+		     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+
+		         Environment env = context.getEnvironment();
+			 return env.containsProperty("magic");
+	             }
+		 }
+
+
+             Il metodo matches() fa uso dei parametri ConditionContext e AnnotatedTypeMetadata per compiere la sua decisione.
+
+	     ConditionContext e' un'interfaccia che assomiglia a questa:
+
+	         public interface ConditionContext {
+		     BeanDefinitionRegistry getRegistry();
+		     ConfigurableListableBeanFactory getBeanFactory();
+		     Environment getEnvironment();
+		     ResourceLoader getResourceLoader();
+		     ClassLoader getClassLoader();
+		 }
+
+             Con ConditionContext puoi fare le seguente cose:
+
+	         - Verificare la definizione dei bean tramite BeanDefinitionRegistry ritornato da getRegistry().
+		 - Verificare la presenza dei bean, oltre la possibilita' di accedere alle proprieta' dei bean tramite
+		   ConfigurableListableBeanFactory ritornato da getBeanFactory().
+		 - Verificare la presenza e i valori delle variabili d'ambiente tramite Environment ritornato da getEnvironment().
+		 - Leggere e ispezionare i contenuto delle risorse caricate tramite ResourceLoader ritornato da getResourceLoader().
+		 - Caricare e verificare la presenza delle classi tramite ClassLoader ritornato da getClassLoader().
+
+             Per quanto riguarda AnnotatedTypeMetadata, offre la possibilita' di ispezionare annotazioni che potrebbero essere annotato ai metodi
+	     annotati con @Bean.
+
+	     Come ConditionContext, AnnotatedTypeMetadata e' un'interfaccia:
+
+	         public interface AnnotatedTypeMetadata {
+		     boolean isAnnotated(String annotatioType);
+		     Map<String, Object> getAnnotationAttributes(String annotationType);
+		     Map<String, Object> getAnnotationAttributes(String annotationType, boolean classValueAsString);
+		     MultiValueMap<String, Object> getAllAnnotationAttributes(String annotationType);
+		     MultiValueMap<String, Object> getAllAnnotationAttributes(String annotationType, boolean classValuesAsString);
+		 }
+
+	     Con il metodo isAnnotated() e' possibile verificare se il metodo con @Bean e' annotato con una particolare tipo di annotazione.
+
+	     Gli altri metodi permettono di verificare quali attributi di ogni tipo di annotazione sono applicati al metodo con @Bean.
+
+
+	      
 
 
 
