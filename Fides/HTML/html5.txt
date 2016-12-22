@@ -1,7 +1,9 @@
-HTML5 Tutorial
+                   HTML5 Tutorial                         
 
-copyright (c) Gianluca Cannata (aculnaig - https://github.com/aculnaig)
-
+ 
+                                                     Gianluca Cannata
+                                                        Dicembre 2016
+                                                                  0.1
 
 
 Introduzione
@@ -92,7 +94,60 @@ In generale, vige la seguente regola per li attributi
 
 I seguenti tag sono stati introdotti in HTML5 per migliorare la struttura di una pagina HTML
 
-    <section> rappresenta una sezione generica di un documento.
-              Può essere usato insieme alla famiglia di tag <h1>-<h6> per indicare la struttura del documento.
+    <article> rappresenta un parte indipendente del contenuto di un documento, come un post di un forum, un articolo di un magazine o di un quotidiano,
+              un commento di un utente.
 
-    <article> rappresenta un pezzo indipendente di un documento
+	      Il seguente esempio mostra il post di un blog di recensioni usando <article>
+
+	      <article class="film_review">
+                  <header>
+		      <h2>Jurassic Park</h2>
+		  </header>
+		  <section class="main_review">
+		      <p>Dinos were great!</p>
+		  </section>
+		  <section class="user_reviews">
+		      <article class="user_review">
+		          <p>Way too scary for me.</p>
+			  <footer>
+			      <p>Posted on <time datetime="2015-05-16 19:00">May 16</time> by Lisa.</p>
+			  </footer>
+	              </article>
+		      <article class="user_review">
+		          <p>I agree, dinos are my favourite.</p>
+			  <footer>
+                              <p>Posted on <time datetime="2015-05-17 19:00">May 17</time> by Tom.</p>
+			  </footer>
+		      </article>
+		  </section>
+		  <footer>
+		      <p>Posted on <time datetime="2015-05-15 19:00">May 15</time> by Staff.</p>
+		  </footer>
+	      </article>
+
+    <section> rappresenta una sezione generica di un documento. Una sezione, in questo contesto, è un gruppo tematico di contenuti.
+              Il tema di ogni <section> dovrebbe essere identificato includendo tipicamente un heading (gli elementi <h1>-<h6>), figli dell'elemento <section>.
+
+	      Esempi di sezioni possono essere i capitoli di un libro o di una tesi.
+
+	      Il seguente esempio pratico mostra un articolo contenente due sezioni
+
+	          <article>
+		      <header>
+                          <h2>Serie A Basket</h2>
+			  <p>Classifica Serie A Basket</p>
+		      </header>
+		      <p> Classifica Serie A Basket BEKO in tempo reale</p>
+		      <section>
+		          <h3>Olimpia Milano</h3>
+			  <p>punti: 20</p>
+	              </section>
+		      <section>
+		          <h3>Reggio Emilia</h3>
+			  <p>punti: 16</p>
+		      </section>
+                  </article>
+
+	
+
+    
