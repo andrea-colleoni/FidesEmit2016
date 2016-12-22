@@ -148,6 +148,30 @@ I seguenti tag sono stati introdotti in HTML5 per migliorare la struttura di una
 		      </section>
                   </article>
 
+    
+    <nav> rappresenta una parte di una pagina con link di navigazione che possono indirizzare verso altre pagine dello stesso sito o di altri siti
+          o anche all'interno della pagina stessa.
+
+	      <nav>
+	       <ul>
+	        <li><a href="#">Home</a></li>
+	        <li><a href="#">About</a></li>
+	        <li><a href="#">Contact</a></li>
+               </ul>
+	      </nav>
+
+
+    <aside> rappresenta una parte di una pagina con un contenuto secondario rispetto al resto e di solito viene identificato con una sidebar.
+            Queste sidebar potrebbero contenere un glossario o altri tipi di informazioni quali pubblicità, la biografia dell'autore dellla pagina,
+	    applicazioni web, informazioni sul profilo dell'utente o altri link relativi alla pagina.
+
+	        <article>
+		 <p>The Disney movie <em>The Little Mermaid</em> was first released to theatres in 1989.</p>
+		 <aside>
+		  <p> The movie earned $87 milion during its initial release.</p>
+		 </aside>
+		 <p>More info about the movie...</p>
+		</article>
 	
 
     
