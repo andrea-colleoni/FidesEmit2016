@@ -21,3 +21,78 @@ Un file HTML5 ha la seguente struttura generica
 
 <!DOCTYPE html> deve essere la prima dichiarazione che fate nel vostro file HTML, ancor prima del tag <html>; NON è un tag, ma è una semplice istruzione che indica al browser web quale versione di HTML è scritto il vostro file.
 
+Per specificare il set di caratteri utilizzato nel documento HTML usare <meta> all'interno di <head>
+
+    <head>
+        <meta charset="utf-8">
+    </head>
+
+
+Prima di HTML5 si era solito specificare uno script JavaScript in questo modo
+
+    <script type="text/javascript" src="scriptfile.js"></script>
+
+In HTML5 la dichiarazione è diventata pià concisa
+
+    <script src="scriptfile.js"></script>
+
+
+Anche il tag <link> ha subito lo stesso trattamento, da così
+
+    <link rel="stylesheet" type="text/css" href="stylefile.css">
+
+a così
+
+    <link rel="stylesheet" href="stylefile.css">
+
+
+HTML5 mantiene la stessa sintassi del suo predecessore per quanto riguarda i tag degli elementi HTML
+
+Vi è un tag di apertura e un tag di chiusura
+
+    <tag> (tag di apertura)
+    
+    </tag> (tag di chiusura)
+
+
+Entrambi i tag sono delimitati da due parentesi angolari; l'unica differenza tra i due è la presenza dello slash prima del nome del tag nel tag di chiusura.
+
+Di seguito, un esempio pratico
+
+    <p>Capitolo 1</p>    (indica un paragrafo)
+
+I tag HTML sono non-case sensitive, ciò vuol dire che è possibile mischiare maiuscole e minuscole, ma per convenzione si preferisce usare solo quest'ultime.
+
+
+Alcuni elementi contengono qualcosa come <p>Capitolo 1</p> che contiene un paragrafo, mentre altri non permenttono di contenere niente.
+
+Questi elementi sono chiamati elementi vuoti e hanno un solo tag
+
+   <br>, <hr>, <link>, <meta>
+
+sono tutti elementi vuoti.
+
+Un elemento potrebbe contenere uno o più attributi per impostare una proprietà dell'elemento.
+
+Alcuni vengono definiti globali e possono essere usati da qualsiasi elemento, mentre altri sono specifici a un determinato elemento.
+
+Ogni attributo ha un nome e un valore, e devono essere specificati sempre nel tag di apertura e mai in quello di chiusura.
+
+
+Anche per gli attributi vige la regola delle lettere maiuscole e minuscole, ma anche in questo caso si usano solo le minuscole
+
+   <div class="esempio">...</div>
+
+class è un attributo globale e il suo valore viene specificato dopo l'uguale tra una coppia di doppi apici.
+
+In generale, vige la seguente regola per li attributi
+
+   <elemento attributo="valore">...</elemento>
+
+
+I seguenti tag sono stati introdotti in HTML5 per migliorare la struttura di una pagina HTML
+
+    <section> rappresenta una sezione generica di un documento.
+              Può essere usato insieme alla famiglia di tag <h1>-<h6> per indicare la struttura del documento.
+
+    <article> rappresenta un pezzo indipendente di un documento
