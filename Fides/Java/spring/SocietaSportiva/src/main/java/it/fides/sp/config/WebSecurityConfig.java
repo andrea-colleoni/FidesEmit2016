@@ -1,0 +1,75 @@
+package it.fides.sp.config;
+
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	@Autowired
+	DataSource dataSource;
+	
+	@Autowired
+	public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+		
+		System.out.println("Inside configAuthentication");
+		
+		auth.jdbcAuthentication().dataSource(dataSource)
+			.passwordEncoder(passwordEncoder())
+			.usersByUsernameQuery("SELECT username, password, enabled FROM users where username = ?")
+			.authoritiesByUsernameQuery("SELECT username, user_role FROM user_roles WHERE username = ?");
+	}
+	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		
+		System.out.println("Inside configure");
+		
+		http.authorizeRequests()
+			.antMatchers("/clienti").hasAuthority("ROLE_ADMIN")
+			.antMatchers("/areapersonale").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+			.antMatchers("/editCliente").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+			.antMatchers("/nuovoStadio").hasAuthority("ROLE_ADMIN")
+			.antMatchers("/compraBiglietto").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+			.anyRequest().permitAll()
+			.and()
+				.formLogin().loginPage("/login").defaultSuccessUrl("/").failureUrl("/login?error")
+				.usernameParameter("username").passwordParameter("password")
+			.and()
+				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/");
+			/*.and()
+				.exceptionHandling().accessDeniedPage("/403")
+			.and()
+				.csrf();
+				*/
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder(){
+		PasswordEncoder encoder = new BCryptPasswordEncoder();
+		return encoder;
+	}
+	
+	
+	/* @Autowired
+	DataSource dataSource;
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.jdbcAuthentication().dataSource(dataSource)
+				.usersByUsernameQuery("SELECT username, password, true FROM user where username = ?")
+				.authoritiesByUsernameQuery("SELECT username, 'ROLE_USER' FROM user WHERE username = ?");		
+	}*/
+
+}
