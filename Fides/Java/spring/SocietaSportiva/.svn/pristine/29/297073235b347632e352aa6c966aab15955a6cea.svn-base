@@ -1,0 +1,68 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Area personale</title>
+		<link href="<c:url value='/resources/style.css' />" rel="stylesheet"></link>
+    </head>
+	<body>
+		<ul>
+			<li><a class="active" href="/SocietaSportiva">Home</a></li>
+			<c:if test="${pageContext.request.userPrincipal.name != null}">
+				<li><a href="${pageContext.request.contextPath}/logout?${_csrf.parameterName}=${_csrf.token}">Logout</a></li>
+			</c:if>
+			<c:if test="${pageContext.request.userPrincipal.name == null}">
+				<li><a href="/SocietaSportiva/login">Login</a></li>
+			</c:if>
+			<li><a href="/SocietaSportiva/clienti">Clienti</a></li>
+			<li><a href="/SocietaSportiva/partite">Partite</a></li>
+			<li><a href="/SocietaSportiva/stadi">Stadi</a></li>
+		</ul>
+		<div class="container" align="center">
+		<h2>Area personale</h2>
+<c:choose>
+	<c:when  test="${!empty ListBiglietti}">
+			<table border="1" class="data">
+        	<tr class = "descriptor">
+         	   <th>Id cliente</th>
+         	   <th>Id Biglietto</th>
+        	   <th>Prezzo</th>
+        	   <th>Azioni</th>
+            </tr> 
+            <c:forEach var="biglietto" items="${ListBiglietti}">
+            <tr>
+                <td>${biglietto.idClienteBigliettoFK}</td>
+                <td>${biglietto.idBiglietto}</td>
+                <td>${biglietto.prezzoPagato}</td>
+                <td>
+                    <c:choose>
+                    	<c:when test='${biglietto.pagato == 0}'>
+              				<a href="pagaPrenotazioneForm?id=${biglietto.idBiglietto}" class="buylink">
+              					Acquista il tuo biglietto prenotato
+              				</a>
+              				<br>
+              				<a href="deleteBiglietto?id=${biglietto.idBiglietto}" class="reglink">
+              					Cancella questa prenotazione
+              				</a>
+                		</c:when>
+                		<c:otherwise>
+                			<p>Hai già completato l'acquisto!</p>
+                		</c:otherwise>
+                	</c:choose>
+                </td>     
+            </tr>
+            </c:forEach>             
+        </table>
+	</c:when>
+	<c:otherwise>
+		<p>Non hai ancora comprato biglietti. Consulta la lista delle 
+		<a href="partite" class="reglink">partite</a></p>
+	</c:otherwise>
+</c:choose>
+		</div>
+	</body>
+</html>

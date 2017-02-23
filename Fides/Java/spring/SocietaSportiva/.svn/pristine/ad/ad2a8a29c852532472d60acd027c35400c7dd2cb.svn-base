@@ -1,0 +1,503 @@
+package it.fides.sp.controller;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import it.fides.sp.dao.BigliettoDAO;
+import it.fides.sp.dao.ClienteDAO;
+import it.fides.sp.dao.GestoreDAO;
+import it.fides.sp.dao.LoginDAO;
+import it.fides.sp.dao.PartitaDAO;
+import it.fides.sp.dao.StadioDAO;
+import it.fides.sp.model.Biglietto;
+import it.fides.sp.model.Cliente;
+import it.fides.sp.model.Gestore;
+import it.fides.sp.model.Login;
+import it.fides.sp.model.Partita;
+import it.fides.sp.model.Stadio;
+
+@Controller
+public class ViewsController {
+	
+	
+	/* View Principali */
+	/* Ritorna l'index del sito Societa Sportiva */
+	@RequestMapping(value="/", method = RequestMethod.GET)
+	public ModelAndView getIndex(ModelAndView model) {
+		
+		List<Partita> partitaByWeek = partitaDAO.showPartitaByWeek(5);
+		model.addObject("PartitaByWeek", partitaByWeek);
+		
+		model.setViewName("index");
+		return model;
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
+		@RequestParam(value = "logout", required = false) String logout) {
+
+	  ModelAndView model = new ModelAndView();
+	  if (error != null) {
+		model.addObject("error", "Invalid username and password!");
+	  }
+
+	  if (logout != null) {
+		model.addObject("msg", "You've been logged out successfully.");
+	  }
+	  model.setViewName("login");
+
+	  return model;
+
+	}
+	
+	/* Cliente */
+	@Autowired
+	private ClienteDAO clienteDAO;
+	
+	/* Ritorna i clienti che comprano i biglietti per le partite negli stadi della societ� sportiva */
+	@RequestMapping(value="/clienti")
+	public ModelAndView listClienti(ModelAndView model) throws IOException {
+
+		List<Cliente> listClienti = clienteDAO.selectAll();
+		model.addObject("listClienti", listClienti);
+		model.setViewName("clienti");
+		
+		return model;
+	}
+	
+	/* Hanlder che ritorna il form per l'inserimento di un nuovo cliente */
+	@RequestMapping(value="/nuovoCliente", method = RequestMethod.GET)
+	public ModelAndView nuovoCliente(ModelAndView model) {
+		Cliente cliente = new Cliente();
+		model.addObject("cliente", cliente);
+		model.setViewName("clienteForm");
+		
+		return model;
+	}
+	
+	/*LOGIN*/
+	@Autowired
+	private LoginDAO loginDAO;
+	
+	
+	/* Handler per inserire/aggiornare un cliente */
+	@RequestMapping(value = "/updateCliente", method = RequestMethod.POST)
+	public ModelAndView updateCliente(@ModelAttribute Cliente cliente, @ModelAttribute Login login) {
+		if (cliente.getIdCliente() > 0) {
+			clienteDAO.update(cliente);
+			loginDAO.update(login);
+		}
+		else {
+			clienteDAO.create(cliente);
+			loginDAO.create(login);
+		}
+		
+		return new ModelAndView("redirect:/partite");
+	}
+	
+	/* Handler per eliminare un cliente */
+	@RequestMapping(value="/deleteCliente", method = RequestMethod.GET)
+	public ModelAndView deleteCliente(HttpServletRequest request) {
+		int idCliente = Integer.parseInt(request.getParameter("id"));
+		clienteDAO.delete(idCliente);
+		return new ModelAndView("redirect:/clienti");
+	}
+	
+	/* Handler per il recupero dei dettagli da modificare di un particolare cliente */
+	@RequestMapping(value = "/editCliente", method = RequestMethod.GET)
+	public ModelAndView editCliente(HttpServletRequest request) {
+		int idCliente = Integer.parseInt(request.getParameter("id"));
+		Cliente cliente = clienteDAO.read(idCliente);
+		ModelAndView model = new ModelAndView("clienteForm");
+		model.addObject("cliente", cliente);
+		
+		return model;
+	}
+	
+	/* Partite */
+	@Autowired
+	private PartitaDAO partitaDAO;
+	
+	/* Ritorna la pagina con tutte le partite dal database */
+	@RequestMapping(value="/partite", method=RequestMethod.GET)
+	public ModelAndView mostraPartite (ModelAndView model) {
+		List<Partita> listPartite = partitaDAO.selectAll();
+		model.addObject("ListPartite", listPartite);
+		model.setViewName("partite");
+		return model;
+	}
+	
+	
+	/*Biglietto*/
+	@Autowired
+	private BigliettoDAO bigliettoDAO;
+	
+	//Visualizza tutti i biglietti
+	@RequestMapping(value="/biglietti")
+	public ModelAndView listBiglietti(ModelAndView model) throws IOException {
+		
+		List<Biglietto> listBiglietti = bigliettoDAO.selectAll();
+		model.addObject("listBiglietti", listBiglietti);
+		model.setViewName("biglietti");
+		return model;
+	}
+	
+	//Va al form per comprare un biglietto
+	@RequestMapping(value="/compraBiglietto", method = RequestMethod.GET)
+	public ModelAndView compraBiglietto(ModelAndView model, HttpServletRequest request, Principal principal) {
+		
+		System.out.println("Inside condition");
+		Biglietto biglietto = new Biglietto();
+		
+		Cliente c = clienteDAO.getClienteByUsername(principal.getName());
+		model.addObject("c", c);
+		biglietto.setIdClienteBigliettoFK(c.getIdCliente());
+		
+		int idPartita = Integer.parseInt(request.getParameter("id"));
+		
+		Partita partitaCorrente = partitaDAO.read(idPartita);
+		Stadio stadioCorrente = stadioDAO.read(partitaCorrente.getIdStadioPartitaFK());
+		
+		biglietto.setIdPartitaBigliettoFK(idPartita);
+		
+		BigDecimal prezzo = partitaCorrente.getPrezzo();
+		biglietto.setPrezzoPagato(prezzo);
+		
+		model.addObject("biglietto", biglietto);
+		model.addObject("partitaCorrente", partitaCorrente);
+		model.addObject("stadioCorrente", stadioCorrente);
+		
+		model.setViewName("compraBiglietto");
+		return model;
+	}
+	
+	//Prende l'input del form e prenota o prenota + compra.
+	@RequestMapping(value="/creaBiglietto", method = RequestMethod.POST)
+	public ModelAndView creaBiglietto(@ModelAttribute Biglietto biglietto, HttpServletRequest request) {
+		
+		int idPartita = biglietto.getIdPartitaBigliettoFK();
+		Partita partitaCorrente = partitaDAO.read(idPartita);
+		
+		if (request.getParameter("prenota") != null){
+			biglietto.setPrenotato(1);
+			
+			for (int i=0; i < Integer.parseInt(request.getParameter("quantity")); i++){
+				bigliettoDAO.create(biglietto);
+				
+				partitaCorrente.setBigliettiPrenotati(partitaCorrente.getBigliettiPrenotati() + 1);
+				partitaCorrente.setBigliettiDisponibili(partitaCorrente.getBigliettiDisponibili() - 1);
+				partitaDAO.update(partitaCorrente);
+			}
+			
+		} else if (request.getParameter("paga") != null){
+			biglietto.setPrenotato(1);
+			biglietto.setPagato(1);
+			
+			for (int i=0; i < Integer.parseInt(request.getParameter("quantity")); i++){
+				bigliettoDAO.create(biglietto);
+				
+				partitaCorrente.setBigliettiPrenotati(partitaCorrente.getBigliettiPrenotati() + 1);
+				partitaCorrente.setBigliettiComprati(partitaCorrente.getBigliettiComprati() + 1);
+				partitaCorrente.setBigliettiDisponibili(partitaCorrente.getBigliettiDisponibili() - 1);
+				partitaDAO.update(partitaCorrente);
+			}
+		}
+			
+		return new ModelAndView("redirect:/areapersonale?id=" + biglietto.getIdClienteBigliettoFK());
+	}
+	
+	//Per pagare un biglietto prenotato
+	@RequestMapping(value = "/pagaPrenotazioneForm", method=RequestMethod.GET)
+	public ModelAndView pagaPrenotazioneForm(ModelAndView model, HttpServletRequest request) {
+		
+		int idBiglietto = Integer.parseInt(request.getParameter("id"));
+		Biglietto biglietto = bigliettoDAO.read(idBiglietto);
+		model.addObject("biglietto", biglietto);
+				
+		int idCliente = biglietto.getIdClienteBigliettoFK();
+		Cliente cliente = clienteDAO.read(idCliente);
+		model.addObject("cliente", cliente);
+		
+		Partita partitaCorrente = partitaDAO.read(biglietto.getIdPartitaBigliettoFK());
+		model.addObject("partitaCorrente", partitaCorrente);
+
+		Stadio stadioCorrente = stadioDAO.read(partitaCorrente.getIdStadioPartitaFK());
+		model.addObject("stadioCorrente", stadioCorrente);
+		
+		return model;
+	}
+	
+	//Paga biglietto prenotato
+	@RequestMapping(value = "/pagaPrenotazione", method = RequestMethod.POST)
+	public ModelAndView pagaPrenotazione(@ModelAttribute Biglietto biglietto){
+		
+		biglietto.setPagato(1);
+		bigliettoDAO.update(biglietto);
+		return new ModelAndView("redirect:/areapersonale?id=" + biglietto.getIdClienteBigliettoFK());
+	}
+	
+	//Elimina un biglietto
+	@RequestMapping(value="/deleteBiglietto", method = RequestMethod.GET)
+	public ModelAndView deleteBiglietto(HttpServletRequest request) {
+		System.out.println(request.getParameter("id"));
+		int idBiglietto = Integer.parseInt(request.getParameter("id"));
+		
+		Biglietto biglietto = bigliettoDAO.read(idBiglietto);
+		
+		Partita partita = partitaDAO.read(biglietto.getIdPartitaBigliettoFK());
+		partita.setBigliettiDisponibili(partita.getBigliettiDisponibili() + 1);
+		partita.setBigliettiPrenotati(partita.getBigliettiPrenotati() - 1);
+		if (biglietto.getPagato() == 1) {
+			partita.setBigliettiComprati(partita.getBigliettiComprati() - 1);
+		}
+		
+		partitaDAO.update(partita);
+				
+		bigliettoDAO.delete(idBiglietto);
+		return new ModelAndView("redirect:/areapersonale?id=" + biglietto.getIdClienteBigliettoFK());
+	}
+	
+	
+	@Autowired
+	private GestoreDAO gestoreDAO;
+	
+	/*AREA PERSONALE - Visualizza lista biglietti per Id cliente in nuova pagina*/
+	@RequestMapping(value="/areapersonale", method=RequestMethod.GET)
+	public ModelAndView areaPersonale (ModelAndView model, HttpServletRequest request, Principal principal) {
+		int id;
+		
+		//ADMIN
+		if (request.isUserInRole("ROLE_ADMIN")) {
+			String user = request.getParameter("username");
+			Gestore gestore = gestoreDAO.findGestoreByUsername(user);
+			id = gestore.getIdGestore();
+			List<Stadio> listStadi = stadioDAO.getStadiGestore(id);
+			
+		System.out.println(listStadi.size());
+			
+			model.addObject("listStadi", listStadi);
+			model.setViewName("areaPersonaleGestore");
+			return model;
+		}
+		
+		//With ID
+		if (request.getParameter("id") != null) {
+			id = Integer.parseInt(request.getParameter("id"));
+			List<Biglietto> listBiglietti = bigliettoDAO.listBigliettoByCliente(id);
+			model.addObject("ListBiglietti", listBiglietti);
+		} else 
+			
+		//With USERNAME
+		{
+			String user = request.getParameter("username");
+			id = clienteDAO.getClienteByUsername(user).getIdCliente();
+			List<Biglietto> listBiglietti = bigliettoDAO.listBigliettoByCliente(id);
+			model.addObject("ListBiglietti", listBiglietti);
+		}
+		model.setViewName("areapersonale");
+		return model;
+	}
+	
+	/*STADIO*/
+	
+	@Autowired
+	private StadioDAO stadioDAO;
+	
+	// Handler per visualizzare tutti gli Stadi presenti nel database 
+	@RequestMapping(value="/stadi")
+	public ModelAndView listStadi(ModelAndView model) throws IOException {
+		List<Stadio> listStadi = stadioDAO.selectAll();
+		model.addObject("listStadi", listStadi);
+		model.setViewName("stadi");
+		return model;
+	}
+		
+	// Hanlder per visualizzare il form per l'inserimento di un nuovo stadio 
+	@RequestMapping(value="/nuovoStadio", method = RequestMethod.GET)
+	public ModelAndView nuovoStadio(ModelAndView model) {
+		Stadio stadio= new Stadio();
+		model.addObject("stadio", stadio);
+		model.setViewName("stadioForm");
+		return model;
+	}
+	
+	// Handler per inserire/modificare uno stadio
+	@RequestMapping(value = "/updateStadio", method = RequestMethod.POST)
+	public ModelAndView nuovoStadio(@ModelAttribute Stadio stadio) {
+		if (stadio.getIdStadio() > 0)
+			stadioDAO.update(stadio);
+		else
+			stadioDAO.create(stadio);
+		return new ModelAndView("redirect:/stadi");
+	}
+		
+	// Handler per visualizzare il form per aggiornare uno stadio
+	@RequestMapping(value = "/aggStadio", method = RequestMethod.GET)
+	public ModelAndView aggStadio(HttpServletRequest request) {
+		int idStadio = Integer.parseInt(request.getParameter("id_stadio"));
+		Stadio stadio = stadioDAO.read(idStadio);
+		ModelAndView model = new ModelAndView("stadioForm");
+		model.addObject("stadio", stadio);
+		return model;
+	}
+	
+	// Handler per aggiornare uno stadio
+	@RequestMapping(value = "/aggiornaStadio", method = RequestMethod.POST)
+	public ModelAndView updateStadio(@ModelAttribute Stadio stadio) {
+		stadioDAO.update(stadio);
+		return new ModelAndView("redirect:/stadi");
+	}
+	
+	// Handler per eliminare uno stadio
+	@RequestMapping(value="/deleteStadio", method = RequestMethod.GET)
+	public ModelAndView deleteStadio(HttpServletRequest request) {
+		int idStadio = Integer.parseInt(request.getParameter("id_stadio"));
+		stadioDAO.delete(idStadio);
+		return new ModelAndView("redirect:/stadi");
+	}
+		
+	// Handler per visualizzare i "PROSSIMI EVENTI"
+	@RequestMapping(value="/handlerTabelle", method = RequestMethod.GET)
+	public ModelAndView allTab(ModelAndView model, HttpServletRequest request) {
+		String tab = request.getParameter("value");
+		if (tab.equals("crono")) {
+			List<Partita> listCrono = partitaDAO.crono();
+			model.addObject("ListCrono", listCrono);
+		} else if (tab.equals("cresc")) {
+			List<Partita> listCresc = partitaDAO.cresc();
+			model.addObject("ListCresc", listCresc);
+		} else if (tab.equals("id")) {
+			List<Partita> listIdStadio = partitaDAO.idStadio();
+			model.addObject("ListIdStadio", listIdStadio);
+		}
+		model.setViewName("tabelle");
+		return model;
+	}
+	
+	/*FINE STADIO*/
+	
+	/* PARTITA */
+
+	/*Visualizza lista partite per settimana in Homepage */
+	@RequestMapping(value="settimanali", method=RequestMethod.GET)
+    public ModelAndView partiteSettimanali(ModelAndView model, HttpServletRequest request) {
+        String parameterToParse = request.getParameter("week");
+		String parsedParameter = parameterToParse.substring(parameterToParse.length() - 2);
+		int numSettimana = Integer.parseInt(parsedParameter);
+		List<Partita> partitaByWeek = partitaDAO.showPartitaByWeek(numSettimana);
+		model.addObject("PartitaByWeek", partitaByWeek);
+        return model;
+    }
+	
+	/* Visualizza lista partite per stadio in Homepage */
+	@RequestMapping(value="perstadio", method=RequestMethod.GET)
+	public ModelAndView perStadio (ModelAndView model, HttpServletRequest request) {
+		int idStadio = Integer.parseInt(request.getParameter("id"));
+		List<Partita> partitaByStadio = partitaDAO.showPartitaByStadio(idStadio);
+		model.addObject("PartitaByStadio", partitaByStadio);
+		model.setViewName("perstadio");
+		return model;
+	}
+	
+	/*Editor di propriet� per processare correttamente la data in input*/
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    sdf.setLenient(true);
+	    binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+	}
+	
+	/* Hanlder che ritorna il form per l'inserimento di un nuova partita */
+	@RequestMapping(value="/newPartita", method = RequestMethod.GET)
+	public ModelAndView newPartita(ModelAndView model) {
+		Partita partita = new Partita();
+		model.addObject("partite", partita);
+		model.setViewName("partitaForm");
+		
+		return model;
+	}
+	
+	/* Handler per inserire/aggiornare una partita */
+	@RequestMapping(value = "/updatePartita", method = RequestMethod.POST)
+	public ModelAndView updatePartita(@ModelAttribute Partita partita) {
+		if (partita.getIdPartita() > 0)
+			partitaDAO.update(partita);
+		else
+			partitaDAO.create(partita);
+		return new ModelAndView("redirect:/partite");
+	}
+	
+	/* Handler per eliminare una partita */
+	@RequestMapping(value="/deletePartita", method = RequestMethod.GET)
+	public ModelAndView deletePartita(HttpServletRequest request) {
+		int idPartita = Integer.parseInt(request.getParameter("id"));
+		partitaDAO.delete(idPartita);
+		return new ModelAndView("redirect:/partite");
+	}
+	
+	/* Handler per il recupero dei dettagli da modificare di una particolare partita */
+	@RequestMapping(value = "/editPartita", method = RequestMethod.GET)
+	public ModelAndView editPartita(HttpServletRequest request) {
+		int idPartita = Integer.parseInt(request.getParameter("id"));
+		Partita partita = partitaDAO.read(idPartita);
+		ModelAndView model = new ModelAndView("partitaForm");
+		model.addObject("partite", partita);
+		
+		return model;
+	}
+	
+	/* FINE PARTITA */
+	
+	/* Handler per la visualizzazione dell'incasso per ogni stadio*/
+	@RequestMapping(value="/showIncome", method = RequestMethod.GET)
+	public ModelAndView showIncome (ModelAndView model, HttpServletRequest request) {
+		int idStadio = Integer.parseInt(request.getParameter("id"));
+		BigDecimal incasso = bigliettoDAO.showIncomeByStadio(idStadio);
+		Stadio stadio = stadioDAO.read(idStadio);
+		model.addObject("stadio", stadio);
+		model.addObject("incasso", incasso);
+		model.setViewName("incasso");
+		return model;
+	}
+	
+	/*Handler per la visualizzazione dell'incasso totale*/
+	@RequestMapping(value="/showTotal", method = RequestMethod.GET)
+	public ModelAndView showTotal (ModelAndView model) {
+		BigDecimal incasso = bigliettoDAO.showTotalIncome();
+		model.addObject("incasso", incasso);
+		model.setViewName("incasso");
+		return model;
+	}
+	
+	/*Handler per l'applicazione di sconto alla partita*/
+	@RequestMapping(value="/sconto", method = RequestMethod.GET)
+	public ModelAndView sconto(HttpServletRequest request) {
+		int idPartita = Integer.parseInt(request.getParameter("id"));
+		int pct = Integer.parseInt(request.getParameter("sconto"));
+		Partita partita = partitaDAO.read(idPartita);
+		BigDecimal prezzoCorrente = partita.getPrezzo();
+		BigDecimal d = new BigDecimal(pct);
+		partita.setPrezzo(prezzoCorrente.subtract(prezzoCorrente.multiply(d.divide(BigDecimal.valueOf(100)))));
+		partitaDAO.update(partita);
+		return new ModelAndView("redirect:/partite");
+	}
+		
+		
+}

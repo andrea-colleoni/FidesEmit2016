@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Resource name="jdbc/SocietaSportivaDB" auth="Container" type="javax.sql.DataSource"
+				maxtotal="100" maxIdle="30" maxWaitMillis="10000"
+				username="team" password="password" driverClassName="com.mysql.jdbc.Driver"
+				url="jdbc:mysql://192.168.4.123:3306/sport?serverTimezone=UTC" />
+</Context>
