@@ -2,5 +2,7 @@
 *.pdf
 *.jar
 *.class
+*.svn
+*target/
 java/esercizi/
 java/net/
