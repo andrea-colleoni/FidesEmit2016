@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,10 +44,8 @@ public class ViewsController {
 	/* Ritorna l'index del sito Societa Sportiva */
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public ModelAndView getIndex(ModelAndView model) {
-		
-		List<Partita> partitaByWeek = partitaDAO.showPartitaByWeek(5);
-		model.addObject("PartitaByWeek", partitaByWeek);
-		
+		List<Stadio> listStadi = stadioDAO.selectAll();
+		model.addObject("ListStadi", listStadi);
 		model.setViewName("index");
 		return model;
 	}
@@ -153,6 +152,15 @@ public class ViewsController {
 	@RequestMapping(value="/partite", method=RequestMethod.GET)
 	public ModelAndView mostraPartite (ModelAndView model) {
 		List<Partita> listPartite = partitaDAO.selectAll();
+		model.addObject("ListPartite", listPartite);
+		model.setViewName("partite");
+		return model;
+	}
+	
+	/* Ritorna partite in ordine cronologico */
+	@RequestMapping(value="/partiteCrono", method=RequestMethod.GET)
+	public ModelAndView mostraPartiteCrono (ModelAndView model) {
+		List<Partita> listPartite = partitaDAO.cronoAll();
 		model.addObject("ListPartite", listPartite);
 		model.setViewName("partite");
 		return model;
@@ -342,6 +350,12 @@ public class ViewsController {
 			id = clienteDAO.getClienteByUsername(user).getIdCliente();
 			List<Biglietto> listBiglietti = bigliettoDAO.listBigliettoByCliente(id);
 			model.addObject("ListBiglietti", listBiglietti);
+			
+			List<String> squadre = new ArrayList<String>();
+			for (int i=0; i<listBiglietti.size(); i++){
+				squadre.add(partitaDAO.read(listBiglietti.get(i).getIdPartitaBigliettoFK()).getSquadra());
+			}
+			model.addObject("squadre", squadre);
 		}
 		model.setViewName("areapersonale");
 		return model;
@@ -460,9 +474,10 @@ public class ViewsController {
 	@RequestMapping(value="/newPartita", method = RequestMethod.GET)
 	public ModelAndView newPartita(ModelAndView model) {
 		Partita partita = new Partita();
+		List<Stadio> listStadi = stadioDAO.selectAll();
 		model.addObject("partite", partita);
+		model.addObject("ListStadi", listStadi);
 		model.setViewName("partitaForm");
-		
 		return model;
 	}
 	
@@ -489,10 +504,11 @@ public class ViewsController {
 	@RequestMapping(value = "/editPartita", method = RequestMethod.GET)
 	public ModelAndView editPartita(HttpServletRequest request) {
 		int idPartita = Integer.parseInt(request.getParameter("id"));
+		List<Stadio> listStadi = stadioDAO.selectAll();
 		Partita partita = partitaDAO.read(idPartita);
 		ModelAndView model = new ModelAndView("partitaForm");
 		model.addObject("partite", partita);
-		
+		model.addObject("ListStadi", listStadi);
 		return model;
 	}
 	
@@ -501,12 +517,14 @@ public class ViewsController {
 	/* Handler per la visualizzazione dell'incasso per ogni stadio*/
 	@RequestMapping(value="/showIncome", method = RequestMethod.GET)
 	public ModelAndView showIncome (ModelAndView model, HttpServletRequest request) {
+		List<Stadio> listStadi = stadioDAO.selectAll();
+		model.addObject("listStadi", listStadi);
 		int idStadio = Integer.parseInt(request.getParameter("id"));
 		BigDecimal incasso = bigliettoDAO.showIncomeByStadio(idStadio);
 		Stadio stadio = stadioDAO.read(idStadio);
 		model.addObject("stadio", stadio);
 		model.addObject("incasso", incasso);
-		model.setViewName("incasso");
+		model.setViewName("stadi");
 		return model;
 	}
 	
@@ -519,7 +537,7 @@ public class ViewsController {
 			model.addObject("incasso", incasso);
 			model.setViewName("incasso");
 		} else if(tab.equals("parziali")) { 
-			
+			//tentativo di fare lo stesso per incassi parziali...
 			int idPartita = Integer.parseInt(request.getParameter("id"));
 			int pct = Integer.parseInt(request.getParameter("sconto"));
 			Partita partita = partitaDAO.read(idPartita);
@@ -544,7 +562,17 @@ public class ViewsController {
 			partita.setPrezzo(prezzoCorrente.subtract(prezzoCorrente.multiply(d.divide(BigDecimal.valueOf(100)))));
 		}
 		else if (request.getParameter("remove") != null) {
-			partita.setPrezzo(prezzoCorrente.add(prezzoCorrente.multiply(d.divide(BigDecimal.valueOf(100)))));
+			BigDecimal p = new BigDecimal(8.333333);
+			if (pct == 10)
+				p = p.subtract(new BigDecimal(7.222222));
+			else if (pct == 15) 
+				p = p.subtract(new BigDecimal(5.686275));
+			partita.setPrezzo(prezzoCorrente
+				   .add(prezzoCorrente
+				   .multiply((d
+				   .add(p)
+				   .divide(BigDecimal
+				   .valueOf(100))))));
 		}
 		partitaDAO.update(partita);
 		return new ModelAndView("redirect:/partite");

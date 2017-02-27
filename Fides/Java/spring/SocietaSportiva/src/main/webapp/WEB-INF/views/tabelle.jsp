@@ -8,7 +8,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	</head>
 	<body>
-		<div align="center">
+		<div>
 		<table class="data">
 			<tr class="descriptor">
 				<th>Partita</th>

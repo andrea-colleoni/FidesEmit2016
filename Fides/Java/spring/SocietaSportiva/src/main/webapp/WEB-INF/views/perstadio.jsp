@@ -32,7 +32,7 @@
 			</c:if>
 		</ul>
 	</div>
-		<div class="container" align="center">
+		<div class="events">
 		<h2>Partite per Stadio</h2>
 		<c:choose>
 		<c:when  test="${!empty PartitaByStadio}">

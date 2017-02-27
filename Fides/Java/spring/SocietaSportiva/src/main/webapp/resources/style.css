@@ -105,6 +105,7 @@ input[type=number] {
 	color: red;
 	font-family: helvetica;
 	margin: 15px;
+	display:inline-block;
 }
 
 #ordine {
@@ -116,3 +117,6 @@ input[type=number] {
 	color: coral;
 }
 
+.button:active {
+	background-color: red;
+}

@@ -37,11 +37,22 @@
 			</c:if>
 		</ul>
 	</div>	
-	<img class="container" id="logo" src="<c:url value='/resources/images/fides.digital.png'/>" alt="Fides Digital">
+	
+	<div><img class="container" id="logo" src="<c:url value='/resources/images/fides.digital.png'/>" alt="Fides Digital"></div>
+		
+		<!-- "PROSSIMI EVENTI" -->
+		
+		<div class="events" id="eventAjax">
+			<h1>Prossimi Eventi</h1>
+			<p>Scegli un ordine:</p>
+			<button type="button" id="crono" class="button" value="crono" onclick="tab(this.value)">Cronologico</button>
+			<button type="button" id="cresc" class="button" value="cresc" onclick="tab(this.value)">Alfabetico</button>
+			<button type="button" id="id" class="button" value="id"  onclick="tab(this.value)">Stadio</button>
+		</div>
 		
 		<!-- Partita by WEEK e per STADIO-->
 		
-		<div>
+		<div class="events">
 			<form:form method="get" modelAttribute="partitaByWeek">
 			<h4>Partite per settimana</h4>
 				<input id="settimana" type="week" name="week" required 
@@ -50,25 +61,13 @@
 	       	</form:form>
 		</div>
 		
-		<div>
+		<div class="events">
 			<form:form method="get" modelAttribute="partitaByStadio">
 			<h4>Partite per stadio</h4>
 				<input id="number" min="1" max="100" type="number" name="id" required 
 					oninvalid="this.setCustomValidity('Inserisci uno Stadio valido')"
-	    			oninput="setCustomValidity('')" onclick="perStadio()"/>
+	    			oninput="setCustomValidity('')" onclick="perStadio()" placeholder="Muovi le frecce..."/>
 	       	</form:form>
-		</div>
-	
-		<div id="settimanali"></div>
-					
-		<!-- "PROSSIMI EVENTI" -->
-		
-		<div class="events" id="eventAjax">
-			<h1>Prossimi Eventi</h1>
-			<p>Scegli un ordine:</p>
-			<button type="button" id="crono" value="crono" onclick="tab(this.value)">Cronologico</button>
-			<button type="button" id="cresc" value="cresc" onclick="tab(this.value)">Alfabetico</button>
-			<button type="button" id="id" value="id"  onclick="tab(this.value)">Stadio</button>
 		</div>
 		
 		<div id="tabelle"></div>

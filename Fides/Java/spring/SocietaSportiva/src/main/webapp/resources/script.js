@@ -35,7 +35,7 @@ function perStadio() {
 
 function callback1() {
 	if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-		document.getElementById("settimanali").innerHTML = xmlHttp.responseText;
+		document.getElementById("tabelle").innerHTML = xmlHttp.responseText;
 	}
 }
 
@@ -51,11 +51,12 @@ function byWeek() {
 
 function callback2() {
 	if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-		document.getElementById("settimanali").innerHTML = xmlHttp.responseText;
+		document.getElementById("tabelle").innerHTML = xmlHttp.responseText;
 	}
 }
 
 /* Incassi */
+
 function incassi(value) {
 	createXMLHttpRequest();
 	this.value=value;
@@ -72,9 +73,19 @@ function callback3() {
 	}	 
 }
 
+/* Partite in ordine cronologico */
+function cronoAll() {
+	createXMLHttpRequest();
+	xmlHttp.onreadystatechange = callback4;
+	xmlHttp.open("GET", "partiteCrono", true);
+	xmlHttp.send(null);	
+}
 
-
-
+function callback4() {
+	if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+		document.getElementById("partite").innerHTML = xmlHttp.responseText;
+	}	
+}
 
 
 

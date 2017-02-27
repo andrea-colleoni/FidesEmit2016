@@ -4,6 +4,8 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -34,22 +36,26 @@
 			</c:if>
 		</ul>
 	</div>
-		
+                	
 		<div class="container" align="center">
 		<h2>Area personale</h2>
 <c:choose>
 	<c:when  test="${!empty ListBiglietti}">
+	
 			<table border="1" class="data">
         	<tr class = "descriptor">
-         	   <th>Id cliente</th>
          	   <th>Id Biglietto</th>
+         	   <th>Id Partita</th>
+         	   <th>Squadre</th>
         	   <th>Prezzo</th>
         	   <th>Azioni</th>
             </tr> 
-            <c:forEach var="biglietto" items="${ListBiglietti}">
+            
+            <c:forEach var="biglietto" items="${ListBiglietti}" varStatus="status">
             <tr>
-                <td>${biglietto.idClienteBigliettoFK}</td>
                 <td>${biglietto.idBiglietto}</td>
+                <td>${biglietto.idPartitaBigliettoFK}</td>
+                <td>${squadre[status.index]}</td>
                 <td>${biglietto.prezzoPagato}</td>
                 <td>
                     <c:choose>

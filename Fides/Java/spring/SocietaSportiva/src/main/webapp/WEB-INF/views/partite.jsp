@@ -8,6 +8,7 @@
 	<head>
 		<title>Lista Partite</title>
 		<link href="<c:url value='/resources/style.css'/>" rel="stylesheet"></link>
+		<script src="resources/script.js"></script>
     </head>
 	<body>
 		<div class="menuWrap">
@@ -33,18 +34,21 @@
 		</ul>
 	</div>
 	
-		<div class="container" align="center">
+		<div  id="partite" class="container" align="center">
 		<h1>Partite</h1>
 		<security:authorize access="hasRole('ROLE_ADMIN')">
 			<h3><a href="/SocietaSportiva/newPartita" class="reglink">Nuova Partita</a></h3>
+			<button type="button" onclick="cronoAll()">Ordine Cronologico</button>
 		</security:authorize>
+	
 		<c:if  test="${!empty ListPartite}">
 			<table class="data">
 				<tr class = "descriptor">
 					<th>Id partita</th>
 					<th>Id stadio</th>
 					<th>Data</th>
-					<th>Squadra</th>
+					<th>Squadre</th>
+					<th>Prezzo</th>
 					<th>Azioni</th>
 					<security:authorize access="hasRole('ROLE_ADMIN')">
 					<th>Sconto</th>
@@ -56,6 +60,7 @@
 						<td>${partite.idStadioPartitaFK}</td>
 						<td>${partite.data}</td>
 						<td>${partite.squadra}</td>
+						<td>${partite.prezzo} €</td>
 						<td>
 							<security:authorize access="hasRole('ROLE_ADMIN')">
 							<a href="/SocietaSportiva/editPartita?id=${partite.idPartita}" class="reglink">Modifica</a>
@@ -73,13 +78,14 @@
 						<td>
 						<form action="sconto" method="GET">
 							<select name="sconto">
-								<option value="NONE">Valore dello sconto</option>
+								<option value="NONE" disabled="disabled">Valore dello sconto</option>
 								<option value="10">10%</option>
 								<option value="15">15%</option>
 								<option value="25">25%</option>
 							</select>
 							<input type='hidden' name='id' value='${partite.idPartita}'/>
-							<input type="submit" value="Applica sconto" class="buylink"/>
+							<input type="submit" name="add" value="Applica sconto" class="buylink"/>
+							<input type="submit" name="remove" value="Rimuovi sconto" class="buylink"/>
 						</form>
 						</td>
 						</security:authorize>

@@ -40,15 +40,21 @@
         <table>
             <form:hidden path="idPartita"/>
             <tr>
-                <td>ID Stadio:</td>
-                <td><form:input path="idStadioPartitaFK" /></td>
+                <td>Stadio:</td>
+                <td>
+	                <form:select path="idStadioPartitaFK">
+	                	<c:forEach items="${ListStadi}" var="stadio">
+	                	<option value="${stadio.idStadio}">${stadio.nome}</option>
+	                	</c:forEach>
+	                </form:select>
+                </td>
             </tr>
             <tr>
                 <td>Data:</td>
-                <td><form:input path="data" /></td>
+                <td><form:input path="data" type="date"/></td>
             </tr>
             <tr>
-                <td>Squadra:</td>
+                <td>Squadre:</td>
                 <td><form:input path="squadra" /></td>
             </tr>
             <tr>
@@ -57,7 +63,13 @@
             </tr>
             <tr>
                 <td>Biglietti Disponibili:</td>
-                <td><form:input path="bigliettiDisponibili" /></td>
+                <td>
+                	<form:select path="bigliettiDisponibili">
+                	<c:forEach items="${ListStadi}" var="stadio">
+	                	<option value="${stadio.capienza}">${stadio.nome}</option>
+	                </c:forEach>
+	                </form:select>
+                </td>
             </tr>
             <form:hidden path="bigliettiPrenotati"/>
             <form:hidden path="bigliettiComprati"/>

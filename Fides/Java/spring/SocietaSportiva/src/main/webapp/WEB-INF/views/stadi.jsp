@@ -20,7 +20,6 @@
 			</security:authorize>
 			<li><a href="/SocietaSportiva/partite">Partite</a></li>
 			<li><a href="/SocietaSportiva/stadi">Stadi</a></li>
-			
 			<c:if test="${pageContext.request.userPrincipal.name == null}">
 				<li class="userAreaButton"><a href="/SocietaSportiva/login">Login</a></li>
 			</c:if>
@@ -40,12 +39,14 @@
 	        <h1>Stadi</h1>
 	        <security:authorize access="hasRole('ROLE_ADMIN')">
 					<h3><a href="nuovoStadio" class="reglink">Nuovo Stadio</a></h3>
-					<h4 class="incassi">Incassi: </h4> 	
-						<button type="button"  value="totali" onclick="incassi(this.value)">Totali </button>
-						<button type="button" value="parziali" onclick="incassi(this.value)">Parziali</button>
+					<div id="incasso">
+						<button type="button"  value="totali" onclick="incassi(this.value)">Incasso Totale</button>
+						<!-- <button type="button" value="parziali" onclick="incassi(this.value)">Parziali</button> -->
+					</div>	
 			</security:authorize>
 		</div>
-		
+	
+	<div>
 		<table class="data">
           	<tr class="descriptor">
           		<th>N</th>       
@@ -78,7 +79,25 @@
             </tr>
             </c:forEach>          
         </table>
-        <p id="incasso"></p>
-    </div>
+     </div>
+     
+     <div class="container" align="center">
+		<c:choose>
+			<c:when test="${!empty stadio}">
+				<c:choose>
+					<c:when test="${!empty incasso}">
+						<h2>Incasso per Stadio: ${stadio.nome}</h2>
+						<h3>${incasso} €</h3>
+						</c:when>
+					 	<c:otherwise>
+						<h2>Incasso per ${stadio.nome}</h2>
+						<h3>Non sono stati rilevati incassi per questo stadio</h3>
+					</c:otherwise>
+				</c:choose>
+			</c:when>
+		</c:choose>
+	</div>
+        
+  </div>
 </body>
 </html>

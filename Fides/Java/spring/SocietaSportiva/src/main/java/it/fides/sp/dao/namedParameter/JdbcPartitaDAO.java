@@ -112,8 +112,15 @@ public class JdbcPartitaDAO implements PartitaDAO {
 	
 		return namedParameterJdbcTemplate.query(SQL, new PartitaRowMapper());
 	}
+	
+	@Override
+	public List<Partita> cronoAll() {
+		String SQL = "SELECT * FROM partita ORDER BY data";
+	
+		return namedParameterJdbcTemplate.query(SQL, new PartitaRowMapper());
+	}
 
-	// Altri metodi - Daniele
+	// Liste ordinamento partite
 	@Override
 	public List<Partita> cresc() {
 		String SQL = "SELECT * FROM partita WHERE data >= CURDATE() ORDER BY squadra";

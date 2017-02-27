@@ -33,5 +33,6 @@ public interface PartitaDAO {
 	public List<Partita> crono();
 	public List<Partita> cresc();
 	public List<Partita> idStadio();
+	public List<Partita> cronoAll();
  
 }

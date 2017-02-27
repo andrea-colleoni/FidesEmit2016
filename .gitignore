@@ -3,6 +3,6 @@
 *.jar
 *.class
 *.svn
-*target/
+**target/
 java/esercizi/
 java/net/

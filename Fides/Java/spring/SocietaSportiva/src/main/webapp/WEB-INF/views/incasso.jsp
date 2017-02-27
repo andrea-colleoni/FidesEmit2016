@@ -32,7 +32,7 @@
 			</c:if>
 		</ul>
 	</div>
-		<div class="container" align="center">
+		<div align="center">
 			<c:choose>
 				<c:when test="${!empty stadio}">
 					<c:choose>
@@ -47,8 +47,8 @@
 					</c:choose>
 				</c:when>
 				<c:otherwise>
-					<h2 class="incassi">Incasso Totale: </h2>
-					<h2 class="incassi">${incasso} €</h2>
+					<h3 class="incassi">Incasso Totale: </h3>
+					<h3 class="incassi">${incasso} €</h3>
 				</c:otherwise>
 			</c:choose>
 		</div>
